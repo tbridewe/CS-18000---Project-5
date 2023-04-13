@@ -18,8 +18,8 @@ public class GUI {
                 "Connection established successfully", JOptionPane.INFORMATION_MESSAGE);
     }
     public void welcomeMenu() { //after the showWelcome GUI
-        String[] options = {"Login", "Create an account", "Quit"};
-        String welcomeOption = (String) JOptionPane.showInputDialog(null,
+        String[] options = {"(1) Login", "(2) Create an account", "(3) Quit"};
+        int welcomeOption = (int) JOptionPane.showInputDialog(null,
                 "Please select an option:", "Welcome Menu", JOptionPane.PLAIN_MESSAGE, null,
                 options, null);
     }
@@ -52,8 +52,8 @@ public class GUI {
                 "Please enter a valid email address!", JOptionPane.INFORMATION_MESSAGE);
     }
     public void incorrectCredentials() { //shown in the login menu if the account does not exist
-        JOptionPane.showMessageDialog(null, 
-                "Incorrect login credentials or account does not exist, please try again.", 
+        JOptionPane.showMessageDialog(null,
+                "Incorrect login credentials or account does not exist, please try again.",
                 "Incorrect credentials", JOptionPane.INFORMATION_MESSAGE);
     }
     public void createAccount() { //shown in the login menu if the email is an email but is not associated with an account
@@ -62,16 +62,21 @@ public class GUI {
                 "No account found with that email!", JOptionPane.INFORMATION_MESSAGE);
     }
     public void createAccountOptions() { //the options the user is shown after being shown the createAccount GUI
-        //"(1) Create New Account\n(2) Re-attempt Login\n(3) Back"
-        String[] createAccountOptions = {"Create New Account", "Re-attempt Login", "Back"};
-        String welcomeOption = (String) JOptionPane.showInputDialog(null,
+        String[] createAccountOptions = {"(1) Create New Account", "(2) Re-attempt Login", "(3) Back"};
+        int welcomeOption = (int) JOptionPane.showInputDialog(null,
                 "Please select an option:", "No account found with that email!", JOptionPane.PLAIN_MESSAGE,
                 null,
                 createAccountOptions, null);
     }
     public void loginSuccess() { //shown if the login is successful
-        JOptionPane.showMessageDialog(null, "Login Successful", "Login Successful", 
+        JOptionPane.showMessageDialog(null, "Login Successful", "Login Successful",
                 JOptionPane.INFORMATION_MESSAGE);
     }
     //if the user is a buyer
+    public void buyerMenu() { //the options that are shown to a buyer
+        String[] buyerOptions = {"(1) Choose Item", "(2) Search", "(3) Sort", "(4) View Cart", "(5) Edit Account", "(6) Log Out"};
+        String buyerOption = (String) JOptionPane.showInputDialog(null,
+                "Please select an option:", "Buyer options", JOptionPane.PLAIN_MESSAGE,
+                null, buyerOptions, null);
+    }
 }
