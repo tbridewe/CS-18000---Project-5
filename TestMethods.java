@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class TestMethods {
+public abstract class TestMethods {
     public static Component getComponentByName(Component component, String name) {
         if (component.getName().equals(name))
             return component;
