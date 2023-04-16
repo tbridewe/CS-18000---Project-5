@@ -1,6 +1,5 @@
+//I am currently working on creating all of the complex GUIs, but this includes the static class associated with each GUI
 import javax.swing.*;
-import java.io.IOException;
-import java.net.Socket;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class GUI {
@@ -166,7 +165,7 @@ public class GUI {
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    static class BuyerMenu { //buyer menu complex GUI //********
+    static class BuyerMenu { //buyer menu complex GUI //********finish complex GUI
         private static JButton chooseItem;
         private static JButton search;
         private static JButton sort;
@@ -174,9 +173,15 @@ public class GUI {
         private static JButton editAccount;
         private static JButton logOut;
     }
-    //search by keyword complex GUI
-    //search bar complex GUI
-    //select item complex GUI
+    static class SearchByKeyword { //*****make complex GUI
+
+    }
+    static class SearchBar { //***make complex GUI
+
+    }
+    static class SelectItem { //***make complex GUI
+
+    }
     static class PurchaseCancelled { //purchase cancelled simple GUI
         public void purchaseWasCancelled() {
             JOptionPane.showMessageDialog(null, "Purchase Cancelled",
@@ -195,15 +200,21 @@ public class GUI {
                     "Invalid Quantity", JOptionPane.ERROR_MESSAGE);
         }
     }
-    //sorting items complex GUI
-    //view cart options complex GUI
+    static class SortingItems { //***make complex GUI
+
+    }
+    static class ViewCartOptions { //***make complex GUI
+
+    }
     static class CheckoutComplete { //checkout complete simple GUI
         public void checkoutComplete() { //if the buyer chooses to checkout and checks out successfully
             JOptionPane.showMessageDialog(null, "Checkout Complete!",
                     "Checkout complete", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    //export purchase history complex GUI
+    static class ExportPurchaseHistory { //***make complexGUI
+
+    }
     static class EnterNameOfFile { //enter name of file simple GUI
         public void fileName() {
             String email = JOptionPane.showInputDialog(null,
@@ -218,8 +229,12 @@ public class GUI {
                     "Purchase history exported", JOptionPane.PLAIN_MESSAGE);
         }
     }
-    //remove item complex GUI
-    //edit user info complex GUI
+    static class RemoveItem { //***make complex GUI
+
+    }
+    static class EditUserInfo { //***make complex GUI
+
+    }
     static class NewEmail { //new email simple GUI
         public void newEmail() {
             String newEmail = JOptionPane.showInputDialog(null,
@@ -256,22 +271,42 @@ public class GUI {
                     "Farewell", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    //seller menu complex GUI
-    //listings menu complex GUI
-    //add options complex GUI
-    //add item complex GUI
-    //add from CSV complex GUI
-    //choose item to edit complex GUI
-    //remove complex GUI and print the cart
-    //view statistics complex GUI
-    //specific stats complex GUI
+    static class SellerMenu { //***make complex GUI
+
+    }
+    static class ListingsMenu { //***make complex GUI
+
+    }
+    static class AddOptions { //***make complex GUI
+
+    }
+    static class AddItem { //***make complex GUI
+
+    }
+    static class AddFromCSV { //***make complex GUI
+
+    }
+    static class ChooseItemToEdit { //***make complex GUI
+
+    }
+    static class Remove { //***make complex GUI (also need to print the cart)
+
+    }
+    static class ViewStatistics { //***make complex GUI
+
+    }
+    static class SpecificStats { //***make complex GUI
+
+    }
     static class HaveNoStores { //have no stores simple GUI
         public void haveNoStores() {
             JOptionPane.showMessageDialog(null, "You have no stores!", "No stores",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    //edit options complex GUI
+    static class EditOptions { //***make complex GUI
+
+    }
     static class SellerNewEmail { //new email simple GUI
         public void newEmail() {
             String newEmail = JOptionPane.showInputDialog(null,
