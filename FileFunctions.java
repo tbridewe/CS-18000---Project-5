@@ -9,10 +9,10 @@ import java.io.*;
  */
 
 public class FileFunctions {
-    private static String itemFileName;
+    private static String itemFileName = "itemsTest.txt";
 
     public FileFunctions(String itemFile) {
-        this.itemFileName = "itemsText";
+        this.itemFileName = "itemsTest.txt";
     }
 
     protected static synchronized String[] readFile(String filename) {
@@ -68,6 +68,12 @@ public class FileFunctions {
     // }
 
     // item stuff
+
+    /**
+     * readItems()
+     * Reads all the items saved in the file. This is syncronized to avoid problems. Use it to get up to date item information. 
+     * @return ArrayList<Item> of all the items saved in the store
+     */
     public static synchronized ArrayList<Item> readItems() {
         ArrayList<Item> items = new ArrayList<>();
         try {
@@ -78,7 +84,11 @@ public class FileFunctions {
             Item item = (Item) oi.readObject();
             do {
                 items.add(item);
-                item = (Item) oi.readObject();
+                try {
+                    item = (Item) oi.readObject();
+                } catch(EOFException e) { // end of file
+                    item = null;
+                }
             } while (item != null);
                         
 			oi.close();
@@ -95,13 +105,19 @@ public class FileFunctions {
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             for (int i = 0; i < itemList.size(); i++) {
                 objectOut.writeObject(itemList.get(i));
-                objectOut.close();
                 // System.out.println("The Object  was succesfully written to a file");
             }
+            objectOut.close();
         
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public synchronized void appendItem(Item item) {
+        ArrayList<Item> fileItems = readItems();
+        fileItems.add(item);
+        writeItems(fileItems);
     }
 
     public void replaceItem(int index, Item newItem) {

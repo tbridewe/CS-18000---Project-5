@@ -18,29 +18,30 @@ public class Seller extends User {
     public Seller (String email, String password, int userType) throws InvalidUserInput {
         super(email, password, userType);
         this.stores = new ArrayList<>();
-        loadListings(this.itemListingsFileName);
         this.sortedListings = new ArrayList<>();
 
-        // load the stores
-        String[] fileLines = readFile(FILENAME);
-        for (int l = 0; l < fileLines.length; l++) { // find the correct user line
-            String user = this.getEmail(); 
-            String line = fileLines[l];
-            String[] splitUserLine = line.split(", "); // get users as string
-            if (splitUserLine[0].split(":")[1].equals(user)) { // found correct line
-                if (splitUserLine.length < 4) { // no stores
-                    this.stores = new ArrayList<>();
-                } else {
-                    String storesString = line.split(",")[3]; // get stores as string
-                    for (int i = 0; i < storesString.split(";").length; i++) {
-                        String storeName = storesString.split(";")[i].trim();;
-                        this.stores.add(storeName);
-                    }
+        //TODO: update store loading with new login stuff
+        this.stores.add("store1");  // temporary
+        // // load the stores
+        // String[] fileLines = readFile(FILENAME);
+        // for (int l = 0; l < fileLines.length; l++) { // find the correct user line
+        //     String user = this.getEmail(); 
+        //     String line = fileLines[l];
+        //     String[] splitUserLine = line.split(", "); // get users as string
+        //     if (splitUserLine[0].split(":")[1].equals(user)) { // found correct line
+        //         if (splitUserLine.length < 4) { // no stores
+        //             this.stores = new ArrayList<>();
+        //         } else {
+        //             String storesString = line.split(",")[3]; // get stores as string
+        //             for (int i = 0; i < storesString.split(";").length; i++) {
+        //                 String storeName = storesString.split(";")[i].trim();;
+        //                 this.stores.add(storeName);
+        //             }
                     
-                }
-                break;
-            }
-        }
+        //         }
+        //         break;
+        //     }
+        // }
 
         // get only this seller's items
         findSellerItems(); // updates sorted listings
@@ -61,6 +62,7 @@ public class Seller extends User {
     }
 
     public void saveStores() {
+        // TODO: new user stuff
         String fileName = this.FILENAME; // user data file
         String[] fileLines = readFile(fileName);
         for (int l = 0; l < fileLines.length; l++) { // find the correct user line
@@ -123,11 +125,13 @@ public class Seller extends User {
      * looks through listings and puts items mathching this seller into sorted itesm which is used for stuff
      */
     public void findSellerItems() {
+        ArrayList<Item> listings = readItems();
         if (this.sortedListings.size() > 0) {
             this.sortedListings.clear();
+            // TODO: check null/no store errors here
         }
-        for (int i = 0; i < this.listings.size(); i++) {
-            Item item = this.listings.get(i);
+        for (int i = 0; i < listings.size(); i++) {
+            Item item = listings.get(i);
             for (int s = 0; s < this.stores.size(); s++) { // check each store
                 if (item.getStore().equals(stores.get(s))) {
                     this.sortedListings.add(item);
@@ -138,30 +142,26 @@ public class Seller extends User {
     }
 
     public void addFromCSV(String filename) {
-        String[] csvData = readFile(filename);
-        try {
-            PrintWriter writer = new PrintWriter(new FileWriter(this.itemListingsFileName, true));
-
-            for (int i = 0; i < csvData.length; i++) {
-                writer.println(csvData[i]);
+        String[] fileData = readFile(filename);
+        int counter = 0;
+        for (int i = 0; i < fileData.length; i++) {
+            try {
+                addNewItem(new Item(fileData[i]));
+                counter += 1;
+            } catch (InvalidLineException e) {
+                System.out.printf("Invalid Item format in file %s line %d!\n", filename, i+1);
             }
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace(); // implement different exception catch?
         }
+        System.out.printf("Added %d items.\n", counter);
     }
 
     public void addNewItem(Item item) {
-        // adds to both because we have both and idk what usese which one
-        this.listings.add(item);
-        this.sortedListings.add(item);
-        if (!this.stores.contains(item.getStore())) {
+        if (!this.stores.contains(item.getStore())) { // add store
             this.stores.add(item.getStore());
         }
-        
+        appendItem(item);
         // save files
         saveStores();
-        saveListings(this.itemListingsFileName);
     }
 
     public void removeItem(Item item) {
