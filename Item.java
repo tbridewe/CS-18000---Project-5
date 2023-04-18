@@ -6,8 +6,8 @@ import java.io.Serializable;
  * 
  * Creates an item object that contains all the properties of an item that can be bought or sold
  * The constructor accepts a string which is read out of the items file. 
+ * It is serializabelt so it can be written to a file as an object
  * 
- *
  * @version 2023-4-10
  * @author Hannah Kadlec
  */
@@ -17,7 +17,8 @@ public class Item implements Serializable {
     private String description;
     private int quantity; // maybe move
     private double price;
-    private String sellerName;
+    private final String itemsFile = "itemListings.txt";
+    // private String sellerName;
 
     public Item(String name, String store, String description, int quantity, double price) {
         this.name = name;
@@ -135,5 +136,7 @@ public class Item implements Serializable {
     public void changeQuanityBy(int number) {
         this.quantity += number;
     }
+    
+    // FILE IO STUFF
     
 }

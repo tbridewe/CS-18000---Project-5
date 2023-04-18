@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author 
  */
 
-public class User {
+public class User extends FileFunctions {
     private String password; // password entered when a user creates their login information
     private String email; // email entered when a user creates their login information
     private boolean buyer;
@@ -21,10 +21,12 @@ public class User {
     private final static String INVALID_PASSWORD = "Please enter a valid password!";
     private final static String INVALID_BOTH = "Please enter a valid email address and password!";
     protected String cartFileName = "shoppingCarts.txt";
-    protected String itemListingsFileName = "itemListings.txt";
+    protected static String itemListingsFileName = "itemListings.txt";
     protected String customerLogFileName  = "customerLog.txt";
 
+
     public User(String email, String password, String userType) throws InvalidUserInput {
+        super(itemListingsFileName);
         if (!isValidPassword(password) || !isValidEmail(email)) {
             throw new InvalidUserInput(INVALID_BOTH);
         }
@@ -37,6 +39,8 @@ public class User {
     }
     
     public User(String email, String password, int userType) throws InvalidUserInput { // creates a new User object with email, password and userType; Buyer = 0, Seller = 1
+        super(itemListingsFileName);
+        
         if (!isValidPassword(password) || !isValidEmail(email)) {
             throw new InvalidUserInput(INVALID_BOTH);
         }
@@ -52,51 +56,51 @@ public class User {
     // Things moved from customer because seller can use them too
     ////////////////////////////////////////////////////////////////
 
-    protected ArrayList<Item> listings;
+    // protected ArrayList<Item> listings;
     protected ArrayList<Item> sortedListings;
 
-    /**
-     * readFile(String filename)
-     * @param filename: name of the file that needs to be read
-     * @return String[] with all the lines of the file
-     */
-    protected static String[] readFile(String filename) {
-        String[] fileContents;
-        ArrayList<String> contents = new ArrayList<>();
+    // /**
+    //  * readFile(String filename)
+    //  * @param filename: name of the file that needs to be read
+    //  * @return String[] with all the lines of the file
+    //  */
+    // protected static String[] readFile(String filename) {
+    //     String[] fileContents;
+    //     ArrayList<String> contents = new ArrayList<>();
 
-        File file = new File(filename);
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                contents.add(line);
-            }
+    //     File file = new File(filename);
+    //     try {
+    //         BufferedReader reader = new BufferedReader(new FileReader(file));
+    //         String line;
+    //         while ((line = reader.readLine()) != null) {
+    //             contents.add(line);
+    //         }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        fileContents = contents.toArray(new String[0]);
-        return fileContents;
-    }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     fileContents = contents.toArray(new String[0]);
+    //     return fileContents;
+    // }
 
-    /**
-     * writeFile(String filename)
-     * @param filename: name of the file that needs to be read
-     * @param lines: array of lines to be written
-     * @return String[] with all the lines of the file
-     */
-    protected static void writeFile(String filename, String[] lines) {
-        File file = new File(filename);
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
-            for (int i = 0; i < lines.length; i++) {
-                bw.write(lines[i] + "\n");
-            }
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // /**
+    //  * writeFile(String filename)
+    //  * @param filename: name of the file that needs to be read
+    //  * @param lines: array of lines to be written
+    //  * @return String[] with all the lines of the file
+    //  */
+    // protected static void writeFile(String filename, String[] lines) {
+    //     File file = new File(filename);
+    //     try {
+    //         BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
+    //         for (int i = 0; i < lines.length; i++) {
+    //             bw.write(lines[i] + "\n");
+    //         }
+    //         bw.close();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     /**
      * PrintListings()
@@ -116,7 +120,7 @@ public class User {
      * unsort the listings before displaying them. Revert Display to the full item list
      */
     public void unsortListings() {
-        this.sortedListings = listings;
+        this.sortedListings = this.readItems();
     }
 
     /**
@@ -128,38 +132,38 @@ public class User {
         return this.sortedListings.get(index - 1);
     }
 
-     /**
-     * loadListings()
-     * reads the item listings file file and puts loads items
-     * @param fileName: name of the items cart file 
-     */
-    protected void loadListings(String fileName) {
-        String[] fileLines = readFile(fileName);
-        ArrayList<Item> items = new ArrayList<>();
-        for (int l = 0; l < fileLines.length; l++) {
-            String line = fileLines[l];
-            try {  
-                items.add(new Item(line));
-            } catch (InvalidLineException e) { // invalid line format exception
-                e.printStackTrace();
-            }
-        }
-        this.listings = items;
-    }
+    //  /**
+    //  * loadListings()
+    //  * reads the item listings file file and puts loads items
+    //  * @param fileName: name of the items cart file 
+    //  */
+    // protected void loadListings(String fileName) {
+    //     String[] fileLines = readFile(fileName);
+    //     ArrayList<Item> items = new ArrayList<>();
+    //     for (int l = 0; l < fileLines.length; l++) {
+    //         String line = fileLines[l];
+    //         try {  
+    //             items.add(new Item(line));
+    //         } catch (InvalidLineException e) { // invalid line format exception
+    //             e.printStackTrace();
+    //         }
+    //     }
+    //     this.listings = items;
+    // }
 
-    /**
-     * saveListings()
-     * writes all the items in this.cart to the cart file. Puts them on the line of the corresponding user. 
-     * Potential problem: it is assumed that there is only 1 line per user in cart file.
-     * @param fileName: name of the shopping cart file 
-     */
-    protected void saveListings(String fileName) {
-        String[] fileLines = new String[this.listings.size()];
-        for (int l = 0; l < this.listings.size(); l++) {
-            fileLines[l] = this.listings.get(l).toLine();
-        }
-        writeFile(fileName, fileLines);
-    }
+    // /**
+    //  * saveListings()
+    //  * writes all the items in this.cart to the cart file. Puts them on the line of the corresponding user. 
+    //  * Potential problem: it is assumed that there is only 1 line per user in cart file.
+    //  * @param fileName: name of the shopping cart file 
+    //  */
+    // protected void saveListings(String fileName) {
+    //     String[] fileLines = new String[this.listings.size()];
+    //     for (int l = 0; l < this.listings.size(); l++) {
+    //         fileLines[l] = this.listings.get(l).toLine();
+    //     }
+    //     writeFile(fileName, fileLines);
+    // }
 
     ///////////////////////////////////////////////////
     // Getters and setters and user stuff
@@ -202,6 +206,8 @@ public class User {
         this.password = password;
     }
 
+    // User Data
+    
     public static boolean accountExists(String emailEntered) { // checks if a user's information is saved to userData.txt
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
             String line;
