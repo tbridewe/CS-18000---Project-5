@@ -9,13 +9,13 @@ import java.io.*;
  */
 
 public class FileFunctions {
-    private  String itemFileName;
+    private static String itemFileName;
 
     public FileFunctions(String itemFile) {
         this.itemFileName = "itemsText";
     }
 
-    protected static String[] readFile(String filename) {
+    protected static synchronized String[] readFile(String filename) {
         String[] fileContents;
         ArrayList<String> contents = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class FileFunctions {
      * @param lines: array of lines to be written
      * @return String[] with all the lines of the file
      */
-    protected static void writeFile(String filename, String[] lines) {
+    protected static synchronized void writeFile(String filename, String[] lines) {
         File file = new File(filename);
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
@@ -68,7 +68,7 @@ public class FileFunctions {
     // }
 
     // item stuff
-    public  ArrayList<Item> readItems() {
+    public static synchronized ArrayList<Item> readItems() {
         ArrayList<Item> items = new ArrayList<>();
         try {
             FileInputStream fi = new FileInputStream(new File(itemFileName));
@@ -89,7 +89,7 @@ public class FileFunctions {
         return items;
     }
 
-    public void writeItems(ArrayList<Item> itemList) {
+    public synchronized void writeItems(ArrayList<Item> itemList) {
         try {
             FileOutputStream fileOut = new FileOutputStream(new File(itemFileName));
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);

@@ -19,8 +19,7 @@ public class Customer extends User {
         // TODO: why is usertype an input here? The type is known to be customer
 
         loadCart(this.cartFileName); // loads items from the cart file into the cart
-        loadListings(this.itemListingsFileName);
-        this.sortedListings = listings;
+        this.sortedListings = readItems();
     }
 
     /**
@@ -52,27 +51,19 @@ public class Customer extends User {
         } else if (quantity <= 0) {
             throw new InvalidQuantityException(String.format("Invalid Quantity: Must be >= 0"));
         }
-        // check if item is already in cart
-        if (this.cart != null && item.findItem(this.cart) > 0) {
-            // add quantity to existing item in cart
-            int i = item.findItem(this.cart);
-            this.cart.get(i).changeQuanityBy(quantity); // update cart quantity
-            // item.setQuantity(this.cart.get(i).getQuantity() + quantity); // update quantity in item
-            // this.cart.set(i, item);  // put updated item back in cart
-        } else { // add new item to cart
-            Item add = new Item(item);
-            add.setQuantity(quantity);
-            this.cart.add(add);
-        }
+        
+        // add item
+        Item add = new Item(item);
+        add.setQuantity(quantity);
+        this.cart.add(add);
 
         // Remove item from listings
-        int i = item.findItem(this.listings); 
-        item = this.listings.get(i);            // get item from listings
+        int i = item.findItem(readItems()); 
         item.changeQuanityBy(-1 * quantity); // update item quanitity
+        replaceItem(i, item); // replaces item and saves changes
         
         // Write cart and listings file
         saveCart(this.cartFileName);
-        saveListings(this.itemListingsFileName);
     }
 
     /**
