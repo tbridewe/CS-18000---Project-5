@@ -120,10 +120,11 @@ public class User extends FileFunctions {
     }
 
     /*
-     * unsort the listings before displaying them. Revert Display to the full item list
+     * sets sorted listings to all the listings in the file. This is useful for unsorting them or checking for updates. 
+     * Note that sortedListings is always what gets printed, so call this beofre printing if ou want them unsorted. 
      */
-    public void unsortListings() {
-        this.sortedListings = this.readItems();
+    public void refreshListings() {
+        this.sortedListings = readItems();
     }
 
     /**

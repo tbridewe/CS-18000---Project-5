@@ -34,7 +34,7 @@ public class Customer extends User {
         for (int i = 0; i < cart.size(); i++) {
             Item item = cart.get(i);
             System.out.printf(itemFormat, i+1, item.getName(), item.getQuantity(), item.getStore(), item.getPrice());
-            price += item.getPrice();
+            price += item.getPrice() * item.getQuantity();
         }
         System.out.printf("TOTAL: $%74.2f\n", price);
     }
