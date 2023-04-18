@@ -30,10 +30,13 @@ public class Customer extends User {
         System.out.println("SHOPPING CART");
         String itemFormat = "[%3d]: %-30s | %-4d | %-24s | $ %-6.2f\n";
         System.out.printf("[num]: %-30s | %-4s | %-24s | %-7s\n\n", "NAME", "QNTY", "STORE", "PRICE");
+        double price = 0;
         for (int i = 0; i < cart.size(); i++) {
             Item item = cart.get(i);
             System.out.printf(itemFormat, i+1, item.getName(), item.getQuantity(), item.getStore(), item.getPrice());
+            price += item.getPrice();
         }
+        System.out.printf("TOTAL: $%74.2f\n", price);
     }
 
 
@@ -57,12 +60,12 @@ public class Customer extends User {
         add.setQuantity(quantity);
         this.cart.add(add);
 
-        // Remove item from listings
+        // edit quanitiy in listings
         int i = item.findItem(readItems()); 
         item.changeQuanityBy(-1 * quantity); // update item quanitity
         replaceItem(i, item); // replaces item and saves changes
         
-        // Write cart and listings file
+        // Write cart 
         saveCart(this.cartFileName);
     }
 
@@ -98,7 +101,6 @@ public class Customer extends User {
         writeFile(fileName, fileLines);
     }
 
-    
 
     /**
      * loadCart()
@@ -132,30 +134,30 @@ public class Customer extends User {
      * @param item: the specified listing that the user wants to remove from cart
      * @param quantity: the amount of the item to be reomved
      */
-    public void removeFromCart(int index, int quanitity) {
+    public void removeFromCart(int index, int quantity) {
         int i = index - 1;
         try {
             Item item = this.cart.get(i);
-            if (quanitity >= cart.get(i).getQuantity()) {
-                if (quanitity > cart.get(i).getQuantity()) {
+            if (quantity >= cart.get(i).getQuantity()) {
+                if (quantity > cart.get(i).getQuantity()) {
                     // if quantity is greater than amount in cart just set it to amount in cart
-                    quanitity = cart.get(i).getQuantity(); 
+                    quantity = cart.get(i).getQuantity(); 
                 }
                 this.cart.remove(this.cart.get(i));
             } else {
                 Item updatedItem = cart.get(i);
-                updatedItem.changeQuanityBy(-1 * quanitity);
+                updatedItem.changeQuanityBy(-1 * quantity);
                 this.cart.set(i, updatedItem);
             }
             
-            // update listinfs
-            i = item.findItem(this.listings);
-            Item updatedItem = this.listings.get(i); // get item from listings
-            updatedItem.changeQuanityBy(quanitity); // add quantity back to item
-            this.cart.set(i, updatedItem);
+            // edit quanitiy in listings
+            i = item.findItem(readItems()); 
+            item.changeQuanityBy(quantity); // update item quanitity
+            replaceItem(i, item); // replaces item and saves changes
             
-            // save cart and listings
+            // save cart
             saveCart(this.cartFileName);
+
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid item number selected!");
             e.printStackTrace(); // TODO: remove stack trace
@@ -169,6 +171,7 @@ public class Customer extends User {
      */
     public ArrayList<Item> keywordSearch(String keyword) {
         int j = 0;
+        ArrayList<Item> listings = readItems();
         ArrayList<Item> listingsWKeyword = new ArrayList<>();
         for (int i = 0; i < listings.size(); i++) {
             if (listings.get(i).getName().contains(keyword) || listings.get(i).getStore().contains(keyword) || 
@@ -177,14 +180,7 @@ public class Customer extends User {
                 j++;
             }
         }
-        // loop through listings
-        // find listings that contain element
-        // display elements
-        // Item[] listingsWithKeyword = new Item[j];
-        // for (int i = 0; i < listingsWKeyword.size(); i++) {
-        //     listingsWithKeyword[i] = listingsWKeyword.get(i);
-        // }
-        this.sortedListings = listingsWKeyword;
+        this.sortedListings = listingsWKeyword; // update sorted listings
         return listingsWKeyword;
     }
 
@@ -192,12 +188,7 @@ public class Customer extends User {
      * checkout()
      * @return double the total price of the cart 
      */
-    public double checkout() {
-        double price = 0;
-        for (int i = 0; i < this.cart.size(); i++) {
-
-            price += this.cart.get(i).getPrice();
-        }
+    public void checkout() {
 
         String[] fileLines = readFile(this.customerLogFileName);
         // copied from saveCart()
@@ -223,9 +214,11 @@ public class Customer extends User {
             }
         }
         writeFile(this.customerLogFileName, fileLines);
+
+        printCart();
+        System.out.println("Thank you for your purchase!");
         this.cart.clear(); // remove all items
         saveCart(cartFileName);
-        return price;
     }
 
     private ArrayList<Item> readPurchaseLog() { 
