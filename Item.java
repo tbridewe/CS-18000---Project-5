@@ -1,4 +1,6 @@
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.Serializable;
 /**
  * Item.java
  * 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  * @version 2023-4-10
  * @author Hannah Kadlec
  */
-public class Item {
+public class Item implements Serializable {
     private String name;
     private String store;
     private String description;
