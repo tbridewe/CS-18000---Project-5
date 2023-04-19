@@ -1,3 +1,13 @@
+/**
+ * Server.java
+ * 
+ * Manages all inputs from users and sends information back to the
+ * client (the customer).
+ *
+ * @version 2023-4-19
+ * @author Liam
+ */
+
 import java.net.*;
 import java.io.*;
 
