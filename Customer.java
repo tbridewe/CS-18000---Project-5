@@ -29,7 +29,7 @@ public class Customer extends User {
     public void printCart() {
         System.out.println("SHOPPING CART");
         String itemFormat = "[%3d]: %-30s | %-4d | %-24s | $ %-6.2f\n";
-        System.out.printf("[num]: %-30s | %-4s | %-24s | %-7s\n\n", "NAME", "QNTY", "STORE", "PRICE");
+        System.out.printf("[num]: %-30s | %-4s | %-24s | %-7s\n", "NAME", "QNTY", "STORE", "PRICE");
         double price = 0;
         for (int i = 0; i < cart.size(); i++) {
             Item item = cart.get(i);

@@ -107,7 +107,7 @@ public class User extends FileFunctions {
      * just prints the items in the cart with nice formatting. 
      */
     public void printListings() {
-        if (this.sortedListings.size() > 1) {
+        if (this.sortedListings.size() < 1) {
             this.sortedListings = readItems();
         }
         String itemFormat = "[%3d]: %-30s | %-24s | %-4s | $ %-6.2f\n";

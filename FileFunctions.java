@@ -99,7 +99,11 @@ public class FileFunctions {
         return items;
     }
 
-    public synchronized void writeItems(ArrayList<Item> itemList) {
+    /**
+     * writeItems()
+     * Write all the items in the arraylist to the item file. Static syncronozed to avoid problems
+     */
+    protected static synchronized void writeItems(ArrayList<Item> itemList) {
         try {
             FileOutputStream fileOut = new FileOutputStream(new File(itemFileName));
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
@@ -120,6 +124,13 @@ public class FileFunctions {
         writeItems(fileItems);
     }
 
+    /**
+     * replaceItem()
+     * Replaces the item at the desired line in the file with a new or modified item. Can also be used to delete items
+     * @param index: int of index (line) in file to be replaced
+     * @param newitem: replace with this item. Use null to delete. 
+     * 
+     */
     public void replaceItem(int index, Item newItem) {
         ArrayList<Item> items = readItems();
         if (newItem == null) {

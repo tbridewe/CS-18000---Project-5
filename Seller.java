@@ -169,7 +169,8 @@ public class Seller extends User {
 
         for (int i = 0; i < sellerItems.size(); i++) { // loop through seller items
             if (sellerItems.contains(String.valueOf(item))) { // if the item is in seller items, remove it
-                sellerItems.remove(String.valueOf(item));
+                // removeItem(item);
+                // TODO: this
             } else {
                 System.out.println("Item does not exist!"); // display error message if not in the seller items
             }
