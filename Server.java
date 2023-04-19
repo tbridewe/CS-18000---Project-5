@@ -1,17 +1,35 @@
-import javax.swing.*;
-import java.io.IOException;
 import java.net.*;
 import java.io.*;
-import java.util.ArrayList;
 
-public class Server {
-    public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1800);
-        System.out.println("Waiting for the client to connect...");
-        Socket socket = serverSocket.accept();
-        System.out.println("Client connected!");
+// port 1800
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+public class Server implements Runnable {
+    private Socket socket;
+    public Server(Socket socket) {
+        this.socket = socket;
+    }
+    
+    public void run() {
+        try {
+            BufferedReader bfr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            
+        }
+    }
+        
+    public static void main(String[] args) {
+        try {
+            ServerSocket ss = new ServerSocket(1800);
+            
+            while(true) {
+                Socket socket = ss.accept();
+                
+                Thread toRun = new Thread(new Server(socket));
+                
+                toRun.start();
+            }
+        } catch (IOException e) {
+            
+        }
     }
 }
