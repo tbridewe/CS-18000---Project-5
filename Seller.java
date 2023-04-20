@@ -9,7 +9,7 @@ import java.util.Comparator;
  * Creates a seller, who can create item listings 
  *
  * @version 2023-4-10
- * @author Hannah, Tristan, Amber 
+ * @author Hannah, Tristen, Amber 
  */
 public class Seller extends User {
     private ArrayList<String> stores;
@@ -164,39 +164,34 @@ public class Seller extends User {
         saveStores();
     }
 
-    public void removeItem(Item item) {
-        ArrayList<String> sellerItems = displayItems(); // seller items
-
-        for (int i = 0; i < sellerItems.size(); i++) { // loop through seller items
-            if (sellerItems.contains(String.valueOf(item))) { // if the item is in seller items, remove it
-                // removeItem(item);
-                // TODO: this
-            } else {
-                System.out.println("Item does not exist!"); // display error message if not in the seller items
-            }
-        }
+    /*
+     * removeItem()
+     * removes the item with the displayed index from sorted items from the item listings
+     */
+    public void removeItem(int displayedIndex) {
+        Item item = getDisplayedItem(displayedIndex);
+        replaceItem(item.findItem(readItems()), null);
     }
 
     public void editItem(Item item, int changeType, String changeValue ) {
-        ArrayList<String> sellerItems = displayItems();
+        // TODO: probably rewrite this
+        ArrayList<Item> sellerItems = readItems();
+        int index = item.findItem(readItems()); // get the index in the items file
 
-        if (sellerItems.contains(String.valueOf(item))) {
-            for (int i = 0; i < sellerItems.size(); i++) { // loop through the seller items
-                if (sellerItems.get(i).equals(String.valueOf(item))) { // find the item
-                    switch (changeType) { // choose what changeType
-                        case 1: // name
-                            item.setName(changeValue);
-                        case 2: // store
-                            item.setStore(changeValue);
-                        case 3: // description
-                            item.setDescription(changeValue);
-                        case 4: // quantity
-                            item.setQuantity(Integer.parseInt(changeValue));
-                        case 5: // price
-                            item.setPrice(Integer.parseInt(changeValue));
-                    }
-                }
-            }
+        if (index > 0) {
+            switch (changeType) { // choose what changeType
+                case 1 -> // name
+                    item.setName(changeValue);
+                case 2 -> // store
+                    item.setStore(changeValue);
+                case 3 -> // description
+                    item.setDescription(changeValue);
+                case 4 -> // quantity
+                    item.setQuantity(Integer.parseInt(changeValue));
+                case 5 -> // price
+                    item.setPrice(Integer.parseInt(changeValue));
+            }   
+            replaceItem(index, item);
         } else {
             System.out.println("Item does not exist!");
         }
@@ -250,32 +245,38 @@ public class Seller extends User {
         }
 
         switch (sortType) {
-            case 1:
+            case 1 -> {
                 switch (sortOrder) {
-                    case 1:
+                    case 1 -> {
                         customerData.sort(new PriceComparatorAscending());
                         for (int i = 0; i < statsList.size(); i++) {
                             System.out.println(statsList.get(i));
                         }
-                    case 2:
+                    }
+                    case 2 -> {
                         customerData.sort(new PriceComparatorDescending());
                         for (int i = 0; i < statsList.size(); i++) {
                             System.out.println(statsList.get(i));
                         }
+                    }
                 }
-            case 2:
+            }
+            case 2 -> {
                 switch (sortOrder) {
-                    case 1:
+                    case 1 -> {
                         customerData.sort(new QuantityComparatorAscending());
                         for (int i = 0; i < statsList.size(); i++) {
                             System.out.println(statsList.get(i));
                         }
-                    case 2:
+                    }
+                    case 2 -> {
                         customerData.sort(new QuantityComparatorDescending());
                         for (int i = 0; i < statsList.size(); i++) {
                             System.out.println(statsList.get(i));
                         }
+                    }
                 }
+            }
         }
     }
 
