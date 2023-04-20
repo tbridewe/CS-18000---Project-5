@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author 
  */
 
-public class User extends FileFunctions {
+public class User extends FileFunctions implements Serializable{
     private String password; // password entered when a user creates their login information
     private String email; // email entered when a user creates their login information
     private boolean buyer;

@@ -140,5 +140,9 @@ public class FileFunctions {
         }
         writeItems(items);
     }
+
+    public static void saveUser(User user, String filename) {
+        
+    }
 }
 

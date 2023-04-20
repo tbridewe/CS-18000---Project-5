@@ -74,10 +74,11 @@ public class Item implements Serializable {
     }
 
      /**
-     * isContainedIn()
-     * @param itemList: an arraylist of items
+     * findItem()
      * returns index of item in array of items. returns -1 of no item is found
      * Does NOT require equal quantity
+     * @param itemList: an arraylist of items
+     * 
      */
     public int findItem(ArrayList<Item> itemList) {
         for (int i = 0; i < itemList.size(); i++) {
