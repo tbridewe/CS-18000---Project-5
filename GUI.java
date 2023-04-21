@@ -1,1368 +1,1392 @@
-//These are all of the complex GUIs; I will add actions to the Action Listeners
-
+//I made all of the static classes into complex GUIs; I will add the ActionListeners soon
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class GUI {
-    static class ShowWelcome implements Runnable {
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null, "Welcome",
-                    "Welcome", JOptionPane.INFORMATION_MESSAGE);
-        }
+    static JFrame frame;
+    public static void ShowWelcome() {
+        JLabel welcome;
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container welcomeContent = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Welcome");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+        frame.setVisible(true);
     }
-    static class WelcomeMenuGUI implements ActionListener, Runnable {
-        private static JButton login;
-        private static JButton createAccount;
-        private static JButton quit;
-        private static JLabel welcomeOptions;
-        public void run() {
-            JFrame frameOne = new JFrame();
-            JPanel panelOne = new JPanel();
-            Container welcomeContent = frameOne.getContentPane();
-            frameOne.setSize(350, 200);
-            frameOne.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frameOne.add(panelOne);
-            welcomeOptions = new JLabel("Please select an option:");
-            welcomeOptions.setBounds(10,20, 80, 25);
-            panelOne.add(welcomeOptions);
+    public static void WelcomeMenuGUI() {
+        JButton login;
+        JButton createAccount;
+        JButton quit;
+        JLabel welcomeOptions;
 
-            login = new JButton("Login");
-            login.setBounds(10, 80, 80, 25);
-            panelOne.add(login);
-            login.addActionListener(new WelcomeMenuGUI());
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        JPanel panelOne = new JPanel();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panelOne);
+        welcomeOptions = new JLabel("Please select an option:");
+        welcomeOptions.setBounds(10, 20, 80, 25);
+        panelOne.add(welcomeOptions);
 
-            createAccount = new JButton("Create an account");
-            createAccount.setBounds(10, 80, 80, 25);
-            panelOne.add(createAccount);
-            createAccount.addActionListener(new WelcomeMenuGUI());
+        login = new JButton("Login");
+        login.setBounds(10, 80, 80, 25);
+        panelOne.add(login);
 
-            quit = new JButton("Quit");
-            quit.setBounds(10, 80, 80, 25);
-            panelOne.add(quit);
-            quit.addActionListener(new WelcomeMenuGUI());
-            frameOne.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == login) {
-                new GUI.LoginGui();
+        createAccount = new JButton("Create an account");
+        createAccount.setBounds(10, 80, 80, 25);
+        panelOne.add(createAccount);
+
+        quit = new JButton("Quit");
+        quit.setBounds(10, 80, 80, 25);
+        panelOne.add(quit);
+        frame.setVisible(true);
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginGui();
             }
-            if (e.getSource() == createAccount) {
-                new GUI.NewAccountGUI();
+        });
+        createAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewAccountGUI();
             }
-            if (e.getSource() == quit) {
-
+        });
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
-        }
+        });
     }
-    static class LoginGui implements ActionListener, Runnable {
-        private static JLabel userLabel;
-        private static JTextField userText;
-        private static JLabel passwordLabel;
-        private static JPasswordField passwordText;
-        private static JButton loginButton;
-        private static JLabel success;
-        @Override
-        public void run() {
-            JFrame loginFrame = new JFrame();
-            JPanel loginPanel = new JPanel();
-            loginFrame.setSize(350, 200);
-            loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            loginFrame.add(loginPanel);
+    public static void LoginGui() {
+        JLabel userLabel;
+        JTextField userText;
+        JLabel passwordLabel;
+        JPasswordField passwordText;
+        JButton loginButton;
+        JLabel success;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            userLabel = new JLabel("User");
-            userLabel.setBounds(10,20, 80, 25);
-            loginPanel.add(userLabel);
+        JPanel loginPanel = new JPanel();
+        Container welcomeContent = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(loginPanel);
 
-            userText = new JTextField(20);
-            userText.setBounds(100, 20, 165, 25);
-            loginPanel.add(userText);
+        userLabel = new JLabel("User");
+        userLabel.setBounds(10, 20, 80, 25);
+        loginPanel.add(userLabel);
 
-            passwordLabel = new JLabel("Password");
-            passwordLabel.setBounds(10, 50, 80, 25);
-            loginPanel.add(passwordLabel);
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        loginPanel.add(userText);
 
-            passwordText = new JPasswordField(20);
-            passwordText.setBounds(100, 50, 165, 25);
-            loginPanel.add(passwordText);
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(10, 50, 80, 25);
+        loginPanel.add(passwordLabel);
 
-            loginButton = new JButton("Login");
-            loginButton.setBounds(10, 80, 80, 25);
-            loginPanel.add(loginButton);
-            loginButton.addActionListener(new LoginGui());
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(100, 50, 165, 25);
+        loginPanel.add(passwordText);
 
-            success = new JLabel("");
-            success.setBounds(10, 110, 300, 25);
-            loginPanel.add(success);
-            loginFrame.setVisible(true);
-        }
-        public void actionPerformed(ActionEvent e) {
-            String user = userText.getText();
-            String password = new String(passwordText.getPassword());
-            if (e.getSource() == loginButton)  {
-                new GUI.LoginSuccessful();
+        loginButton = new JButton("Login");
+        loginButton.setBounds(10, 80, 80, 25);
+        loginPanel.add(loginButton);
+
+        success = new JLabel("");
+        success.setBounds(10, 110, 300, 25);
+        loginPanel.add(success);
+        frame.setVisible(true);
+        
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
-        }
+        });
     }
-    static class NewAccountGUI implements ActionListener, Runnable {
-        private static JLabel userLabel;
-        private static JTextField userText;
-        private static JLabel passwordLabel;
-        private static JPasswordField passwordText;
-        private static JButton makeNewAccount;
-        private static JLabel success;
-        @Override
-        public void run() {
-            JFrame newAccountFrame = new JFrame();
-            JPanel newAccountPanel = new JPanel();
-            newAccountFrame.setSize(350, 200);
-            newAccountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newAccountFrame.add(newAccountPanel);
-            userLabel = new JLabel("User");
-            userLabel.setBounds(10,20, 80, 25);
-            newAccountPanel.add(userLabel);
-            userText = new JTextField(20);
-            userText.setBounds(100, 20, 165, 25);
-            newAccountPanel.add(userText);
-            passwordLabel = new JLabel("Password");
-            passwordLabel.setBounds(10, 50, 80, 25);
-            newAccountPanel.add(passwordLabel);
-            passwordText = new JPasswordField(20);
-            passwordText.setBounds(100, 50, 165, 25);
-            newAccountPanel.add(passwordText);
-            makeNewAccount = new JButton("Create new account");
-            makeNewAccount.setBounds(10, 80, 80, 25);
-            newAccountPanel.add(makeNewAccount);
-            makeNewAccount.addActionListener(new NewAccountGUI());
-            success = new JLabel("");
-            success.setBounds(10, 110, 300, 25);
-            newAccountPanel.add(success);
-            newAccountFrame.setVisible(true);
-        }
-        public void actionPerformed(ActionEvent e) {
-            String user = userText.getText();
-            String password = new String(passwordText.getPassword());
-            if (e.getSource() == makeNewAccount)  {
-                new GUI.LoginSuccessful();
+    public static void NewAccountGUI() {
+        JLabel userLabel;
+        JTextField userText;
+        JLabel passwordLabel;
+        JPasswordField passwordText;
+        JButton makeNewAccount;
+        JLabel success;
+
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        JPanel newAccountPanel = new JPanel();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(newAccountPanel);
+        userLabel = new JLabel("User");
+        userLabel.setBounds(10,20, 80, 25);
+        newAccountPanel.add(userLabel);
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        newAccountPanel.add(userText);
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(10, 50, 80, 25);
+        newAccountPanel.add(passwordLabel);
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(100, 50, 165, 25);
+        newAccountPanel.add(passwordText);
+        makeNewAccount = new JButton("Create new account");
+        makeNewAccount.setBounds(10, 80, 80, 25);
+        newAccountPanel.add(makeNewAccount);
+        makeNewAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginSuccessful();
             }
-        }
+        });
+        success = new JLabel("");
+        success.setBounds(10, 110, 300, 25);
+        newAccountPanel.add(success);
+        frame.setVisible(true);
     }
+        //public void actionPerformed(ActionEvent e) {
+            //String user = userText.getText();
+            //String password = new String(passwordText.getPassword());
+            //if (e.getSource() == makeNewAccount)  {
+                //new GUI.LoginSuccessful();
+            //}
+        //}
     //shown if the email submitted in the login menu is invalid
-    static class enterValidEmailAddress implements Runnable { //enter a valid email address simple GUI
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null, "Please enter a valid email address!",
-                    "Please enter a valid email address!", JOptionPane.INFORMATION_MESSAGE);
-        }
+    public static void enterValidEmailAddress() { //enter a valid email address simple GUI
+        JLabel enterValidEmail;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        enterValidEmail = new JLabel("Please enter a valid email address");
+        enterValidEmail.setBounds(10, 20, 80, 25);
+        panel.add(enterValidEmail);
+        frame.setVisible(true);
     }
-    static class IncorrectCredentials implements Runnable { //incorrect credentials simple GUI
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null,
-                    "Incorrect login credentials or account does not exist, please try again.",
-                    "Incorrect credentials", JOptionPane.INFORMATION_MESSAGE);
-        }
+    public static void IncorrectCredentials() { //incorrect credentials simple GUI
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel incorrectLoginCredentials = new JLabel("Incorrect login credentials or account does not exist, please try again.");
+        incorrectLoginCredentials.setBounds(10, 20, 80, 25);
+        panel.add(incorrectLoginCredentials);
+        frame.setVisible(true);
     }
-    static class CreateOptions implements ActionListener, Runnable {
-        private JLabel noAccountFound;
-        private JLabel selectOption;
-        private JButton createNewAccount;
-        private JButton reAttemptLogin;
-        private JButton back;
-        @Override
-        public void run() {
-            JFrame createFrame = new JFrame();
-            JPanel createPanel = new JPanel();
+    public static void CreateOptions() {
+        JLabel noAccountFound;
+        JLabel selectOption;
+        JButton createNewAccount;
+        JButton reAttemptLogin;
+        JButton back;
+        
+        frame = new JFrame();
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        JPanel createPanel = new JPanel();
 
-            noAccountFound = new JLabel("No account was found with that email!");
-            noAccountFound.setBounds(10, 110, 300, 25);
-            createPanel.add(noAccountFound);
+        noAccountFound = new JLabel("No account was found with that email!");
+        noAccountFound.setBounds(10, 110, 300, 25);
+        createPanel.add(noAccountFound);
 
-            selectOption = new JLabel("Select an option:");
-            selectOption.setBounds(10, 110, 300, 25);
-            createPanel.add(selectOption);
+        selectOption = new JLabel("Select an option:");
+        selectOption.setBounds(10, 110, 300, 25);
+        createPanel.add(selectOption);
 
-            createNewAccount = new JButton("Create new account");
-            createNewAccount.setBounds(10, 80, 80, 25);
-            createPanel.add(createNewAccount);
-            createNewAccount.addActionListener(new LoginGui());
+        createNewAccount = new JButton("Create new account");
+        createNewAccount.setBounds(10, 80, 80, 25);
+        createPanel.add(createNewAccount);
 
-            reAttemptLogin = new JButton("Re-attempt login");
-            reAttemptLogin.setBounds(10, 80, 80, 25);
-            createPanel.add(reAttemptLogin);
-            reAttemptLogin.addActionListener(new LoginGui());
+        reAttemptLogin = new JButton("Re-attempt login");
+        reAttemptLogin.setBounds(10, 80, 80, 25);
+        createPanel.add(reAttemptLogin);
 
-            back = new JButton("Back");
-            back.setBounds(10, 80, 80, 25);
-            createPanel.add(back);
-            back.addActionListener(new LoginGui());
+        back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        createPanel.add(back);
 
-            createFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class LoginSuccessful implements Runnable { //login successful simple GUI
-        public void run() { //shown if the login is successful
-            JOptionPane.showMessageDialog(null, "Login Successful", "Login Successful",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+    public static void LoginSuccessful() { //login successful simple GUI
+        //shown if the login is successful
+        JLabel loginSuccessful;
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        loginSuccessful = new JLabel("Login successful");
+        frame.setBounds(10, 20, 80, 25);
+        panel.add(loginSuccessful);
+        frame.setVisible(true);
     }
-    static class BuyerMenuGui implements ActionListener, Runnable { //buyer menu complex GUI
-        private static JButton chooseItem;
-        private static JButton search;
-        private static JButton sort;
-        private static JButton viewCart;
-        private static JButton editAccount;
-        private static JButton logOut;
-        private static JLabel buyerOptions;
-        @Override
-        public void run() {
-            JFrame buyerMenuFrame = new JFrame();
-            JPanel buyerMenuPanel = new JPanel();
-            buyerMenuFrame.setSize(350, 200);
-            buyerMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            buyerMenuFrame.add(buyerMenuPanel);
-            buyerOptions = new JLabel("Please select an option:");
-            buyerOptions.setBounds(10,20, 80, 25);
-            buyerMenuPanel.add(buyerOptions);
+    public static void BuyerMenuGui() { //buyer menu complex GUI
+        JButton chooseItem;
+        JButton search;
+        JButton sort;
+        JButton viewCart;
+        JButton editAccount;
+        JButton logOut;
+        JLabel buyerOptions;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        buyerOptions = new JLabel("Please select an option:");
+        buyerOptions.setBounds(10,20, 80, 25);
+        panel.add(buyerOptions);
 
-            chooseItem = new JButton("Choose an item");
-            chooseItem.setBounds(10, 80, 80, 25);
-            buyerMenuPanel.add(chooseItem);
-            chooseItem.addActionListener(new BuyerMenuGui());
+        chooseItem = new JButton("Choose an item");
+        chooseItem.setBounds(10, 80, 80, 25);
+        panel.add(chooseItem);
 
-            search = new JButton("Search");
-            search.setBounds(10, 80, 80, 25);
-            buyerMenuPanel.add(search);
-            search.addActionListener(new BuyerMenuGui());
+        search = new JButton("Search");
+        search.setBounds(10, 80, 80, 25);
+        panel.add(search);
 
-            sort = new JButton("Sort");
-            sort.setBounds(10, 80, 80, 25);
-            buyerMenuPanel.add(sort);
-            sort.addActionListener(new BuyerMenuGui());
+        sort = new JButton("Sort");
+        sort.setBounds(10, 80, 80, 25);
+        panel.add(sort);
 
-            viewCart = new JButton("View cart");
-            viewCart.setBounds(10, 80, 80, 25);
-            buyerMenuPanel.add(viewCart);
-            viewCart.addActionListener(new BuyerMenuGui());
+        viewCart = new JButton("View cart");
+        viewCart.setBounds(10, 80, 80, 25);
+        panel.add(viewCart);
 
-            editAccount = new JButton("Edit account");
-            editAccount.setBounds(10, 80, 80, 25);
-            buyerMenuPanel.add(editAccount);
-            editAccount.addActionListener(new BuyerMenuGui());
+        editAccount = new JButton("Edit account");
+        editAccount.setBounds(10, 80, 80, 25);
+        panel.add(editAccount);
 
-            logOut = new JButton("Log out");
-            logOut.setBounds(10, 80, 80, 25);
-            buyerMenuPanel.add(logOut);
-            logOut.addActionListener(new BuyerMenuGui());
+        logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
 
-            buyerMenuFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class SearchByKeyword implements ActionListener, Runnable {
-        private JTextField searchBar;
-        private JLabel searchBarLabel;
-        @Override
-        public void run() {
-            JFrame keywordFrame = new JFrame();
-            JPanel keywordPanel = new JPanel();
-            keywordFrame.setSize(350, 200);
-            keywordFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            keywordFrame.add(keywordPanel);
-            searchBarLabel = new JLabel("Enter a keyword:");
-            searchBarLabel.setBounds(10,20, 80, 25);
-            keywordPanel.add(searchBarLabel);
+    public static void SearchByKeyword() {
+        JTextField searchBar;
+        JLabel searchBarLabel;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            searchBar = new JTextField(20);
-            searchBar.setBounds(100, 20, 165, 25);
-            keywordPanel.add(searchBar);
+        searchBarLabel = new JLabel("Enter a keyword:");
+        searchBarLabel.setBounds(10,20, 80, 25);
+        panel.add(searchBarLabel);
 
-            keywordFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        searchBar = new JTextField(20);
+        searchBar.setBounds(100, 20, 165, 25);
+        panel.add(searchBar);
 
-        }
+        frame.setVisible(true);
     }
-    static class SearchBar implements ActionListener, Runnable { //***make complex GUI
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void SearchBar() { //***make complex GUI
+        JLabel search;
+        JTextField searchBar;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel search;
-        private static JTextField searchBar;
-        @Override
-        public void run() {
-            JFrame enterFrame = new JFrame();
-            JPanel enterPanel = new JPanel();
-            enterFrame.setSize(350, 200);
-            enterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            enterFrame.add(enterPanel);
+        search = new JLabel("Search:");
+        search.setBounds(10,20, 80, 25);
+        panel.add(search);
 
-            search = new JLabel("Search:");
-            search.setBounds(10,20, 80, 25);
-            enterPanel.add(search);
+        searchBar = new JTextField(20);
+        searchBar.setBounds(100, 20, 165, 25);
+        panel.add(searchBar);
 
-            searchBar = new JTextField(20);
-            searchBar.setBounds(100, 20, 165, 25);
-            enterPanel.add(searchBar);
-            
-            enterFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class SelectItem implements ActionListener, Runnable { 
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void SelectItem() {
+        JLabel select;
+        JTextField item;
+        JLabel number;
+        JTextField quantity;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel select;
-        private static JTextField item;
-        private static JLabel number;
-        private static JTextField quantity;
-        @Override
-        public void run() {
-            JFrame enterFrame = new JFrame();
-            JPanel enterPanel = new JPanel();
-            enterFrame.setSize(350, 200);
-            enterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            enterFrame.add(enterPanel);
+        select = new JLabel("Please select the item you wish to purchase:");
+        select.setBounds(10,20, 80, 25);
+        panel.add(select);
 
-            select = new JLabel("Please select the item you wish to purchase:");
-            select.setBounds(10,20, 80, 25);
-            enterPanel.add(select);
+        item = new JTextField(20);
+        item.setBounds(100, 20, 165, 25);
+        panel.add(item);
 
-            item = new JTextField(20);
-            item.setBounds(100, 20, 165, 25);
-            enterPanel.add(item);
+        number = new JLabel("Please enter how many you would like to buy:");
+        number.setBounds(10,20, 80, 25);
+        panel.add(number);
 
-            number = new JLabel("Please enter how many you would like to buy:");
-            number.setBounds(10,20, 80, 25);
-            enterPanel.add(number);
+        quantity = new JTextField(20);
+        quantity.setBounds(100, 20, 165, 25);
+        panel.add(quantity);
 
-            quantity = new JTextField(20);
-            quantity.setBounds(100, 20, 165, 25);
-            enterPanel.add(quantity);
-
-            enterFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class cancelPurchase implements ActionListener, Runnable {
+    public static void cancelPurchase() {
+        JLabel cancelQuestion;
+        JButton cancel;
+        JButton approve;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-        }
-        private static JLabel cancelQuestion;
-        private static JButton cancel;
-        private static JButton approve;
-        @Override
-        public void run() {
-            JFrame sortFrame = new JFrame();
-            JPanel sortPanel = new JPanel();
-            sortFrame.setSize(350, 200);
-            sortFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            sortFrame.add(sortPanel);
+        cancelQuestion = new JLabel("Do you want to cancel the purchase?");
+        cancelQuestion.setBounds(10,20, 80, 25);
+        panel.add(cancelQuestion);
 
-            cancelQuestion = new JLabel("Do you want to cancel the purchase?");
-            cancelQuestion.setBounds(10,20, 80, 25);
-            sortPanel.add(cancelQuestion);
+        cancel = new JButton("Cancel");
+        cancel.setBounds(10, 80, 80, 25);
+        panel.add(cancel);
 
-            cancel = new JButton("Cancel");
-            cancel.setBounds(10, 80, 80, 25);
-            sortPanel.add(cancel);
-            cancel.addActionListener(new cancelPurchase());
+        approve = new JButton("Don't cancel");
+        approve.setBounds(10, 80, 80, 25);
+        panel.add(approve);
 
-            approve = new JButton("Don't cancel");
-            approve.setBounds(10, 80, 80, 25);
-            sortPanel.add(approve);
-            approve.addActionListener(new cancelPurchase());
-            
-            sortFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class PurchaseCancelled implements Runnable { //purchase cancelled simple GUI
-        public void run() {
-            JOptionPane.showMessageDialog(null, "Purchase Cancelled",
-                    "The purchase was cancelled.", JOptionPane.INFORMATION_MESSAGE);
-        }
+    public static void PurchaseCancelled() { //purchase cancelled simple GUI
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel purchaseCancelled = new JLabel("Purchase cancelled");
+        purchaseCancelled.setBounds(10, 20, 80, 25);
+        panel.add(purchaseCancelled);
+        frame.setVisible(true);
     }
-    static class AddedToCart implements Runnable { //added to cart simple GUI
-        public void run() { //%dx %s!\n", quantity, selectedItem.getName() //add info about quantity and selected item
-
-            JOptionPane.showMessageDialog(null, "Added to cart");
-        }
+    public static void AddedToCart() { //added to cart simple GUI
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        //%dx %s!\n", quantity, selectedItem.getName() //add info about quantity and selected item
+        JLabel addedToCart = new JLabel("Added to cart");
+        addedToCart.setBounds(10, 20, 80, 25);
+        panel.add(addedToCart);
+        frame.setVisible(true);
     }
-    static class InvalidQuantityException implements Runnable { //invalid quantity exception simple GUI
-        public void run() { //if int addingChoices is not equal to 1 or 2
-            JOptionPane.showMessageDialog(null, "Invalid quantity!",
-                    "Invalid Quantity", JOptionPane.ERROR_MESSAGE);
-        }
+    public static void InvalidQuantityException() { //invalid quantity exception simple GUI
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel invalidQuantity = new JLabel("Invalid Quantity");
+        invalidQuantity.setBounds(10, 20, 80, 25);
+        panel.add(invalidQuantity);
+        frame.setVisible(true);
     }
-    static class SortingItems implements ActionListener, Runnable {
-        private JLabel priceOrQuantity;
-        private JButton price;
-        private JButton quantity;
-        private JLabel ascendingOrDescending;
-        private JButton ascending;
-        private JButton descending;
-        @Override
-        public void run() {
-            JFrame sortFrame = new JFrame();
-            JPanel sortPanel = new JPanel();
-            sortFrame.setSize(350, 200);
-            sortFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            sortFrame.add(sortPanel);
+    public static void SortingItems() {
+        JLabel priceOrQuantity;
+        JButton price;
+        JButton quantity;
+        JLabel ascendingOrDescending;
+        JButton ascending;
+        JButton descending;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            priceOrQuantity = new JLabel("Do you want to sort by price or quantity?");
-            priceOrQuantity.setBounds(10,20, 80, 25);
-            sortPanel.add(priceOrQuantity);
+        priceOrQuantity = new JLabel("Do you want to sort by price or quantity?");
+        priceOrQuantity.setBounds(10,20, 80, 25);
+        panel.add(priceOrQuantity);
 
-            price = new JButton("Price");
-            price.setBounds(10, 80, 80, 25);
-            sortPanel.add(price);
-            price.addActionListener(new SortingItems());
+        price = new JButton("Price");
+        price.setBounds(10, 80, 80, 25);
+        panel.add(price);
 
-            quantity = new JButton("Quantity");
-            quantity.setBounds(10, 80, 80, 25);
-            sortPanel.add(quantity);
-            quantity.addActionListener(new SortingItems());
+        quantity = new JButton("Quantity");
+        quantity.setBounds(10, 80, 80, 25);
+        panel.add(quantity);
 
-            ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
-            ascendingOrDescending.setBounds(10,20, 80, 25);
-            sortPanel.add(ascendingOrDescending);
+        ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
+        ascendingOrDescending.setBounds(10,20, 80, 25);
+        panel.add(ascendingOrDescending);
 
-            ascending = new JButton("Ascending");
-            ascending.setBounds(10, 80, 80, 25);
-            sortPanel.add(ascending);
-            ascending.addActionListener(new SortingItems());
+        ascending = new JButton("Ascending");
+        ascending.setBounds(10, 80, 80, 25);
+        panel.add(ascending);
 
-            descending = new JButton("Descending");
-            descending.setBounds(10, 80, 80, 25);
-            sortPanel.add(descending);
-            descending.addActionListener(new SortingItems());
+        descending = new JButton("Descending");
+        descending.setBounds(10, 80, 80, 25);
+        panel.add(descending);
 
-            sortFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class ViewCartOptions implements ActionListener, Runnable { //***make complex GUI
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-        }
-        private static JLabel choose;
-        private static JButton checkout;
-        private static JButton view;
-        private static JButton remove;
-        private static JButton back;
-        @Override
-        public void run() {
-            JFrame cartFrame = new JFrame();
-            JPanel cartPanel = new JPanel();
-            cartFrame.setSize(350, 200);
-            cartFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            cartFrame.add(cartPanel);
+    public static void ViewCartOptions() {
+        JLabel choose;
+        JButton checkout;
+        JButton view;
+        JButton remove;
+        JButton back;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            choose = new JLabel("Choose an option:");
-            choose.setBounds(10,20, 80, 25);
-            cartPanel.add(checkout);
+        choose = new JLabel("Choose an option:");
+        choose.setBounds(10,20, 80, 25);
+        panel.add(choose);
 
-            checkout = new JButton("Checkout");
-            checkout.setBounds(10, 80, 80, 25);
-            cartFrame.add(checkout);
-            checkout.addActionListener(new ViewCartOptions());
+        checkout = new JButton("Checkout");
+        checkout.setBounds(10, 80, 80, 25);
+        panel.add(checkout);
 
-            view = new JButton("View Purchase History");
-            view.setBounds(10, 80, 80, 25);
-            cartFrame.add(view);
-            view.addActionListener(new ViewCartOptions());
+        view = new JButton("View Purchase History");
+        view.setBounds(10, 80, 80, 25);
+        panel.add(view);
 
-            remove = new JButton("Remove Item");
-            remove.setBounds(10, 80, 80, 25);
-            cartFrame.add(remove);
-            remove.addActionListener(new ViewCartOptions());
+        remove = new JButton("Remove Item");
+        remove.setBounds(10, 80, 80, 25);
+        panel.add(remove);
 
-            back = new JButton("Back");
-            back.setBounds(10, 80, 80, 25);
-            cartFrame.add(back);
-            back.addActionListener(new ViewCartOptions());
-            
-            cartFrame.setVisible(true);
-        }
+        back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+
+        frame.setVisible(true);
     }
-    static class CheckoutComplete implements Runnable { //checkout complete simple GUI
+    public static void CheckoutComplete() { //checkout complete simple GUI
         //if the buyer chooses to checkout and checks out successfully
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null, "Checkout Complete!",
-                    "Checkout complete", JOptionPane.INFORMATION_MESSAGE);
-        }
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel checkoutComplete = new JLabel("Checkout complete!");
+        checkoutComplete.setBounds(10, 20, 80, 25);
+        panel.add(checkoutComplete);
+        frame.setVisible(true);
     }
-    static class ExportPurchaseHistory implements ActionListener, Runnable { 
-        private static JLabel export;
-        private static JButton yes;
-        private static JButton no;
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-        }
+    public static void ExportPurchaseHistory() {
+        JLabel export;
+        JButton yes;
+        JButton no;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        @Override
-        public void run() {
-            JFrame exportFrame = new JFrame();
-            JPanel exportPanel = new JPanel();
-            exportFrame.setSize(350, 200);
-            exportFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            exportFrame.add(exportPanel);
+        export = new JLabel("Would you like to export purchase history?");
+        export.setBounds(10,20, 80, 25);
+        panel.add(export);
 
-            export = new JLabel("Would you like to export purchase history?");
-            export.setBounds(10,20, 80, 25);
-            exportPanel.add(export);
+        yes = new JButton("Yes");
+        yes.setBounds(10, 80, 80, 25);
+        panel.add(yes);
 
-            yes = new JButton("Yes");
-            yes.setBounds(10, 80, 80, 25);
-            exportFrame.add(yes);
-            yes.addActionListener(new ExportPurchaseHistory());
+        no = new JButton("No");
+        no.setBounds(10, 80, 80, 25);
+        panel.add(no);
 
-            no = new JButton("No");
-            no.setBounds(10, 80, 80, 25);
-            exportFrame.add(no);
-            no.addActionListener(new ExportPurchaseHistory());
-            
-            exportFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class EnterNameOfFile implements Runnable { //enter name of file simple GUI
-        private static JLabel nameFile;
-        private static JTextField file;
-        @Override
-        public void run() {
-            JFrame enterFrame = new JFrame();
-            JPanel enterPanel = new JPanel();
-            enterFrame.setSize(350, 200);
-            enterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            enterFrame.add(enterPanel);
+    public static void EnterNameOfFile() { //enter name of file simple GUI
+        JLabel nameFile;
+        JTextField file;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            nameFile = new JLabel("Enter the name of the file to save the purchase history to:");
-            nameFile.setBounds(10,20, 80, 25);
-            enterPanel.add(nameFile);
+        nameFile = new JLabel("Enter the name of the file to save the purchase history to:");
+        nameFile.setBounds(10,20, 80, 25);
+        panel.add(nameFile);
 
-            file = new JTextField(20);
-            file.setBounds(100, 20, 165, 25);
-            enterPanel.add(file);
-            
-            enterFrame.setVisible(true);
-        }
+        file = new JTextField(20);
+        file.setBounds(100, 20, 165, 25);
+        panel.add(file);
+
+        frame.setVisible(true);
     }
-    static class PurchaseHistoryExported implements Runnable { //purchase history successfully exported simple GUI
+    public static void PurchaseHistoryExported() { //purchase history successfully exported simple GUI
         //message shown if the buyer successfully saves purchase history to file
-
-        @Override
-        public void run() {
-            JOptionPane.showInputDialog(null,
-                    "Purchase history successfully exported to file!",
-                    "Purchase history exported", JOptionPane.PLAIN_MESSAGE);
-        }
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel exportSuccess = new JLabel("Purchase history successfully exported to file!");
+        exportSuccess.setBounds(10, 20, 80, 25);
+        panel.add(exportSuccess);
+        frame.setVisible(true);
     }
-    static class RemoveItem implements ActionListener, Runnable { 
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void RemoveItem() {
+        JLabel select;
+        JTextField item;
+        JLabel number;
+        JTextField quantity;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel select;
-        private static JTextField item;
-        private static JLabel number;
-        private static JTextField quantity;
-        @Override
-        public void run() {
-            JFrame removeFrame = new JFrame();
-            JPanel removePanel = new JPanel();
-            removeFrame.setSize(350, 200);
-            removeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            removeFrame.add(removePanel);
+        select = new JLabel("Enter an item to remove from cart:");
+        select.setBounds(10,20, 80, 25);
+        panel.add(select);
 
-            select = new JLabel("Enter an item to remove from cart:");
-            select.setBounds(10,20, 80, 25);
-            removePanel.add(select);
+        item = new JTextField(20);
+        item.setBounds(100, 20, 165, 25);
+        panel.add(item);
 
-            item = new JTextField(20);
-            item.setBounds(100, 20, 165, 25);
-            removePanel.add(item);
+        number = new JLabel("Please enter how many you would like to remove:");
+        number.setBounds(10,20, 80, 25);
+        panel.add(number);
 
-            number = new JLabel("Please enter how many you would like to remove:");
-            number.setBounds(10,20, 80, 25);
-            removePanel.add(number);
+        quantity = new JTextField(20);
+        quantity.setBounds(100, 20, 165, 25);
+        panel.add(quantity);
 
-            quantity = new JTextField(20);
-            quantity.setBounds(100, 20, 165, 25);
-            removePanel.add(quantity);
-
-            removeFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class EditUserInfo implements ActionListener, Runnable { 
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void EditUserInfo() {
+        JLabel choose;
+        JButton editEmail;
+        JButton editPassword;
+        JButton delete;
+        JButton back;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel choose;
-        private static JButton editEmail;
-        private static JButton editPassword;
-        private static JButton delete;
-        private static JButton back;
-        @Override
-        public void run() {
-            JFrame editUserFrame = new JFrame();
-            JPanel editUserPanel = new JPanel();
-            editUserFrame.setSize(350, 200);
-            editUserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            editUserFrame.add(editUserPanel);
+        choose = new JLabel("Choose an option:");
+        choose.setBounds(10,20, 80, 25);
+        panel.add(choose);
 
-            choose = new JLabel("Choose an option:");
-            choose.setBounds(10,20, 80, 25);
-            editUserPanel.add(choose);
+        editEmail = new JButton("Edit Account Email");
+        editEmail.setBounds(10, 80, 80, 25);
+        panel.add(editEmail);
 
-            editEmail = new JButton("Edit Account Email");
-            editEmail.setBounds(10, 80, 80, 25);
-            editUserFrame.add(editEmail);
-            editEmail.addActionListener(new EditUserInfo());
+        editPassword = new JButton("Edit Account Password");
+        editPassword.setBounds(10, 80, 80, 25);
+        panel.add(editPassword);
 
-            editPassword = new JButton("Edit Account Password");
-            editPassword.setBounds(10, 80, 80, 25);
-            editUserFrame.add(editPassword);
-            editPassword.addActionListener(new EditUserInfo());
+        delete = new JButton("Delete Account");
+        delete.setBounds(10, 80, 80, 25);
+        panel.add(delete);
 
-            delete = new JButton("Delete Account");
-            delete.setBounds(10, 80, 80, 25);
-            editUserFrame.add(delete);
-            delete.addActionListener(new EditUserInfo());
+        back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
 
-            back = new JButton("Back");
-            back.setBounds(10, 80, 80, 25);
-            editUserFrame.add(back);
-            back.addActionListener(new EditUserInfo());
-            
-            editUserFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class NewEmail implements ActionListener, Runnable { //new email simple GUI
-        private static JLabel enterEmail;
-        private static JTextField emailText;
+    public static void NewEmail() { //new email simple GUI
+        JLabel enterEmail;
+        JTextField emailText;
 
-        @Override
-        public void run() {
-            JFrame newCustomerEmailFrame = new JFrame();
-            JPanel newCustomerEmailPanel = new JPanel();
-            newCustomerEmailFrame.setSize(350, 200);
-            newCustomerEmailFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newCustomerEmailFrame.add(newCustomerEmailPanel);
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            enterEmail = new JLabel("Please enter a new email address for your account:");
-            enterEmail.setBounds(10,20, 80, 25);
-            newCustomerEmailPanel.add(enterEmail);
+        enterEmail = new JLabel("Please enter a new email address for your account:");
+        enterEmail.setBounds(10,20, 80, 25);
+        panel.add(enterEmail);
 
-            emailText = new JTextField(20);
-            emailText.setBounds(100, 20, 165, 25);
-            newCustomerEmailPanel.add(emailText);
+        emailText = new JTextField(20);
+        emailText.setBounds(100, 20, 165, 25);
+        panel.add(emailText);
 
-            newCustomerEmailFrame.setVisible(true);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-        }
+        frame.setVisible(true);
     }
-    static class ConfirmEmail implements ActionListener, Runnable { //confirm simple GUI
-        private static JLabel editEmail;
-        private static JButton yes;
-        private static JButton no;
-        @Override
-        public void run() {
-            JFrame confirmEmailFrame = new JFrame();
-            JPanel confirmEmailPanel = new JPanel();
-            confirmEmailFrame.setSize(350, 200);
-            confirmEmailFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            confirmEmailFrame.add(confirmEmailPanel);
+    public static void ConfirmEmail() { //confirm simple GUI
+        JLabel editEmail;
+        JButton yes;
+        JButton no;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            editEmail = new JLabel("Are you sure you would like to edit your email?  Choose yes or no:");
-            editEmail.setBounds(10,20, 80, 25);
-            confirmEmailPanel.add(editEmail);
+        editEmail = new JLabel("Are you sure you would like to edit your email?  Choose yes or no:");
+        editEmail.setBounds(10,20, 80, 25);
+        panel.add(editEmail);
 
-            yes = new JButton("Yes");
-            yes.setBounds(10, 80, 80, 25);
-            confirmEmailFrame.add(yes);
-            yes.addActionListener(new ConfirmEmail());
+        yes = new JButton("Yes");
+        yes.setBounds(10, 80, 80, 25);
+        panel.add(yes);
 
-            no = new JButton("No");
-            no.setBounds(10, 80, 80, 25);
-            confirmEmailPanel.add(no);
-            no.addActionListener(new ConfirmEmail());
+        no = new JButton("No");
+        no.setBounds(10, 80, 80, 25);
+        panel.add(no);
 
-            confirmEmailFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class NewPassword implements ActionListener, Runnable { 
-        private static JLabel enterPassword;
-        private static JTextField passwordText;
+    public static void NewPassword() {
+        JLabel enterPassword;
+        JTextField passwordText;
 
-        @Override
-        public void run() {
-            JFrame newPasswordFrame = new JFrame();
-            JPanel newPasswordPanel = new JPanel();
-            newPasswordFrame.setSize(350, 200);
-            newPasswordFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newPasswordFrame.add(newPasswordPanel);
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            enterPassword = new JLabel("Please enter a new password for your account:");
-            enterPassword.setBounds(10,20, 80, 25);
-            newPasswordPanel.add(enterPassword);
+        enterPassword = new JLabel("Please enter a new password for your account:");
+        enterPassword.setBounds(10,20, 80, 25);
+        panel.add(enterPassword);
 
-            passwordText = new JTextField(20);
-            passwordText.setBounds(100, 20, 165, 25);
-            newPasswordPanel.add(passwordText);
+        passwordText = new JTextField(20);
+        passwordText.setBounds(100, 20, 165, 25);
+        panel.add(passwordText);
 
-            newPasswordFrame.setVisible(true);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class ConfirmPassword implements ActionListener, Runnable { //confirm simple GUI //***make complex GUI
-        private static JLabel areYouSure;
-        private static JButton yes;
-        private static JButton no;
-        @Override
-        public void run() {
-            JFrame confirmCustomerPasswordFrame = new JFrame();
-            JPanel confirmPasswordPanel = new JPanel();
-            confirmCustomerPasswordFrame.setSize(350, 200);
-            confirmCustomerPasswordFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            confirmCustomerPasswordFrame.add(confirmPasswordPanel);
+    public static void ConfirmPassword() { //confirm simple GUI //***make complex GUI
+        JLabel areYouSure;
+        JButton yes;
+        JButton no;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
-            areYouSure.setBounds(10,20, 80, 25);
-            confirmPasswordPanel.add(areYouSure);
+        areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
+        areYouSure.setBounds(10,20, 80, 25);
+        panel.add(areYouSure);
 
-            yes = new JButton("Yes");
-            yes.setBounds(10, 80, 80, 25);
-            confirmPasswordPanel.add(yes);
-            yes.addActionListener(new ConfirmPassword());
+        yes = new JButton("Yes");
+        yes.setBounds(10, 80, 80, 25);
+        panel.add(yes);
 
-            no = new JButton("No");
-            no.setBounds(10, 80, 80, 25);
-            confirmPasswordPanel.add(no);
-            no.addActionListener(new ConfirmPassword());
+        no = new JButton("No");
+        no.setBounds(10, 80, 80, 25);
+        panel.add(no);
 
-            confirmCustomerPasswordFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class Logout implements Runnable { //logout simple GUI
+    public static void Logout() { //logout simple GUI
         //if the buyer chooses the log out option
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null, "Goodbye!",
-                    "Farewell", JOptionPane.INFORMATION_MESSAGE);
-        }
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel farewell = new JLabel("Goodbye!");
+        farewell.setBounds(10, 20, 80, 25);
+        panel.add(farewell);
+        frame.setVisible(true);
     }
-    static class SellerMenu implements ActionListener, Runnable {  //***make complex GUI
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void SellerMenu() {
+        JLabel choose;
+        JButton viewListings;
+        JButton viewStatistics;
+        JButton editAccount;
+        JButton logOut;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel choose;
-        private static JButton viewListings;
-        private static JButton viewStatistics;
-        private static JButton editAccount;
-        private static JButton logOut;
-        @Override
-        public void run() {
-            JFrame sellerFrame = new JFrame();
-            JPanel sellerPanel = new JPanel();
-            sellerFrame.setSize(350, 200);
-            sellerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            sellerFrame.add(sellerPanel);
+        choose = new JLabel("Chose an option:");
+        choose.setBounds(10,20, 80, 25);
+        panel.add(choose);
 
-            choose = new JLabel("Chose an option:");
-            choose.setBounds(10,20, 80, 25);
-            sellerPanel.add(choose);
+        viewListings = new JButton("View listings");
+        viewListings.setBounds(10, 80, 80, 25);
+        panel.add(viewListings);
 
-            viewListings = new JButton("View listings");
-            viewListings.setBounds(10, 80, 80, 25);
-            sellerPanel.add(viewListings);
-            viewListings.addActionListener(new SellerMenu());
+        viewStatistics = new JButton("View statistics");
+        viewStatistics.setBounds(10, 80, 80, 25);
+        panel.add(viewStatistics);
 
-            viewStatistics = new JButton("View statistics");
-            viewStatistics.setBounds(10, 80, 80, 25);
-            sellerPanel.add(viewStatistics);
-            viewStatistics.addActionListener(new SellerMenu());
+        editAccount = new JButton("Edit account");
+        editAccount.setBounds(10, 80, 80, 25);
+        panel.add(editAccount);
 
-            editAccount = new JButton("Edit account");
-            editAccount.setBounds(10, 80, 80, 25);
-            sellerPanel.add(editAccount);
-            editAccount.addActionListener(new SellerMenu());
+        logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
 
-            logOut = new JButton("Log out");
-            logOut.setBounds(10, 80, 80, 25);
-            sellerPanel.add(logOut);
-            logOut.addActionListener(new SellerMenu());
-
-            sellerFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class ListingsMenu implements ActionListener, Runnable {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void ListingsMenu() {
+        JLabel choose;
+        JButton add;
+        JButton edit;
+        JButton delete;
+        JButton back;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel choose;
-        private static JButton add;
-        private static JButton edit;
-        private static JButton delete;
-        private static JButton back;
-        @Override
-        public void run() {
-            JFrame listingsFrame = new JFrame();
-            JPanel listingsPanel = new JPanel();
-            listingsFrame.setSize(350, 200);
-            listingsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            listingsFrame.add(listingsPanel);
+        choose = new JLabel("Chose an option:");
+        choose.setBounds(10,20, 80, 25);
+        panel.add(choose);
 
-            choose = new JLabel("Chose an option:");
-            choose.setBounds(10,20, 80, 25);
-            listingsPanel.add(choose);
+        add = new JButton("Add");
+        add.setBounds(10, 80, 80, 25);
+        panel.add(add);
 
-            add = new JButton("Add");
-            add.setBounds(10, 80, 80, 25);
-            listingsPanel.add(add);
-            add.addActionListener(new ListingsMenu());
+        edit = new JButton("Edit");
+        edit.setBounds(10, 80, 80, 25);
+        panel.add(edit);
 
-            edit = new JButton("Edit");
-            edit.setBounds(10, 80, 80, 25);
-            listingsPanel.add(edit);
-            edit.addActionListener(new ListingsMenu());
+        delete = new JButton("Delete");
+        delete.setBounds(10, 80, 80, 25);
+        panel.add(delete);
 
-            delete = new JButton("Delete");
-            delete.setBounds(10, 80, 80, 25);
-            listingsPanel.add(delete);
-            delete.addActionListener(new ListingsMenu());
+        back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
 
-            back = new JButton("Back");
-            back.setBounds(10, 80, 80, 25);
-            listingsPanel.add(back);
-            back.addActionListener(new ListingsMenu());
-
-            listingsFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class AddOptions implements ActionListener, Runnable { //***make complex GUI
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void AddOptions() {
+        JButton add;
+        JButton csv;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JButton add;
-        private static JButton csv;
-        @Override
-        public void run() {
-            JFrame addOptionsFrame = new JFrame();
-            JPanel addOptionsPanel = new JPanel();
-            addOptionsFrame.setSize(350, 200);
-            addOptionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            addOptionsFrame.add(addOptionsPanel);
+        add = new JButton("Add item");
+        add.setBounds(10, 80, 80, 25);
+        panel.add(add);
 
-            add = new JButton("Add item");
-            add.setBounds(10, 80, 80, 25);
-            addOptionsPanel.add(add);
-            add.addActionListener(new AddOptions());
+        csv = new JButton("Add from CSV");
+        csv.setBounds(10, 80, 80, 25);
+        panel.add(csv);
 
-            csv = new JButton("Add from CSV");
-            csv.setBounds(10, 80, 80, 25);
-            addOptionsPanel.add(csv);
-            csv.addActionListener(new AddOptions());
-
-            addOptionsFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class AddItem implements ActionListener, Runnable { //***make complex GUI
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void AddItem() {
+        JLabel enterName;
+        JTextField name;
+        JLabel enterStore;
+        JTextField store;
+        JLabel enterDescription;
+        JTextField description;
+        JLabel enterQuantity;
+        JTextField quantity;
+        JLabel enterPrice;
+        JTextField price;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel enterName;
-        private static JTextField name;
-        private static JLabel enterStore;
-        private static JTextField store;
-        private static JLabel enterDescription;
-        private static JTextField description;
-        private static JLabel enterQuantity;
-        private static JTextField quantity;
-        private static JLabel enterPrice;
-        private static JTextField price;
-        @Override
-        public void run() {
-            JFrame addFrame = new JFrame();
-            JPanel addPanel = new JPanel();
-            addFrame.setSize(350, 200);
-            addFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            addFrame.add(addPanel);
+        enterName = new JLabel("Enter name:");
+        enterName.setBounds(10,20, 80, 25);
+        panel.add(enterName);
 
-            enterName = new JLabel("Enter name:");
-            enterName.setBounds(10,20, 80, 25);
-            addPanel.add(enterName);
+        name = new JTextField(20);
+        name.setBounds(100, 20, 165, 25);
+        panel.add(name);
 
-            name = new JTextField(20);
-            name.setBounds(100, 20, 165, 25);
-            addPanel.add(name);
+        enterStore = new JLabel("Enter store:");
+        enterStore.setBounds(10,20, 80, 25);
+        panel.add(enterStore);
 
-            enterStore = new JLabel("Enter store:");
-            enterStore.setBounds(10,20, 80, 25);
-            addPanel.add(enterStore);
+        store = new JTextField(20);
+        store.setBounds(100, 20, 165, 25);
+        panel.add(store);
 
-            store = new JTextField(20);
-            store.setBounds(100, 20, 165, 25);
-            addPanel.add(store);
+        enterDescription = new JLabel("Enter description:");
+        enterDescription.setBounds(10,20, 80, 25);
+        panel.add(enterDescription);
 
-            enterDescription = new JLabel("Enter description:");
-            enterDescription.setBounds(10,20, 80, 25);
-            addPanel.add(enterDescription);
+        description = new JTextField(20);
+        description.setBounds(100, 20, 165, 25);
+        panel.add(description);
 
-            description = new JTextField(20);
-            description.setBounds(100, 20, 165, 25);
-            addPanel.add(description);
+        enterQuantity = new JLabel("Enter quantity:");
+        enterQuantity.setBounds(10,20, 80, 25);
+        panel.add(enterQuantity);
 
-            enterQuantity = new JLabel("Enter quantity:");
-            enterQuantity.setBounds(10,20, 80, 25);
-            addPanel.add(enterQuantity);
+        quantity = new JTextField(20);
+        quantity.setBounds(100, 20, 165, 25);
+        panel.add(quantity);
 
-            quantity = new JTextField(20);
-            quantity.setBounds(100, 20, 165, 25);
-            addPanel.add(quantity);
+        enterPrice = new JLabel("Enter price:");
+        enterPrice.setBounds(10,20, 80, 25);
+        panel.add(enterPrice);
 
-            enterPrice = new JLabel("Enter price:");
-            enterPrice.setBounds(10,20, 80, 25);
-            addPanel.add(enterPrice);
+        price = new JTextField(20);
+        price.setBounds(100, 20, 165, 25);
+        panel.add(price);
 
-            price = new JTextField(20);
-            price.setBounds(100, 20, 165, 25);
-            addPanel.add(price);
-
-            addFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class AddFromCSV implements ActionListener, Runnable { //***make complex GUI
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void AddFromCSV() {
+        JLabel enterFileName;
+        JTextField fileName;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel enterFileName;
-        private static JTextField fileName;
-        @Override
-        public void run() {
-            JFrame csvFrame = new JFrame();
-            JPanel csvPanel = new JPanel();
-            csvFrame.setSize(350, 200);
-            csvFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            csvFrame.add(csvPanel);
+        enterFileName = new JLabel("Enter file name:");
+        enterFileName.setBounds(10,20, 80, 25);
+        panel.add(enterFileName);
 
-            enterFileName = new JLabel("Enter file name:");
-            enterFileName.setBounds(10,20, 80, 25);
-            csvPanel.add(enterFileName);
+        fileName = new JTextField(20);
+        fileName.setBounds(100, 20, 165, 25);
+        panel.add(fileName);
 
-            fileName = new JTextField(20);
-            fileName.setBounds(100, 20, 165, 25);
-            csvPanel.add(fileName);
-
-            csvFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class ChooseItemToEdit implements ActionListener, Runnable {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void ChooseItemToEdit() {
+        JLabel chooseItem;
+        JTextField item;
+        JLabel options;
+        JButton name;
+        JButton store;
+        JButton description;
+        JButton quantity;
+        JButton price;
+        JLabel change;
+        JTextField theChange;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel chooseItem;
-        private static JTextField item;
-        private static JLabel options;
-        private static JButton name;
-        private static JButton store;
-        private static JButton description;
-        private static JButton quantity;
-        private static JButton price;
-        private static JLabel change;
-        private static JTextField theChange;
-        @Override
-        public void run() {
-            JFrame editFrame = new JFrame();
-            JPanel editPanel = new JPanel();
-            editFrame.setSize(350, 200);
-            editFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            editFrame.add(editPanel);
+        chooseItem = new JLabel("Choose an item to edit:");
+        chooseItem.setBounds(10,20, 80, 25);
+        panel.add(chooseItem);
 
-            chooseItem = new JLabel("Choose an item to edit:");
-            chooseItem.setBounds(10,20, 80, 25);
-            editPanel.add(chooseItem);
+        item = new JTextField(20);
+        item.setBounds(100, 20, 165, 25);
+        panel.add(item);
 
-            item = new JTextField(20);
-            item.setBounds(100, 20, 165, 25);
-            editPanel.add(item);
+        options = new JLabel("What would you like to change?");
+        options.setBounds(10, 20, 80, 25);
+        panel.add(options);
 
-            options = new JLabel("What would you like to change?");
-            options.setBounds(10, 20, 80, 25);
-            editPanel.add(options);
+        name = new JButton("Name");
+        name.setBounds(10, 80, 80, 25);
+        panel.add(name);
 
-            name = new JButton("Name");
-            name.setBounds(10, 80, 80, 25);
-            editPanel.add(name);
-            name.addActionListener(new ChooseItemToEdit());
+        store = new JButton("Store");
+        store.setBounds(10, 80, 80, 25);
+        panel.add(store);
 
-            store = new JButton("Store");
-            store.setBounds(10, 80, 80, 25);
-            editPanel.add(store);
-            store.addActionListener(new ChooseItemToEdit());
+        description = new JButton("Description");
+        description.setBounds(10, 80, 80, 25);
+        panel.add(description);
 
-            description = new JButton("Description");
-            description.setBounds(10, 80, 80, 25);
-            editPanel.add(description);
-            description.addActionListener(new ChooseItemToEdit());
+        quantity = new JButton("Quantity");
+        quantity.setBounds(10, 80, 80, 25);
+        panel.add(quantity);
 
-            quantity = new JButton("Quantity");
-            quantity.setBounds(10, 80, 80, 25);
-            editPanel.add(quantity);
-            quantity.addActionListener(new ChooseItemToEdit());
+        price = new JButton("Price");
+        price.setBounds(10, 80, 80, 25);
+        panel.add(price);
 
-            price = new JButton("Price");
-            price.setBounds(10, 80, 80, 25);
-            editPanel.add(price);
-            price.addActionListener(new ChooseItemToEdit());
+        change = new JLabel("What would you like to change it to?");
+        change.setBounds(10,20, 80, 25);
+        panel.add(change);
 
-            change = new JLabel("What would you like to change it to?");
-            change.setBounds(10,20, 80, 25);
-            editPanel.add(change);
+        theChange = new JTextField(20);
+        theChange.setBounds(100, 20, 165, 25);
+        panel.add(theChange);
 
-            theChange = new JTextField(20);
-            theChange.setBounds(100, 20, 165, 25);
-            editPanel.add(theChange);
-
-            editFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class Remove implements ActionListener, Runnable { //(also need to print the cart)
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void Remove() { //(also need to print the cart)
+        JLabel chooseItem;
+        JTextField item;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel chooseItem;
-        private static JTextField item;
-        @Override
-        public void run() {
-            JFrame removeFrame = new JFrame();
-            JPanel removePanel = new JPanel();
-            removeFrame.setSize(350, 200);
-            removeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            removeFrame.add(removePanel);
+        chooseItem = new JLabel("Choose an item to remove:");
+        chooseItem.setBounds(10,20, 80, 25);
+        panel.add(chooseItem);
 
-            chooseItem = new JLabel("Choose an item to remove:");
-            chooseItem.setBounds(10,20, 80, 25);
-            removePanel.add(chooseItem);
+        item = new JTextField(20);
+        item.setBounds(100, 20, 165, 25);
+        panel.add(item);
 
-            item = new JTextField(20);
-            item.setBounds(100, 20, 165, 25);
-            removePanel.add(item);
-
-            removeFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class ViewStatistics implements ActionListener, Runnable {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void ViewStatistics() {
+        JLabel choose;
+        JButton allStats;
+        JButton specificStats;
+        JButton back;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel choose;
-        private static JButton allStats;
-        private static JButton specificStats;
-        private static JButton back;
-        @Override
-        public void run() {
-            JFrame statisticsFrame = new JFrame();
-            JPanel statisticsPanel = new JPanel();
-            statisticsFrame.setSize(350, 200);
-            statisticsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            statisticsFrame.add(statisticsPanel);
+        choose = new JLabel("Choose an option:");
+        choose.setBounds(10,20, 80, 25);
+        panel.add(choose);
 
-            choose = new JLabel("Choose an option:");
-            choose.setBounds(10,20, 80, 25);
-            statisticsPanel.add(choose);
+        allStats = new JButton("View all statistics");
+        allStats.setBounds(10, 80, 80, 25);
+        panel.add(allStats);
 
-            allStats = new JButton("View all statistics");
-            allStats.setBounds(10, 80, 80, 25);
-            statisticsPanel.add(allStats);
-            allStats.addActionListener(new ViewStatistics());
+        specificStats = new JButton("View specific statistics");
+        specificStats.setBounds(10, 80, 80, 25);
+        panel.add(specificStats);
 
-            specificStats = new JButton("View specific statistics");
-            specificStats.setBounds(10, 80, 80, 25);
-            statisticsPanel.add(specificStats);
-            specificStats.addActionListener(new ViewStatistics());
+        back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
 
-            back = new JButton("Back");
-            back.setBounds(10, 80, 80, 25);
-            statisticsPanel.add(back);
-            back.addActionListener(new ViewStatistics());
-
-            statisticsFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class SpecificStats implements ActionListener, Runnable {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void SpecificStats() {
+        JLabel byPriceOrQuantity;
+        JButton price;
+        JButton quantity;
+        JLabel ascendingOrDescending;
+        JButton ascending;
+        JButton descending;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel byPriceOrQuantity;
-        private static JButton price;
-        private JButton quantity;
-        private static JLabel ascendingOrDescending;
-        private static JButton ascending;
-        private static JButton descending;
-        @Override
-        public void run() {
-            JFrame specificFrame = new JFrame();
-            JPanel specificPanel = new JPanel();
-            specificFrame.setSize(350, 200);
-            specificFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            specificFrame.add(specificPanel);
+        byPriceOrQuantity = new JLabel("Sort specific statistics by price or quantity:");
+        byPriceOrQuantity.setBounds(10,20, 80, 25);
+        panel.add(byPriceOrQuantity);
 
-            byPriceOrQuantity = new JLabel("Sort specific statistics by price or quantity:");
-            byPriceOrQuantity.setBounds(10,20, 80, 25);
-            specificPanel.add(byPriceOrQuantity);
+        price = new JButton("Price");
+        price.setBounds(10, 80, 80, 25);
+        panel.add(price);
 
-            price = new JButton("Price");
-            price.setBounds(10, 80, 80, 25);
-            specificPanel.add(price);
-            price.addActionListener(new SpecificStats());
+        quantity = new JButton("Price");
+        quantity.setBounds(10, 80, 80, 25);
+        panel.add(quantity);
 
-            quantity = new JButton("Price");
-            quantity.setBounds(10, 80, 80, 25);
-            specificPanel.add(quantity);
-            quantity.addActionListener(new SpecificStats());
+        ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
+        ascendingOrDescending.setBounds(10,20, 80, 25);
+        panel.add(ascendingOrDescending);
 
-            ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
-            ascendingOrDescending.setBounds(10,20, 80, 25);
-            specificPanel.add(ascendingOrDescending);
+        ascending = new JButton("Ascending");
+        ascending.setBounds(10, 80, 80, 25);
+        panel.add(ascending);
 
-            ascending = new JButton("Ascending");
-            ascending.setBounds(10, 80, 80, 25);
-            specificPanel.add(ascending);
-            ascending.addActionListener(new SpecificStats());
+        descending = new JButton("Descending");
+        descending.setBounds(10, 80, 80, 25);
+        panel.add(descending);
 
-            descending = new JButton("Descending");
-            descending.setBounds(10, 80, 80, 25);
-            specificPanel.add(descending);
-            descending.addActionListener(new SpecificStats());
-
-            specificFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class HaveNoStores implements Runnable { //have no stores simple GUI
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null, "You have no stores!", "No stores",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+    public static void HaveNoStores() { //have no stores simple GUI
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel noStores = new JLabel("You have no stores!");
+        noStores.setBounds(10, 20, 80, 25);
+        panel.add(noStores);
+        frame.setVisible(true);
     }
-    static class EditOptions implements ActionListener, Runnable {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void EditOptions() {
+        JLabel choose;
+        JButton editEmail;
+        JButton editPassword;
+        JButton deleteAccount;
+        JButton back;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-        }
-        private static JLabel choose;
-        private static JButton editEmail;
-        private static JButton editPassword;
-        private static JButton deleteAccount;
-        private static JButton back;
-        @Override
-        public void run() {
-            JFrame editFrame = new JFrame();
-            JPanel editPanel = new JPanel();
-            editFrame.setSize(350, 200);
-            editFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            editFrame.add(editPanel);
+        choose = new JLabel("Choose an option:");
+        choose.setBounds(10,20, 80, 25);
+        panel.add(choose);
 
-            choose = new JLabel("Choose an option:");
-            choose.setBounds(10,20, 80, 25);
-            editPanel.add(choose);
+        editEmail = new JButton("Edit account email");
+        editEmail.setBounds(10, 80, 80, 25);
+        panel.add(editEmail);
 
-            editEmail = new JButton("Edit account email");
-            editEmail.setBounds(10, 80, 80, 25);
-            editPanel.add(editEmail);
-            editEmail.addActionListener(new EditOptions());
+        editPassword = new JButton("Edit account password");
+        editPassword.setBounds(10, 80, 80, 25);
+        panel.add(editPassword);
 
-            editPassword = new JButton("Edit account password");
-            editPassword.setBounds(10, 80, 80, 25);
-            editPanel.add(editPassword);
-            editPassword.addActionListener(new EditOptions());
+        deleteAccount = new JButton("Delete account");
+        deleteAccount.setBounds(10, 80, 80, 25);
+        panel.add(deleteAccount);
 
-            deleteAccount = new JButton("Delete account");
-            deleteAccount.setBounds(10, 80, 80, 25);
-            editPanel.add(deleteAccount);
-            deleteAccount.addActionListener(new EditOptions());
+        back = new JButton("Delete account");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
 
-            back = new JButton("Delete account");
-            back.setBounds(10, 80, 80, 25);
-            editPanel.add(back);
-            back.addActionListener(new EditOptions());
-
-            editFrame.setVisible(true);
-        }
+        frame.setVisible(true);
     }
-    static class SellerNewEmail implements ActionListener, Runnable { //new email simple GUI
-        private static JLabel enterEmail;
-        private static JTextField emailText;
+    public static void SellerNewEmail() { //new email simple GUI
+        JLabel enterEmail;
+        JTextField emailText;
 
-        @Override
-        public void run() {
-            JFrame newSellerEmailFrame = new JFrame();
-            JPanel newSellerEmailPanel = new JPanel();
-            newSellerEmailFrame.setSize(350, 200);
-            newSellerEmailFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newSellerEmailFrame.add(newSellerEmailPanel);
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            enterEmail = new JLabel("Please enter a new email address for your account:");
-            enterEmail.setBounds(10,20, 80, 25);
-            newSellerEmailPanel.add(enterEmail);
+        enterEmail = new JLabel("Please enter a new email address for your account:");
+        enterEmail.setBounds(10,20, 80, 25);
+        panel.add(enterEmail);
 
-            emailText = new JTextField(20);
-            emailText.setBounds(100, 20, 165, 25);
-            newSellerEmailPanel.add(emailText);
+        emailText = new JTextField(20);
+        emailText.setBounds(100, 20, 165, 25);
+        panel.add(emailText);
 
-            newSellerEmailFrame.setVisible(true);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class SellerConfirmEmail implements ActionListener, Runnable { //confirm simple GUI
-        private static JLabel editSellerEmail;
-        private static JButton yes;
-        private static JButton no;
-        @Override
-        public void run() {
-            JFrame confirmSellerEmailFrame = new JFrame();
-            JPanel confirmSellerEmailPanel = new JPanel();
-            confirmSellerEmailFrame.setSize(350, 200);
-            confirmSellerEmailFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            confirmSellerEmailFrame.add(confirmSellerEmailPanel);
+    public static void SellerConfirmEmail() { //confirm simple GUI
+        JLabel editSellerEmail;
+        JButton yes;
+        JButton no;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            editSellerEmail = new JLabel("Are you sure you would like to edit your email?  Choose yes or no:");
-            editSellerEmail.setBounds(10,20, 80, 25);
-            confirmSellerEmailPanel.add(editSellerEmail);
+        editSellerEmail = new JLabel("Are you sure you would like to edit your email?  Choose yes or no:");
+        editSellerEmail.setBounds(10,20, 80, 25);
+        panel.add(editSellerEmail);
 
-            yes = new JButton("Yes");
-            yes.setBounds(10, 80, 80, 25);
-            confirmSellerEmailFrame.add(yes);
-            yes.addActionListener(new SellerConfirmEmail());
+        yes = new JButton("Yes");
+        yes.setBounds(10, 80, 80, 25);
+        panel.add(yes);
 
-            no = new JButton("No");
-            no.setBounds(10, 80, 80, 25);
-            confirmSellerEmailPanel.add(no);
-            no.addActionListener(new SellerConfirmEmail());
+        no = new JButton("No");
+        no.setBounds(10, 80, 80, 25);
+        panel.add(no);
 
-            confirmSellerEmailFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class SellerNewPassword implements ActionListener, Runnable { //new password simple GUI
-        private static JLabel enterPassword;
-        private static JTextField passwordText;
+    public static void SellerNewPassword() { //new password simple GUI
+        JLabel enterPassword;
+        JTextField passwordText;
 
-        @Override
-        public void run() {
-            JFrame newSellerPasswordFrame = new JFrame();
-            JPanel newSellerPasswordPanel = new JPanel();
-            newSellerPasswordFrame.setSize(350, 200);
-            newSellerPasswordFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newSellerPasswordFrame.add(newSellerPasswordPanel);
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            enterPassword = new JLabel("Please enter a new password for your account:");
-            enterPassword.setBounds(10,20, 80, 25);
-            newSellerPasswordPanel.add(enterPassword);
+        enterPassword = new JLabel("Please enter a new password for your account:");
+        enterPassword.setBounds(10,20, 80, 25);
+        panel.add(enterPassword);
 
-            passwordText = new JTextField(20);
-            passwordText.setBounds(100, 20, 165, 25);
-            newSellerPasswordPanel.add(passwordText);
+        passwordText = new JTextField(20);
+        passwordText.setBounds(100, 20, 165, 25);
+        panel.add(passwordText);
 
-            newSellerPasswordFrame.setVisible(true);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class SellerConfirmPassword implements ActionListener, Runnable { //confirm simple GUI
-        private static JLabel areYouSure;
-        private static JButton yes;
-        private static JButton no;
-        @Override
-        public void run() {
-            JFrame confirmSellerPasswordFrame = new JFrame();
-            JPanel confirmSellerPasswordPanel = new JPanel();
-            confirmSellerPasswordFrame.setSize(350, 200);
-            confirmSellerPasswordFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            confirmSellerPasswordFrame.add(confirmSellerPasswordPanel);
+    public static void SellerConfirmPassword() { //confirm simple GUI
+        JLabel areYouSure;
+        JButton yes;
+        JButton no;
+        
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
 
-            areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
-            areYouSure.setBounds(10,20, 80, 25);
-            confirmSellerPasswordPanel.add(areYouSure);
+        areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
+        areYouSure.setBounds(10,20, 80, 25);
+        panel.add(areYouSure);
 
-            yes = new JButton("Yes");
-            yes.setBounds(10, 80, 80, 25);
-            confirmSellerPasswordPanel.add(yes);
-            yes.addActionListener(new SellerConfirmPassword());
+        yes = new JButton("Yes");
+        yes.setBounds(10, 80, 80, 25);
+        panel.add(yes);
 
-            no = new JButton("No");
-            no.setBounds(10, 80, 80, 25);
-            confirmSellerPasswordPanel.add(no);
-            no.addActionListener(new SellerConfirmPassword());
+        no = new JButton("No");
+        no.setBounds(10, 80, 80, 25);
+        panel.add(no);
 
-            confirmSellerPasswordFrame.setVisible(true);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        frame.setVisible(true);
     }
-    static class LogoutSeller implements Runnable { //logout simple GUI
+    public static void LogoutSeller() { //logout simple GUI
         //if the buyer chooses the log out option
-        @Override
-        public void run() {
-            JOptionPane.showMessageDialog(null, "Goodbye!",
-                    "Farewell", JOptionPane.INFORMATION_MESSAGE);
-        }
+        frame = new JFrame();
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        
+        JLabel goodbye = new JLabel("Goodbye!");
+        goodbye.setBounds(10, 20, 80, 25);
+        panel.add(goodbye);
+        frame.setVisible(true);
     }
 }
