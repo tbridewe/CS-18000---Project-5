@@ -1,4 +1,4 @@
-//I made all of the static classes into complex GUIs; I will add the ActionListeners soon
+//I am working on filling in the Action Listeners and then I will add logout and back buttons
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 public class GUI {
     static JFrame frame;
     public static void ShowWelcome() {
+        //this GUI is a welcome message before the welcome menu and is shown when a user logs out
         JLabel welcome;
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -20,9 +21,20 @@ public class GUI {
         welcome = new JLabel("Welcome");
         welcome.setBounds(10, 20, 80, 25);
         panel.add(welcome);
+
+        JButton welcomMenu = new JButton("Menu");
+        welcomMenu.setBounds(10, 80, 80, 25);
+        panel.add(welcomMenu);
+        welcomMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                WelcomeMenuGUI();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void WelcomeMenuGUI() {
+    public static void WelcomeMenuGUI() { //this GUI gives a user an option to login, create an account, or log out
         JButton login;
         JButton createAccount;
         JButton quit;
@@ -77,13 +89,16 @@ public class GUI {
         });
     }
     public static void LoginGui() {
+        //if the user chooses to login in the welcome menu, this GUI allows them to log in
+        //by selecting a user type and password
+        //and then attempting to log in by using the log in button
         JLabel userLabel;
         JTextField userText;
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton loginButton;
         JLabel success;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -124,7 +139,7 @@ public class GUI {
         success.setBounds(10, 110, 300, 25);
         loginPanel.add(success);
         frame.setVisible(true);
-        
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -190,7 +205,7 @@ public class GUI {
     //shown if the email submitted in the login menu is invalid
     public static void enterValidEmailAddress() { //enter a valid email address simple GUI
         JLabel enterValidEmail;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -200,13 +215,13 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         enterValidEmail = new JLabel("Please enter a valid email address");
         enterValidEmail.setBounds(10, 20, 80, 25);
         panel.add(enterValidEmail);
         frame.setVisible(true);
     }
-    public static void IncorrectCredentials() { //incorrect credentials simple GUI
+    public static void IncorrectCredentials() { //incorrect credentials GUI
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -216,8 +231,9 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
-        JLabel incorrectLoginCredentials = new JLabel("Incorrect login credentials or account does not exist, please try again.");
+
+        JLabel incorrectLoginCredentials = new JLabel
+                ("Incorrect login credentials or account does not exist, please try again.");
         incorrectLoginCredentials.setBounds(10, 20, 80, 25);
         panel.add(incorrectLoginCredentials);
         frame.setVisible(true);
@@ -228,7 +244,7 @@ public class GUI {
         JButton createNewAccount;
         JButton reAttemptLogin;
         JButton back;
-        
+
         frame = new JFrame();
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -252,18 +268,36 @@ public class GUI {
         createNewAccount = new JButton("Create new account");
         createNewAccount.setBounds(10, 80, 80, 25);
         createPanel.add(createNewAccount);
+        createNewAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         reAttemptLogin = new JButton("Re-attempt login");
         reAttemptLogin.setBounds(10, 80, 80, 25);
         createPanel.add(reAttemptLogin);
+        reAttemptLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         createPanel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void LoginSuccessful() { //login successful simple GUI
+    public static void LoginSuccessful() { //login successful GUI
         //shown if the login is successful
         JLabel loginSuccessful;
         frame = new JFrame();
@@ -288,7 +322,7 @@ public class GUI {
         JButton editAccount;
         JButton logOut;
         JLabel buyerOptions;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -305,33 +339,69 @@ public class GUI {
         chooseItem = new JButton("Choose an item");
         chooseItem.setBounds(10, 80, 80, 25);
         panel.add(chooseItem);
+        chooseItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         search = new JButton("Search");
         search.setBounds(10, 80, 80, 25);
         panel.add(search);
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         sort = new JButton("Sort");
         sort.setBounds(10, 80, 80, 25);
         panel.add(sort);
+        sort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         viewCart = new JButton("View cart");
         viewCart.setBounds(10, 80, 80, 25);
         panel.add(viewCart);
+        viewCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         editAccount = new JButton("Edit account");
         editAccount.setBounds(10, 80, 80, 25);
         panel.add(editAccount);
+        editAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         logOut = new JButton("Log out");
         logOut.setBounds(10, 80, 80, 25);
         panel.add(logOut);
+        logOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
     public static void SearchByKeyword() {
         JTextField searchBar;
         JLabel searchBarLabel;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -355,7 +425,7 @@ public class GUI {
     public static void SearchBar() { //***make complex GUI
         JLabel search;
         JTextField searchBar;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -381,7 +451,7 @@ public class GUI {
         JTextField item;
         JLabel number;
         JTextField quantity;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -414,7 +484,7 @@ public class GUI {
         JLabel cancelQuestion;
         JButton cancel;
         JButton approve;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -432,14 +502,26 @@ public class GUI {
         cancel = new JButton("Cancel");
         cancel.setBounds(10, 80, 80, 25);
         panel.add(cancel);
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         approve = new JButton("Don't cancel");
         approve.setBounds(10, 80, 80, 25);
         panel.add(approve);
+        approve.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void PurchaseCancelled() { //purchase cancelled simple GUI
+    public static void PurchaseCancelled() { //purchase cancelled GUI
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -450,13 +532,13 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel purchaseCancelled = new JLabel("Purchase cancelled");
         purchaseCancelled.setBounds(10, 20, 80, 25);
         panel.add(purchaseCancelled);
         frame.setVisible(true);
     }
-    public static void AddedToCart() { //added to cart simple GUI
+    public static void AddedToCart() { //added to cart GUI
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -466,14 +548,14 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         //%dx %s!\n", quantity, selectedItem.getName() //add info about quantity and selected item
         JLabel addedToCart = new JLabel("Added to cart");
         addedToCart.setBounds(10, 20, 80, 25);
         panel.add(addedToCart);
         frame.setVisible(true);
     }
-    public static void InvalidQuantityException() { //invalid quantity exception simple GUI
+    public static void InvalidQuantityException() { //invalid quantity exception GUI
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -483,7 +565,7 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel invalidQuantity = new JLabel("Invalid Quantity");
         invalidQuantity.setBounds(10, 20, 80, 25);
         panel.add(invalidQuantity);
@@ -496,7 +578,7 @@ public class GUI {
         JLabel ascendingOrDescending;
         JButton ascending;
         JButton descending;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -514,10 +596,22 @@ public class GUI {
         price = new JButton("Price");
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
+        price.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         quantity = new JButton("Quantity");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
+        quantity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
         ascendingOrDescending.setBounds(10,20, 80, 25);
@@ -526,10 +620,22 @@ public class GUI {
         ascending = new JButton("Ascending");
         ascending.setBounds(10, 80, 80, 25);
         panel.add(ascending);
+        ascending.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         descending = new JButton("Descending");
         descending.setBounds(10, 80, 80, 25);
         panel.add(descending);
+        descending.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -539,7 +645,7 @@ public class GUI {
         JButton view;
         JButton remove;
         JButton back;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -557,22 +663,46 @@ public class GUI {
         checkout = new JButton("Checkout");
         checkout.setBounds(10, 80, 80, 25);
         panel.add(checkout);
+        checkout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         view = new JButton("View Purchase History");
         view.setBounds(10, 80, 80, 25);
         panel.add(view);
+        view.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         remove = new JButton("Remove Item");
         remove.setBounds(10, 80, 80, 25);
         panel.add(remove);
+        remove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void CheckoutComplete() { //checkout complete simple GUI
+    public static void CheckoutComplete() { //checkout complete GUI
         //if the buyer chooses to checkout and checks out successfully
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -583,7 +713,7 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel checkoutComplete = new JLabel("Checkout complete!");
         checkoutComplete.setBounds(10, 20, 80, 25);
         panel.add(checkoutComplete);
@@ -593,7 +723,7 @@ public class GUI {
         JLabel export;
         JButton yes;
         JButton no;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -611,17 +741,29 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
+        yes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
+        no.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void EnterNameOfFile() { //enter name of file simple GUI
+    public static void EnterNameOfFile() { //enter name of file GUI
         JLabel nameFile;
         JTextField file;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -642,7 +784,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void PurchaseHistoryExported() { //purchase history successfully exported simple GUI
+    public static void PurchaseHistoryExported() { //purchase history successfully exported GUI
         //message shown if the buyer successfully saves purchase history to file
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -653,7 +795,7 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel exportSuccess = new JLabel("Purchase history successfully exported to file!");
         exportSuccess.setBounds(10, 20, 80, 25);
         panel.add(exportSuccess);
@@ -664,7 +806,7 @@ public class GUI {
         JTextField item;
         JLabel number;
         JTextField quantity;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -699,7 +841,7 @@ public class GUI {
         JButton editPassword;
         JButton delete;
         JButton back;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -717,22 +859,46 @@ public class GUI {
         editEmail = new JButton("Edit Account Email");
         editEmail.setBounds(10, 80, 80, 25);
         panel.add(editEmail);
+        editEmail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         editPassword = new JButton("Edit Account Password");
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
+        editPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         delete = new JButton("Delete Account");
         delete.setBounds(10, 80, 80, 25);
         panel.add(delete);
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void NewEmail() { //new email simple GUI
+    public static void NewEmail() { //new email GUI
         JLabel enterEmail;
         JTextField emailText;
 
@@ -760,7 +926,7 @@ public class GUI {
         JLabel editEmail;
         JButton yes;
         JButton no;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -778,10 +944,22 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
+        yes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
+        no.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -813,7 +991,7 @@ public class GUI {
         JLabel areYouSure;
         JButton yes;
         JButton no;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -831,10 +1009,22 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
+        yes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
+        no.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -849,7 +1039,7 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel farewell = new JLabel("Goodbye!");
         farewell.setBounds(10, 20, 80, 25);
         panel.add(farewell);
@@ -861,7 +1051,7 @@ public class GUI {
         JButton viewStatistics;
         JButton editAccount;
         JButton logOut;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -879,18 +1069,42 @@ public class GUI {
         viewListings = new JButton("View listings");
         viewListings.setBounds(10, 80, 80, 25);
         panel.add(viewListings);
+        viewListings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         viewStatistics = new JButton("View statistics");
         viewStatistics.setBounds(10, 80, 80, 25);
         panel.add(viewStatistics);
+        viewStatistics.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         editAccount = new JButton("Edit account");
         editAccount.setBounds(10, 80, 80, 25);
         panel.add(editAccount);
+        editAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         logOut = new JButton("Log out");
         logOut.setBounds(10, 80, 80, 25);
         panel.add(logOut);
+        logOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -900,7 +1114,7 @@ public class GUI {
         JButton edit;
         JButton delete;
         JButton back;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -918,25 +1132,49 @@ public class GUI {
         add = new JButton("Add");
         add.setBounds(10, 80, 80, 25);
         panel.add(add);
+        add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         edit = new JButton("Edit");
         edit.setBounds(10, 80, 80, 25);
         panel.add(edit);
+        edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         delete = new JButton("Delete");
         delete.setBounds(10, 80, 80, 25);
         panel.add(delete);
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
     public static void AddOptions() {
         JButton add;
         JButton csv;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -950,10 +1188,22 @@ public class GUI {
         add = new JButton("Add item");
         add.setBounds(10, 80, 80, 25);
         panel.add(add);
+        add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         csv = new JButton("Add from CSV");
         csv.setBounds(10, 80, 80, 25);
         panel.add(csv);
+        csv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -968,7 +1218,7 @@ public class GUI {
         JTextField quantity;
         JLabel enterPrice;
         JTextField price;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1024,7 +1274,7 @@ public class GUI {
     public static void AddFromCSV() {
         JLabel enterFileName;
         JTextField fileName;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1056,7 +1306,7 @@ public class GUI {
         JButton price;
         JLabel change;
         JTextField theChange;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1082,22 +1332,52 @@ public class GUI {
         name = new JButton("Name");
         name.setBounds(10, 80, 80, 25);
         panel.add(name);
+        name.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         store = new JButton("Store");
         store.setBounds(10, 80, 80, 25);
         panel.add(store);
+        store.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         description = new JButton("Description");
         description.setBounds(10, 80, 80, 25);
         panel.add(description);
+        description.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         quantity = new JButton("Quantity");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
+        quantity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         price = new JButton("Price");
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
+        price.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         change = new JLabel("What would you like to change it to?");
         change.setBounds(10,20, 80, 25);
@@ -1112,7 +1392,7 @@ public class GUI {
     public static void Remove() { //(also need to print the cart)
         JLabel chooseItem;
         JTextField item;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1138,7 +1418,7 @@ public class GUI {
         JButton allStats;
         JButton specificStats;
         JButton back;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1156,14 +1436,32 @@ public class GUI {
         allStats = new JButton("View all statistics");
         allStats.setBounds(10, 80, 80, 25);
         panel.add(allStats);
+        allStats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         specificStats = new JButton("View specific statistics");
         specificStats.setBounds(10, 80, 80, 25);
         panel.add(specificStats);
+        specificStats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1174,7 +1472,7 @@ public class GUI {
         JLabel ascendingOrDescending;
         JButton ascending;
         JButton descending;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1192,10 +1490,22 @@ public class GUI {
         price = new JButton("Price");
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
+        price.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         quantity = new JButton("Price");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
+        quantity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
         ascendingOrDescending.setBounds(10,20, 80, 25);
@@ -1204,10 +1514,22 @@ public class GUI {
         ascending = new JButton("Ascending");
         ascending.setBounds(10, 80, 80, 25);
         panel.add(ascending);
+        ascending.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         descending = new JButton("Descending");
         descending.setBounds(10, 80, 80, 25);
         panel.add(descending);
+        descending.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1221,7 +1543,7 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel noStores = new JLabel("You have no stores!");
         noStores.setBounds(10, 20, 80, 25);
         panel.add(noStores);
@@ -1233,7 +1555,7 @@ public class GUI {
         JButton editPassword;
         JButton deleteAccount;
         JButton back;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1251,18 +1573,42 @@ public class GUI {
         editEmail = new JButton("Edit account email");
         editEmail.setBounds(10, 80, 80, 25);
         panel.add(editEmail);
+        editEmail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         editPassword = new JButton("Edit account password");
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
+        editPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         deleteAccount = new JButton("Delete account");
         deleteAccount.setBounds(10, 80, 80, 25);
         panel.add(deleteAccount);
+        deleteAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         back = new JButton("Delete account");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1294,7 +1640,7 @@ public class GUI {
         JLabel editSellerEmail;
         JButton yes;
         JButton no;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1312,10 +1658,22 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
+        yes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
+        no.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1347,7 +1705,7 @@ public class GUI {
         JLabel areYouSure;
         JButton yes;
         JButton no;
-        
+
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1365,10 +1723,22 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
+        yes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
+        no.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1383,7 +1753,7 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        
+
         JLabel goodbye = new JLabel("Goodbye!");
         goodbye.setBounds(10, 20, 80, 25);
         panel.add(goodbye);
