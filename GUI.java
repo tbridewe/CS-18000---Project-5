@@ -5,7 +5,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * GUI
+ * 
+ * Methods for displaying complex GUIs. 
+ * @version 2023-4-24
+ * @author Amber Voigtschild
+ */
 public class GUI {
     static JFrame frame;
     public static void ShowWelcome() {
