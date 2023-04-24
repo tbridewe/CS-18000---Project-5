@@ -1,4 +1,5 @@
-//I am working on filling in the Action Listeners and then I will add logout and back buttons
+//I added most of the ActionListeners and added logout buttons to every GUI
+// I am working on back buttons and the rest of the ActionListeners
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class GUI {
         welcomMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 WelcomeMenuGUI();
             }
         });
@@ -87,8 +89,17 @@ public class GUI {
                 ShowWelcome();
             }
         });
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
     }
-    public static void LoginGui() {
+    public static void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
         //and then attempting to log in by using the log in button
@@ -140,14 +151,33 @@ public class GUI {
         loginPanel.add(success);
         frame.setVisible(true);
 
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
+                    String user = userText.getText();
+                    String password = new String(passwordText.getPassword());
+                } else if ((!User.isValidEmail(userText.getText())) {
+                    EnterValidEmailAddress();
+                } else if (!User.accountExists(userText.getText())) {
+                    IncorrectCredentials();
+                }
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
     }
-    public static void NewAccountGUI() {
+    public static void NewAccountGUI() { //this GUI allows the user to create a new account
+        // after selecting that option in the welcome menu
         JLabel userLabel;
         JTextField userText;
         JLabel passwordLabel;
@@ -187,24 +217,35 @@ public class GUI {
         makeNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginSuccessful();
+                if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
+                    String user = userText.getText();
+                    String password = new String(passwordText.getPassword());
+                    LoginSuccessful();
+                } else if ((!User.isValidEmail(userText.getText())) {
+                    EnterValidEmailAddress();
+                }
             }
         });
+
         success = new JLabel("");
         success.setBounds(10, 110, 300, 25);
         newAccountPanel.add(success);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
-        //public void actionPerformed(ActionEvent e) {
-            //String user = userText.getText();
-            //String password = new String(passwordText.getPassword());
-            //if (e.getSource() == makeNewAccount)  {
-                //new GUI.LoginSuccessful();
-            //}
-        //}
-    //shown if the email submitted in the login menu is invalid
-    public static void enterValidEmailAddress() { //enter a valid email address simple GUI
+    public static void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
         JLabel enterValidEmail;
+        JButton back;
 
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -219,9 +260,31 @@ public class GUI {
         enterValidEmail = new JLabel("Please enter a valid email address");
         enterValidEmail.setBounds(10, 20, 80, 25);
         panel.add(enterValidEmail);
+
+        back = new JButton("Back");
+        back.setBounds(10, 20, 80, 25);
+        panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginGui();
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void IncorrectCredentials() { //incorrect credentials GUI
+    public static void IncorrectCredentials() {
+        //shown if there is nt an account associated with the email and password submitted in the login menu
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -236,6 +299,27 @@ public class GUI {
                 ("Incorrect login credentials or account does not exist, please try again.");
         incorrectLoginCredentials.setBounds(10, 20, 80, 25);
         panel.add(incorrectLoginCredentials);
+
+        JButton tryAgain = new JButton("Try again");
+        tryAgain.setBounds(10, 20, 80, 25);
+        panel.add(tryAgain);
+        tryAgain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateOptions();
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
     public static void CreateOptions() {
@@ -271,7 +355,7 @@ public class GUI {
         createNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                NewAccountGUI();
             }
         });
 
@@ -281,7 +365,7 @@ public class GUI {
         reAttemptLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                LoginGui();
             }
         });
 
@@ -291,13 +375,23 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LoginGui();
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
         frame.setVisible(true);
     }
-    public static void LoginSuccessful() { //login successful GUI
+    public static void LoginSuccessful() { 
         //shown if the login is successful
         JLabel loginSuccessful;
         frame = new JFrame();
@@ -312,9 +406,20 @@ public class GUI {
         loginSuccessful = new JLabel("Login successful");
         frame.setBounds(10, 20, 80, 25);
         panel.add(loginSuccessful);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
-    public static void BuyerMenuGui() { //buyer menu complex GUI
+    public static void BuyerMenuGui() { 
         JButton chooseItem;
         JButton search;
         JButton sort;
@@ -342,7 +447,7 @@ public class GUI {
         chooseItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SelectItem();
             }
         });
 
@@ -352,7 +457,7 @@ public class GUI {
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SearchByKeywordOrNot();
             }
         });
 
@@ -362,7 +467,7 @@ public class GUI {
         sort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SortingItems();
             }
         });
 
@@ -372,7 +477,7 @@ public class GUI {
         viewCart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //should allow the buyer to view the cart                                                                        ****
             }
         });
 
@@ -382,7 +487,7 @@ public class GUI {
         editAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //should allow the buyer to edit account                                                                     ****
             }
         });
 
@@ -392,15 +497,25 @@ public class GUI {
         logOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
         frame.setVisible(true);
     }
-    public static void SearchByKeyword() {
-        JTextField searchBar;
-        JLabel searchBarLabel;
+    public static void SearchByKeywordOrNot() {
+        JButton searchByKeyword;
+        JButton back;
 
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -412,17 +527,39 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        searchBarLabel = new JLabel("Enter a keyword:");
-        searchBarLabel.setBounds(10,20, 80, 25);
-        panel.add(searchBarLabel);
+        searchByKeyword = new JButton("Search by Keyword");
+        searchByKeyword.setBounds(10, 80, 80, 25);
+        panel.add(searchByKeyword);
+        searchByKeyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchBar();
+            }
+        });
 
-        searchBar = new JTextField(20);
-        searchBar.setBounds(100, 20, 165, 25);
-        panel.add(searchBar);
+        back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BuyerMenuGui();
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void SearchBar() { //***make complex GUI
+    public static void SearchBar() {
         JLabel search;
         JTextField searchBar;
 
@@ -444,9 +581,23 @@ public class GUI {
         searchBar.setBounds(100, 20, 165, 25);
         panel.add(searchBar);
 
+        String keyword = new String(searchBar.getKeyword());
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
     public static void SelectItem() {
+        //should print out all of the available items                                                                   ******
+        //and make them easier to select
         JLabel select;
         JTextField item;
         JLabel number;
@@ -477,6 +628,21 @@ public class GUI {
         quantity = new JTextField(20);
         quantity.setBounds(100, 20, 165, 25);
         panel.add(quantity);
+        if (Integer.valueOf(quantity.getName()) >= 0) {
+            int theQuantity = Integer.valueOf(quantity.getName());
+        } else {
+            InvalidQuantityException();
+        }
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -505,7 +671,7 @@ public class GUI {
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                PurchaseCancelled();
             }
         });
 
@@ -515,13 +681,23 @@ public class GUI {
         approve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AddedToCart();
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
         frame.setVisible(true);
     }
-    public static void PurchaseCancelled() { //purchase cancelled GUI
+    public static void PurchaseCancelled() { 
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -536,9 +712,20 @@ public class GUI {
         JLabel purchaseCancelled = new JLabel("Purchase cancelled");
         purchaseCancelled.setBounds(10, 20, 80, 25);
         panel.add(purchaseCancelled);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
-    public static void AddedToCart() { //added to cart GUI
+    public static void AddedToCart() { 
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -553,9 +740,20 @@ public class GUI {
         JLabel addedToCart = new JLabel("Added to cart");
         addedToCart.setBounds(10, 20, 80, 25);
         panel.add(addedToCart);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
-    public static void InvalidQuantityException() { //invalid quantity exception GUI
+    public static void InvalidQuantityException() { 
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -569,6 +767,27 @@ public class GUI {
         JLabel invalidQuantity = new JLabel("Invalid Quantity");
         invalidQuantity.setBounds(10, 20, 80, 25);
         panel.add(invalidQuantity);
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SelectItem();
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
     public static void SortingItems() {
@@ -599,7 +818,7 @@ public class GUI {
         price.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                                                                                                //should allow the buyer to sort items by price                                                             ******
             }
         });
 
@@ -609,7 +828,7 @@ public class GUI {
         quantity.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                                                                                 //should allow the buyer to sort items by quantity                                                             ******
             }
         });
 
@@ -623,7 +842,7 @@ public class GUI {
         ascending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                                                                                        //should allow the buyer to sort items ascending                                                             ******
             }
         });
 
@@ -633,7 +852,17 @@ public class GUI {
         descending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                                                                                    //should allow the buyer to sort items descending                                                             ******
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
@@ -666,7 +895,7 @@ public class GUI {
         checkout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CheckoutComplete();
             }
         });
 
@@ -676,7 +905,7 @@ public class GUI {
         view.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //should allow the buyer to view purchase history                                                               ***
             }
         });
 
@@ -686,7 +915,7 @@ public class GUI {
         remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                RemoveItem();                                                                    ***
             }
         });
 
@@ -696,14 +925,23 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                BuyerMenuGui();
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
         frame.setVisible(true);
     }
-    public static void CheckoutComplete() { //checkout complete GUI
-        //if the buyer chooses to checkout and checks out successfully
+    public static void CheckoutComplete() { //if the buyer chooses to checkout and checks out successfully
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -717,6 +955,17 @@ public class GUI {
         JLabel checkoutComplete = new JLabel("Checkout complete!");
         checkoutComplete.setBounds(10, 20, 80, 25);
         panel.add(checkoutComplete);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
     public static void ExportPurchaseHistory() {
@@ -744,7 +993,7 @@ public class GUI {
         yes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EnterNameOfFile();
             }
         });
 
@@ -754,13 +1003,23 @@ public class GUI {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //should show the last GUI                                                                                  ***
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
         frame.setVisible(true);
     }
-    public static void EnterNameOfFile() { //enter name of file GUI
+    public static void EnterNameOfFile() { 
         JLabel nameFile;
         JTextField file;
 
@@ -781,10 +1040,20 @@ public class GUI {
         file = new JTextField(20);
         file.setBounds(100, 20, 165, 25);
         panel.add(file);
-
+                                                                                //should assign the name of the file entered to a variable                                                          ***
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
-    public static void PurchaseHistoryExported() { //purchase history successfully exported GUI
+    public static void PurchaseHistoryExported() { 
         //message shown if the buyer successfully saves purchase history to file
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -799,9 +1068,21 @@ public class GUI {
         JLabel exportSuccess = new JLabel("Purchase history successfully exported to file!");
         exportSuccess.setBounds(10, 20, 80, 25);
         panel.add(exportSuccess);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
     public static void RemoveItem() {
+        //should print out all items in the cart so the buyer can select one                                                ***
         JLabel select;
         JTextField item;
         JLabel number;
@@ -820,6 +1101,7 @@ public class GUI {
         select = new JLabel("Enter an item to remove from cart:");
         select.setBounds(10,20, 80, 25);
         panel.add(select);
+        //should save the item as a variable                                                                                ***
 
         item = new JTextField(20);
         item.setBounds(100, 20, 165, 25);
@@ -828,10 +1110,21 @@ public class GUI {
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
         panel.add(number);
+        //should save the number as a variable                                                                              ***
 
         quantity = new JTextField(20);
         quantity.setBounds(100, 20, 165, 25);
         panel.add(quantity);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -862,17 +1155,17 @@ public class GUI {
         editEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                NewEmail();
             }
         });
 
-        editPassword = new JButton("Edit Account Password");
+        editPassword = new JButton("Edit Account Password");                                                            //what is a valid password?
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
         editPassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String password = new String(passwordText.getPassword());
             }
         });
 
@@ -896,9 +1189,20 @@ public class GUI {
             }
         });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void NewEmail() { //new email GUI
+    static String emailTextString;
+    public static void NewEmail() { 
         JLabel enterEmail;
         JTextField emailText;
 
@@ -919,10 +1223,30 @@ public class GUI {
         emailText = new JTextField(20);
         emailText.setBounds(100, 20, 165, 25);
         panel.add(emailText);
+        emailTextString = emailText.getText();
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfirmEmail();
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void ConfirmEmail() { //confirm simple GUI
+    public static void ConfirmEmail() { 
         JLabel editEmail;
         JButton yes;
         JButton no;
@@ -947,7 +1271,13 @@ public class GUI {
         yes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if ((User.isValidEmail(emailTextString) && 
+                        (User.accountExists(NewEmail().emailText.getText()))) {
+                    String user = emailTextString;
+                    LoginSuccessful();
+                } else if ((!User.isValidEmail(emailTextString) {
+                    EnterValidEmailAddress();
+                }
             }
         });
 
@@ -957,12 +1287,23 @@ public class GUI {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                NewEmail();
             }
         });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
+    static String passwordTextString;
     public static void NewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
@@ -984,10 +1325,30 @@ public class GUI {
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
         panel.add(passwordText);
+        passwordTextString = passwordText.getText();
+
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfirmPassword();
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
-    public static void ConfirmPassword() { //confirm simple GUI //***make complex GUI
+    public static void ConfirmPassword() { 
         JLabel areYouSure;
         JButton yes;
         JButton no;
@@ -1012,7 +1373,7 @@ public class GUI {
         yes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String password = passwordTextString;
             }
         });
 
@@ -1022,27 +1383,20 @@ public class GUI {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                NewPassword();
             }
         });
 
-        frame.setVisible(true);
-    }
-    public static void Logout() { //logout simple GUI
-        //if the buyer chooses the log out option
-        frame = new JFrame();
-        frame.getContentPane().removeAll();
-        frame.revalidate();
-        frame.repaint();
-        JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
-        frame.setSize(350, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
-        JLabel farewell = new JLabel("Goodbye!");
-        farewell.setBounds(10, 20, 80, 25);
-        panel.add(farewell);
         frame.setVisible(true);
     }
     public static void SellerMenu() {
@@ -1072,7 +1426,7 @@ public class GUI {
         viewListings.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ListingsMenu();
             }
         });
 
@@ -1082,7 +1436,7 @@ public class GUI {
         viewStatistics.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ViewStatistics();
             }
         });
 
@@ -1092,7 +1446,7 @@ public class GUI {
         editAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EditOptions();
             }
         });
 
@@ -1103,6 +1457,16 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
@@ -1135,7 +1499,7 @@ public class GUI {
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AddOptions();
             }
         });
 
@@ -1145,7 +1509,7 @@ public class GUI {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ChooseItemToEdit();
             }
         });
 
@@ -1155,7 +1519,7 @@ public class GUI {
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Remove();
             }
         });
 
@@ -1166,6 +1530,16 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
@@ -1191,7 +1565,7 @@ public class GUI {
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AddItem();
             }
         });
 
@@ -1201,7 +1575,17 @@ public class GUI {
         csv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AddFromCSV();
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
@@ -1269,6 +1653,16 @@ public class GUI {
         price.setBounds(100, 20, 165, 25);
         panel.add(price);
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
     public static void AddFromCSV() {
@@ -1292,6 +1686,16 @@ public class GUI {
         fileName = new JTextField(20);
         fileName.setBounds(100, 20, 165, 25);
         panel.add(fileName);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1387,9 +1791,19 @@ public class GUI {
         theChange.setBounds(100, 20, 165, 25);
         panel.add(theChange);
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void Remove() { //(also need to print the cart)
+    public static void Remove() {                                                               //(also need to print the cart) ****
         JLabel chooseItem;
         JTextField item;
 
@@ -1410,6 +1824,16 @@ public class GUI {
         item = new JTextField(20);
         item.setBounds(100, 20, 165, 25);
         panel.add(item);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
         frame.setVisible(true);
     }
@@ -1449,7 +1873,7 @@ public class GUI {
         specificStats.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SpecificStats();
             }
         });
 
@@ -1460,6 +1884,16 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
@@ -1531,9 +1965,19 @@ public class GUI {
             }
         });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void HaveNoStores() { //have no stores simple GUI
+    public static void HaveNoStores() { 
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1547,6 +1991,17 @@ public class GUI {
         JLabel noStores = new JLabel("You have no stores!");
         noStores.setBounds(10, 20, 80, 25);
         panel.add(noStores);
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+        
         frame.setVisible(true);
     }
     public static void EditOptions() {
@@ -1576,7 +2031,7 @@ public class GUI {
         editEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerNewEmail();
             }
         });
 
@@ -1586,7 +2041,7 @@ public class GUI {
         editPassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerNewPassword();
             }
         });
 
@@ -1610,9 +2065,20 @@ public class GUI {
             }
         });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void SellerNewEmail() { //new email simple GUI
+    static String enterEmailString;
+    public static void SellerNewEmail() { 
         JLabel enterEmail;
         JTextField emailText;
 
@@ -1629,14 +2095,25 @@ public class GUI {
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
         panel.add(enterEmail);
+        enterEmailString = enterEmail.getText();
 
         emailText = new JTextField(20);
         emailText.setBounds(100, 20, 165, 25);
         panel.add(emailText);
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void SellerConfirmEmail() { //confirm simple GUI
+    public static void SellerConfirmEmail() { 
         JLabel editSellerEmail;
         JButton yes;
         JButton no;
@@ -1661,7 +2138,18 @@ public class GUI {
         yes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                yes.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if ((User.isValidEmail(enterEmailString) &&
+                                (User.accountExists(enterEmailString) {
+                            String email = enterEmailString;
+                            LoginSuccessful();
+                        } else if ((!User.isValidEmail(enterEmailString) {
+                            EnterValidEmailAddress();                       //make a new version of this method to allow for back button
+                        }
+                    }
+                });
             }
         });
 
@@ -1671,13 +2159,24 @@ public class GUI {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SellerNewEmail();
+            }
+        });
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
             }
         });
 
         frame.setVisible(true);
     }
-    public static void SellerNewPassword() { //new password simple GUI
+    static String enterPasswordString;
+    public static void SellerNewPassword() { 
         JLabel enterPassword;
         JTextField passwordText;
 
@@ -1694,14 +2193,25 @@ public class GUI {
         enterPassword = new JLabel("Please enter a new password for your account:");
         enterPassword.setBounds(10,20, 80, 25);
         panel.add(enterPassword);
+        enterPasswordString = enterPassword.getText();
 
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
         panel.add(passwordText);
 
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
+
         frame.setVisible(true);
     }
-    public static void SellerConfirmPassword() { //confirm simple GUI
+    public static void SellerConfirmPassword() { 
         JLabel areYouSure;
         JButton yes;
         JButton no;
@@ -1726,7 +2236,7 @@ public class GUI {
         yes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String password = enterPasswordString;
             }
         });
 
@@ -1736,27 +2246,20 @@ public class GUI {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerNewPassword();
             }
         });
 
-        frame.setVisible(true);
-    }
-    public static void LogoutSeller() { //logout simple GUI
-        //if the buyer chooses the log out option
-        frame = new JFrame();
-        frame.getContentPane().removeAll();
-        frame.revalidate();
-        frame.repaint();
-        JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
-        frame.setSize(350, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowWelcome();
+            }
+        });
 
-        JLabel goodbye = new JLabel("Goodbye!");
-        goodbye.setBounds(10, 20, 80, 25);
-        panel.add(goodbye);
         frame.setVisible(true);
     }
 }
