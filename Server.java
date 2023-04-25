@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Server implements Runnable {
     private Socket socket;
+    private String userEmail;
+    private String userPassword;
     public Server(Socket socket) {
         this.socket = socket;
     }
@@ -17,13 +19,13 @@ public class Server implements Runnable {
 
             /*
              * HOW THE SERVER CLIENT MESSAGES WORK
-             * The client will send a string to the server. 
+             * The client will send a string to the server.
              * The first two characters will be an integer corresponding to an action. This must be 2 characters (use leading 0)
              * Any additional information needed is added to the string immediately behind these characters.
-             * 
+             *
              * OUTPUT:
              * output is an object that is passed back to the client
-             * for actions that don't need an output the ouput will be true if the action happens sucessfully and ?something? if there is an error 
+             * for actions that don't need an output the ouput will be true if the action happens sucessfully and ?something? if there is an error
              */
             String input; // store the input read from the client. This should start with a 2 cahracter action number code, any additional information needed fro that action should follow
             int action; // the number of the action the server should do
@@ -31,6 +33,7 @@ public class Server implements Runnable {
             Seller seller = null;
             Customer customer = null;
             String info = null;
+            
             while ((input = bfr.readLine()) != null) { // reads the next line
                 action = Integer.valueOf(input.substring(0, 2)); // TODO: exception catching here
                 if (input.length() > 2) { // checks for any other info in the client's message
@@ -53,7 +56,46 @@ public class Server implements Runnable {
                     // 1-9: User / generic options
                     case 1 -> { // login / check login credentials
                         // buyer OR seller should be not null
+
+                        String[] limitedInput = input.split(",");
+
+                        String userEmail = "";
+                        String userPassword = "";
+
+                        for (int i = 0; i < limitedInput.length; i++) {
+                            if (limitedInput[i].lastIndexOf("Username:") > -1) {
+                                userEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("Username:"));
+                            } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
+                                userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
+                            }
+                        }
+
+                        ObjectInputStream ois = null;
                         
+                        try {
+                            ois = new ObjectInputStream(new FileInputStream("file.txt"));
+                            Object obj;
+                            // String userEmail = /GUI textfield that has email/
+                            // String userPassword = /GUI textfield that has password/
+
+                            while ((obj = ois.readObject()) != null) {
+                                if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail) && (((Customer) obj).getPassword().equals(userPassword))) {
+                                    customer = customer;
+                                    
+                                    break;
+                                }
+                                if (obj instanceof Seller && ((Seller) obj).getEmail().equals(userEmail) && ((Seller) obj).getPassword().equals(userPassword)) {
+                                    seller = seller;
+                                    
+                                    break;
+                                }
+                            }
+                            ois.close();
+                        } catch (EOFException eofException) {
+                            // display GUI that says user not found, create an account
+                        } catch (IOException | ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                     case 2 -> { // create new account
 
@@ -69,7 +111,7 @@ public class Server implements Runnable {
                     // 10-19: Buyer functions
                     switch (action) {
                         case 10 -> { // view all listings
-                            
+
                         }
                     }
                 } else if (seller != null) {
@@ -92,8 +134,8 @@ public class Server implements Runnable {
                             }
                         }
                         case 23 -> {
-                                //TODO: check with GUI methods for this
-                                // use editItem or replaceitem
+                            //TODO: check with GUI methods for this
+                            // use editItem or replaceitem
                             try {
                                 Item item = new Item(info); // info assumed to be Item.toLine() of new item
                                 seller.replaceItem(action, item);
@@ -110,7 +152,7 @@ public class Server implements Runnable {
                         }
 
                     }
-                    
+
                 }
                 objectOut.writeObject(output);
                 // Print statements for debugging
