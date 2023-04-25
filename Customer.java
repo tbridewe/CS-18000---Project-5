@@ -21,7 +21,15 @@ public class Customer extends User {
         loadCart(this.cartFileName); // loads items from the cart file into the cart
         this.sortedListings = readItems();
     }
+    
+    public ArrayList<Item> getCart() {
+        return cart;
+    }
 
+    public void setCart(ArrayList<Item> cart) {
+        this.cart = cart;
+    }
+    
     /**
      * PrintCart()
      * just prints the items in the cart with nice formatting. 
