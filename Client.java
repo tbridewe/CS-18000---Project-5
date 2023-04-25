@@ -17,23 +17,23 @@ import java.io.*;
 
 public class Client {
     public static void main(String[] args) throws UnknownHostException, IOException {
-        new GUI.WelcomeMenuGUI().run();
 
         try {
             // server connection setup
-            //String host = /*(String) JOptionPane.showInputDialog("Welcome\nPlease enter a host name")*/ "localhost";
-            //int port = /*Integer.parseInt(JOptionPane.showInputDialog("Please enter a port number"))*/1800;
+            String host = /*(String) JOptionPane.showInputDialog("Welcome\nPlease enter a host name")*/ "localhost";
+            int port = /*Integer.parseInt(JOptionPane.showInputDialog("Please enter a port number"))*/1800;
+            // Socket s = new Socket("localhost", 1800);
 
-            //new GUI.WelcomeMenuGUI();
+            Socket socket = new Socket(host, port); // make socket
 
-           // Socket s = new Socket("localhost", 1800);
+            PrintWriter writer = new PrintWriter(socket.getOutputStream()); // for sending instructions to server as strings
+            ObjectInputStream oi = new ObjectInputStream(socket.getInputStream()); // for receiving information from the server as objects
 
-            //Socket socket = new Socket(host, port); // make socket
+            // Setup the GUI
+            GUI gui = new GUI(writer, oi);
+            gui.WelcomeMenuGUI();
 
-            //PrintWriter writer = new PrintWriter(socket.getOutputStream()); // for sending instructions to server as strings
-            //ObjectInputStream oi = new ObjectInputStream(socket.getInputStream()); // for receiving information from the server as objects
-
-            //JOptionPane.showMessageDialog(null, "Connection Successful!", "Success", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Connection Successful!", "Success", JOptionPane.PLAIN_MESSAGE);
 
             // // loop for debugging
             // Scanner sc = new Scanner(System.in);
