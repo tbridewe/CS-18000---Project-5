@@ -14,6 +14,25 @@ public class FileFunctions {
     public FileFunctions(String itemFile) {
         this.itemFileName = "itemsTest.txt";
     }
+protected static synchronized Object[] readObjectsFromFile(String filename) {
+        Object[] objectContents;
+        ArrayList<Object> objectArrayList = new ArrayList<>();
+
+        File file = new File(filename);
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+            Object obj;
+
+            while ((obj = ois.readObject()) != null) {
+                objectArrayList.add(obj);
+            }
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+
+        objectContents = objectArrayList.toArray();
+        return objectContents;
+    }
 
     protected static synchronized String[] readFile(String filename) {
         String[] fileContents;
