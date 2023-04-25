@@ -107,27 +107,34 @@ public class Server implements Runnable {
                     case 4 -> { // change password
 
                     }
+                    case 5 -> { // check valid email
+                        //TODO: fix these so they actually check
+                        output = true;
+                    }
+                    case 6 -> { // check if account exists
+                        output = true;
+                    }
                 }
                 if (customer != null) { // all the customer actions here
-                    // 10-19: Buyer functions
+                    // 20-39: Buyer functions
                     switch (action) {
-                        case 10 -> { // view all listings
+                        case 20 -> { // view all listings
                             customer.refreshListings(); // loads all listings
 output = customer.getSortedItems(); // gets all the listings
                         }
                     }
                 } else if (seller != null) {
                     switch (action) {
-                        // 20-29: Seller functions
-                        case 20 -> { // view the seller's listings
+                        // 40-59: Seller functions
+                        case 40 -> { // view the seller's listings
                             seller.findSellerItems(); // filters all the items to only the seller
                             output = seller.getSortedItems(); // gets the filtered items
                         }
-                        case 21 -> { // add items from csv
+                        case 41 -> { // add items from csv
                             seller.addFromCSV(info); // info assumed to be filename
                             output = true;
                         }
-                        case 22 -> { //add new individual item
+                        case 42 -> { //add new individual item
                             try {
                                 Item item = new Item(info); // info assumed to be Item.toLine() of new item
                                 seller.addNewItem(item);
@@ -135,7 +142,7 @@ output = customer.getSortedItems(); // gets all the listings
                                 output = e;
                             }
                         }
-                        case 23 -> {
+                        case 43 -> {
                             //TODO: check with GUI methods for this
                             // use editItem or replaceitem
                             try {
@@ -145,11 +152,11 @@ output = customer.getSortedItems(); // gets all the listings
                                 output = e;
                             }
                         }
-                        case 24 -> { // remove item
+                        case 44 -> { // remove item
                             int i = Integer.valueOf(info); // info is the displayed index of the item to be deleted
                             seller.removeItem(i);
                         }
-                        case 25 -> { // TODO: stats stuff
+                        case 45 -> { // TODO: stats stuff
 
                         }
 
