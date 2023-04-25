@@ -5,13 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/**
- * GUI
- * 
- * Methods for displaying complex GUIs. 
- * @version 2023-4-24
- * @author Amber Voigtschild
- */
+import java.util.List;
+
 public class GUI {
     static JFrame frame;
     public static void ShowWelcome() {
@@ -39,7 +34,7 @@ public class GUI {
 
                 WelcomeMenuGUI();
             }
-        });                                                                                                 
+        });
 
         frame.setVisible(true);
     }
@@ -96,24 +91,16 @@ public class GUI {
                 ShowWelcome();
             }
         });
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                ShowWelcome();
             }
-        });                                                                                                                 //back**
+        });
     }
     public static void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
@@ -197,9 +184,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                WelcomeMenuGUI();
             }
-        });                                                                                                                     //back**
+        });                                                                                                      
     }
     public static void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
@@ -271,9 +258,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                WelcomeMenuGUI();
             }
-        });                                                                                                                 //back**
+        });                                                                                                   
         frame.setVisible(true);
     }
     public static void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
@@ -357,9 +344,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                LoginGui();
             }
-        });                                                                                                                 //back**
+        });
         frame.setVisible(true);
     }
     public static void CreateOptions() {
@@ -428,7 +415,7 @@ public class GUI {
                 ShowWelcome();
             }
         });
-                                                                                                                                //back**
+
         frame.setVisible(true);
     }
     public static void LoginSuccessful() {
@@ -462,9 +449,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                LoginGui();
             }
-        });                                                                                                                     //back***
+        });
         frame.setVisible(true);
     }
     public static void BuyerMenuGui() {
@@ -538,7 +525,7 @@ public class GUI {
                 EditUserInfo();
             }
         });
-        
+
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
@@ -554,9 +541,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                LoginGui();
             }
-        });                                                                                                                     //back***
+        });                                                                                                         
         frame.setVisible(true);
     }
     public static void SearchByKeywordOrNot() {
@@ -645,9 +632,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SearchByKeywordOrNot();
             }
-        });                                                                                                                     //back***
+        });                                                                                                      
 
         frame.setVisible(true);
     }
@@ -706,9 +693,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                BuyerMenuGui();
             }
-        });                                                                                                                     //back***
+        });                                                                                                         
 
         frame.setVisible(true);
     }
@@ -767,9 +754,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SelectItem();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -805,9 +792,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                cancelPurchase();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -843,9 +830,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SelectItem();
             }
-        });                                                                                                                     //back***
+        });                                                                                                    
 
         frame.setVisible(true);
     }
@@ -882,7 +869,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                     //back***
+        });                                                                                                         
 
         frame.setVisible(true);
     }
@@ -968,9 +955,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                BuyerMenuGui();
             }
-        });                                                                                                                     //back***
+        });                                                                                                       
 
         frame.setVisible(true);
     }
@@ -1021,7 +1008,7 @@ public class GUI {
         remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RemoveItem();                                                                   
+                RemoveItem();
             }
         });
 
@@ -1043,7 +1030,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                    //back***
+        });                                                                                                    
 
         frame.setVisible(true);
     }
@@ -1078,9 +1065,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ViewCartOptions();
             }
-        });                                                                                                                     //back***
+        });                                                                                                         
 
         frame.setVisible(true);
     }
@@ -1119,7 +1106,7 @@ public class GUI {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewCartOptions();                                                                               
+                ViewCartOptions();
             }
         });
 
@@ -1167,7 +1154,7 @@ public class GUI {
         file.setBounds(100, 20, 165, 25);
         panel.add(file);
         String filename = file.getText();
-        
+
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
@@ -1184,9 +1171,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EnterNameOfFile();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1222,9 +1209,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EnterNameOfFile();
             }
-        });                                                                                                                     //back***
+        });                                                                                                         
 
         frame.setVisible(true);
     }
@@ -1279,9 +1266,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ViewCartOptions();
             }
-        });                                                                                                                     //back***
+        });                                                                                                       
 
         frame.setVisible(true);
     }
@@ -1342,7 +1329,7 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                BuyerMenuGui();
             }
         });
 
@@ -1354,7 +1341,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                    //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1407,9 +1394,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EditUserInfo();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1474,9 +1461,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EditUserInfo();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1529,9 +1516,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EditUserInfo();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1590,9 +1577,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                NewPassword();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1673,9 +1660,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                LoginGui();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1736,7 +1723,7 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerMenu();
             }
         });
 
@@ -1748,7 +1735,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                    //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1802,9 +1789,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ListingsMenu();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1886,9 +1873,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AddOptions();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1930,9 +1917,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AddOptions();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2044,9 +2031,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ListingsMenu();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2088,9 +2075,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerMenu();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2140,7 +2127,7 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerMenu();
             }
         });
 
@@ -2152,7 +2139,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                   //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2238,9 +2225,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ViewStatistics();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2308,7 +2295,7 @@ public class GUI {
         editEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SellerNewEmail();
+                New();
             }
         });
 
@@ -2332,13 +2319,13 @@ public class GUI {
             }
         });
 
-        back = new JButton("Delete account");
+        back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerMenu();
             }
         });
 
@@ -2350,9 +2337,9 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                    //back***
 
         frame.setVisible(true);
+    });
     }
     static String enterEmailString;
     public static void SellerNewEmail() {
@@ -2394,9 +2381,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EditOptions();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2433,7 +2420,7 @@ public class GUI {
                             String email = enterEmailString;
                             LoginSuccessful();
                         } else if ((!User.isValidEmail(enterEmailString))) {
-                            SellerEnterValidEmailAddress();                       
+                            SellerEnterValidEmailAddress();
                         }
                     }
                 });
@@ -2466,14 +2453,15 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerNewEmail();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
 
-    public static void SellerEnterValidEmailAddress() { //shown if the email submitted in SellerConfirmEmail() is invalid
+    public static void SellerEnterValidEmailAddress() {
+        //shown if the email submitted in SellerConfirmEmail() is invalid
         JLabel enterValidEmail;
         JButton back;
 
@@ -2497,7 +2485,7 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginGui();
+                SellerNewEmail();
             }
         });
 
@@ -2509,7 +2497,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                                   //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2517,6 +2505,7 @@ public class GUI {
     public static void SellerNewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
+        JButton confirm;
 
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -2532,6 +2521,16 @@ public class GUI {
         enterPassword.setBounds(10,20, 80, 25);
         panel.add(enterPassword);
         enterPasswordString = enterPassword.getText();
+
+        confirm = new JButton("Confirm");
+        confirm.setBounds(10, 80, 80, 25);
+        panel.add(confirm);
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SellerConfirmPassword();
+            }
+        });
 
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
@@ -2553,9 +2552,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EditOptions();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -2614,9 +2613,9 @@ public class GUI {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SellerNewPassword();
             }
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
