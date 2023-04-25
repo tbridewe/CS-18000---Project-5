@@ -59,48 +59,6 @@ public class User extends FileFunctions implements Serializable{
     // protected ArrayList<Item> listings;
     protected ArrayList<Item> sortedListings;
 
-    // /**
-    //  * readFile(String filename)
-    //  * @param filename: name of the file that needs to be read
-    //  * @return String[] with all the lines of the file
-    //  */
-    // protected static String[] readFile(String filename) {
-    //     String[] fileContents;
-    //     ArrayList<String> contents = new ArrayList<>();
-
-    //     File file = new File(filename);
-    //     try {
-    //         BufferedReader reader = new BufferedReader(new FileReader(file));
-    //         String line;
-    //         while ((line = reader.readLine()) != null) {
-    //             contents.add(line);
-    //         }
-
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     fileContents = contents.toArray(new String[0]);
-    //     return fileContents;
-    // }
-
-    // /**
-    //  * writeFile(String filename)
-    //  * @param filename: name of the file that needs to be read
-    //  * @param lines: array of lines to be written
-    //  * @return String[] with all the lines of the file
-    //  */
-    // protected static void writeFile(String filename, String[] lines) {
-    //     File file = new File(filename);
-    //     try {
-    //         BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
-    //         for (int i = 0; i < lines.length; i++) {
-    //             bw.write(lines[i] + "\n");
-    //         }
-    //         bw.close();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
     /**
      * PrintListings()
@@ -136,42 +94,28 @@ public class User extends FileFunctions implements Serializable{
         return this.sortedListings.get(index - 1);
     }
 
-    //  /**
-    //  * loadListings()
-    //  * reads the item listings file file and puts loads items
-    //  * @param fileName: name of the items cart file 
-    //  */
-    // protected void loadListings(String fileName) {
-    //     String[] fileLines = readFile(fileName);
-    //     ArrayList<Item> items = new ArrayList<>();
-    //     for (int l = 0; l < fileLines.length; l++) {
-    //         String line = fileLines[l];
-    //         try {  
-    //             items.add(new Item(line));
-    //         } catch (InvalidLineException e) { // invalid line format exception
-    //             e.printStackTrace();
-    //         }
-    //     }
-    //     this.listings = items;
-    // }
+    /*
+     * clearSortedListings
+     * clears the stored sorted listings. 
+     * Just because they aren't needef when storing a user object in a file
+     */
+    public void clearSortedItems() {
+        this.sortedListings.clear();
+    }
 
-    // /**
-    //  * saveListings()
-    //  * writes all the items in this.cart to the cart file. Puts them on the line of the corresponding user. 
-    //  * Potential problem: it is assumed that there is only 1 line per user in cart file.
-    //  * @param fileName: name of the shopping cart file 
-    //  */
-    // protected void saveListings(String fileName) {
-    //     String[] fileLines = new String[this.listings.size()];
-    //     for (int l = 0; l < this.listings.size(); l++) {
-    //         fileLines[l] = this.listings.get(l).toLine();
-    //     }
-    //     writeFile(fileName, fileLines);
-    // }
+   
 
     ///////////////////////////////////////////////////
     // Getters and setters and user stuff
     ///////////////////////////////////////////////////
+
+    /*
+     * getSortedItems()
+     * reurns the sortedListings arraylist. Use this instead of printListings to send the abjects to the client
+     */
+    public ArrayList<Item> getSortedItems() {
+        return this.sortedListings;
+    }
     
     public String getEmail() { // gets the current user email
         return email;

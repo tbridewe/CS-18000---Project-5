@@ -1,0 +1,15 @@
+Nike Air Max 270,Sporting Goods Inc.,Men's Running Shoes Size 10.5,3,99.99
+KitchenAid Stand Mixer,Appliance Outlet,5-Quart Tilt-Head Mixer Empire Red,4,299.99
+Samsung Galaxy S21,Cellular Express,128GB Smartphone Phantom Gray,10,899.99
+Canon EOS Rebel T8i,Camera World,24.2MP DSLR Camera with 18-55mm Lens Kit,17,899.99
+Apple Watch Series 7,Tech Hub,44mm GPS + Cellular Midnight Aluminum Case with Deep Navy Sport Band,5,499.99
+Beats Studio3 Wireless,Electronics Emporium,Over-Ear Headphones Matte Black,1,349.99
+LG OLED TV,Best Buy,65-inch 4K Ultra HD Smart TV OLED65CXPUA,1,1.00
+banana,hannahStore,it's a banana fruit,79,1.99
+apple,hannahStore,it's a fruit,79,2.99
+bananana,myFruitStore,yummy fruit,0,1.55
+pear,hannahStore,fruit,100,2.25
+pear,jo's store,fruit,100,2.25
+pear,store1,fruit,100,2.25
+banananana,store1,yummy fruit,21,2.11
+pear,jos store,fruit,100,2.25
