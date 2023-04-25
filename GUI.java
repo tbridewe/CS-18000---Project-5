@@ -49,9 +49,9 @@ public class GUI {
             e.printStackTrace();
             o = null;
         }
-        return o;    
+        return o;
     }
-    
+
     public void ShowWelcome() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
         JLabel welcome;
@@ -200,9 +200,6 @@ public class GUI {
             //TODO: HERE
             @Override
             public void actionPerformed(ActionEvent e) {
-                this.writer.write("01");
-                this.writer.println();
-                this.writer.flush();
                 if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
                     String user = userText.getText();
                     String password = new String(passwordText.getPassword());
@@ -274,12 +271,15 @@ public class GUI {
         makeNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendToServer("02,Username:hhh@gmail.com,Password:1234"); // testing server stuff here
-                if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
+                sendToServer("05" + userText.getText());
+                boolean emailIsValid = (boolean) readFromServer();
+                sendToServer("06" + userText.getText());
+                boolean accountExists = (boolean) readFromServer();
+                if (emailIsValid && accountExists) {
                     String user = userText.getText();
                     String password = new String(passwordText.getPassword());
                     LoginSuccessful();
-                } else if ((!User.isValidEmail(userText.getText()))) {
+                } else if (!emailIsValid) {
                     EnterValidEmailAddress();
                 }
             }
@@ -947,7 +947,7 @@ public class GUI {
         price.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                                                                                                //should allow the buyer to sort items by price                                                             ******
+                //should allow the buyer to sort items by price                                                             ******
             }
         });
 
@@ -957,7 +957,7 @@ public class GUI {
         quantity.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                                                                                 //should allow the buyer to sort items by quantity                                                             ******
+                //should allow the buyer to sort items by quantity                                                             ******
             }
         });
 
@@ -971,7 +971,7 @@ public class GUI {
         ascending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                                                                                        //should allow the buyer to sort items ascending                                                             ******
+                //should allow the buyer to sort items ascending                                                             ******
             }
         });
 
@@ -981,7 +981,7 @@ public class GUI {
         descending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                                                                                    //should allow the buyer to sort items descending                                                             ******
+                //should allow the buyer to sort items descending                                                             ******
             }
         });
 
@@ -2383,9 +2383,8 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-
+        });
         frame.setVisible(true);
-    });
     }
     static String enterEmailString;
     public void SellerNewEmail() {
