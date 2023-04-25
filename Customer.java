@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class Customer extends User {
     private ArrayList<Item> cart = new ArrayList<>(); // stores the user's items. Everytime the cart is updtates the cart file will also be updated
-    
+    public 
     
     public Customer(String email, String password, int userType) throws InvalidUserInput {
         super(email, password, userType);

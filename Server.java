@@ -31,6 +31,17 @@ public class Server implements Runnable {
             Seller seller = null;
             Customer customer = null;
             String info = null;
+
+            // test
+            try {
+                Seller s = new Seller("aaa@gmail.com", "1234", 0);
+                Customer me = new Customer("hhh@gmail.com", "1234", 1);
+                
+                seller = s;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             while ((input = bfr.readLine()) != null) { // reads the next line
                 action = Integer.valueOf(input.substring(0, 2)); // TODO: exception catching here
                 if (input.length() > 2) { // checks for any other info in the client's message
@@ -69,7 +80,8 @@ public class Server implements Runnable {
                     // 10-19: Buyer functions
                     switch (action) {
                         case 10 -> { // view all listings
-                            
+                            customer.refreshListings(); // loads all listings
+                            output = customer.getSortedItems(); // gets all the listings
                         }
                     }
                 } else if (seller != null) {
