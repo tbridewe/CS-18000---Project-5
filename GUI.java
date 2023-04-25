@@ -186,7 +186,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 WelcomeMenuGUI();
             }
-        });                                                                                                      
+        });
     }
     public static void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
@@ -260,7 +260,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 WelcomeMenuGUI();
             }
-        });                                                                                                   
+        });
         frame.setVisible(true);
     }
     public static void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
@@ -543,7 +543,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 LoginGui();
             }
-        });                                                                                                         
+        });
         frame.setVisible(true);
     }
     public static void SearchByKeywordOrNot() {
@@ -634,7 +634,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 SearchByKeywordOrNot();
             }
-        });                                                                                                      
+        });
 
         frame.setVisible(true);
     }
@@ -695,7 +695,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 BuyerMenuGui();
             }
-        });                                                                                                         
+        });
 
         frame.setVisible(true);
     }
@@ -832,7 +832,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 SelectItem();
             }
-        });                                                                                                    
+        });
 
         frame.setVisible(true);
     }
@@ -869,7 +869,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                         
+        });
 
         frame.setVisible(true);
     }
@@ -957,7 +957,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 BuyerMenuGui();
             }
-        });                                                                                                       
+        });
 
         frame.setVisible(true);
     }
@@ -1030,7 +1030,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ShowWelcome();
             }
-        });                                                                                                    
+        });
 
         frame.setVisible(true);
     }
@@ -1067,7 +1067,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ViewCartOptions();
             }
-        });                                                                                                         
+        });
 
         frame.setVisible(true);
     }
@@ -1211,7 +1211,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 EnterNameOfFile();
             }
-        });                                                                                                         
+        });
 
         frame.setVisible(true);
     }
@@ -1268,7 +1268,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 ViewCartOptions();
             }
-        });                                                                                                       
+        });
 
         frame.setVisible(true);
     }
@@ -2295,7 +2295,7 @@ public class GUI {
         editEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                New();
+                NewEmail();
             }
         });
 
