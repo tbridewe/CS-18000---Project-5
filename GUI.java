@@ -5,11 +5,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 import java.util.List;
+import java.io.*;
+
 
 public class GUI {
     static JFrame frame;
-    public static void ShowWelcome() {
+    public PrintWriter writer;
+    private ObjectInputStream reader;
+    public GUI(PrintWriter write, ObjectInputStream read) {
+        // sets up reader and write for talking to server
+        this.writer = write;
+        this.reader = read;
+    }
+    public void ShowWelcome() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
         JLabel welcome;
         frame = new JFrame();
@@ -38,7 +48,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void WelcomeMenuGUI() { //this GUI gives a user an option to login, create an account, or log out
+    public void WelcomeMenuGUI() { //this GUI gives a user an option to login, create an account, or log out
         JButton login;
         JButton createAccount;
         JButton quit;
@@ -102,7 +112,7 @@ public class GUI {
             }
         });
     }
-    public static void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
+    public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
         //and then attempting to log in by using the log in button
@@ -156,8 +166,12 @@ public class GUI {
 
 
         loginButton.addActionListener(new ActionListener() {
+            //TODO: HERE
             @Override
             public void actionPerformed(ActionEvent e) {
+                this.writer.write("01");
+                this.writer.println();
+                this.writer.flush();
                 if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
                     String user = userText.getText();
                     String password = new String(passwordText.getPassword());
@@ -188,7 +202,7 @@ public class GUI {
             }
         });
     }
-    public static void NewAccountGUI() { //this GUI allows the user to create a new account
+    public void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
         JLabel userLabel;
         JTextField userText;
@@ -263,7 +277,7 @@ public class GUI {
         });
         frame.setVisible(true);
     }
-    public static void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
+    public void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
         JLabel enterValidEmail;
         JButton back;
 
@@ -302,7 +316,7 @@ public class GUI {
         });
         frame.setVisible(true);
     }
-    public static void IncorrectCredentials() {
+    public void IncorrectCredentials() {
         //shown if there is nt an account associated with the email and password submitted in the login menu
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -349,7 +363,7 @@ public class GUI {
         });
         frame.setVisible(true);
     }
-    public static void CreateOptions() {
+    public void CreateOptions() {
         JLabel noAccountFound;
         JLabel selectOption;
         JButton createNewAccount;
@@ -418,7 +432,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void LoginSuccessful() {
+    public void LoginSuccessful() {
         //shown if the login is successful
         JLabel loginSuccessful;
         frame = new JFrame();
@@ -454,7 +468,7 @@ public class GUI {
         });
         frame.setVisible(true);
     }
-    public static void BuyerMenuGui() {
+    public void BuyerMenuGui() {
         JButton chooseItem;
         JButton search;
         JButton sort;
@@ -546,7 +560,7 @@ public class GUI {
         });
         frame.setVisible(true);
     }
-    public static void SearchByKeywordOrNot() {
+    public void SearchByKeywordOrNot() {
         JButton searchByKeyword;
         JButton back;
 
@@ -592,7 +606,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SearchBar() {
+    public void SearchBar() {
         JLabel search;
         JTextField searchBar;
 
@@ -638,7 +652,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SelectItem() {
+    public void SelectItem() {
         //should print out all of the available items                                                                   ******
         //and make them easier to select
         JLabel select;
@@ -699,7 +713,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void cancelPurchase() {
+    public void cancelPurchase() {
         JLabel cancelQuestion;
         JButton cancel;
         JButton approve;
@@ -760,7 +774,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void PurchaseCancelled() {
+    public void PurchaseCancelled() {
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -798,7 +812,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void AddedToCart() {
+    public void AddedToCart() {
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -836,7 +850,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void InvalidQuantityException() {
+    public void InvalidQuantityException() {
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -873,7 +887,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SortingItems() {
+    public void SortingItems() {
         JLabel priceOrQuantity;
         JButton price;
         JButton quantity;
@@ -961,7 +975,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ViewCartOptions() {
+    public void ViewCartOptions() {
         JLabel choose;
         JButton checkout;
         JButton view;
@@ -1034,7 +1048,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void CheckoutComplete() { //if the buyer chooses to checkout and checks out successfully
+    public void CheckoutComplete() { //if the buyer chooses to checkout and checks out successfully
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1071,7 +1085,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ExportPurchaseHistory() {
+    public void ExportPurchaseHistory() {
         JLabel export;
         JButton yes;
         JButton no;
@@ -1132,7 +1146,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void EnterNameOfFile() {
+    public void EnterNameOfFile() {
         JLabel nameFile;
         JTextField file;
 
@@ -1177,7 +1191,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void PurchaseHistoryExported() {
+    public void PurchaseHistoryExported() {
         //message shown if the buyer successfully saves purchase history to file
         frame = new JFrame();
         frame.getContentPane().removeAll();
@@ -1215,7 +1229,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void RemoveItem() {
+    public void RemoveItem() {
         //should print out all items in the cart so the buyer can select one                                                ***
         JLabel select;
         JTextField item;
@@ -1272,7 +1286,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void EditUserInfo() {
+    public void EditUserInfo() {
         JLabel choose;
         JButton editEmail;
         JButton editPassword;
@@ -1346,7 +1360,7 @@ public class GUI {
         frame.setVisible(true);
     }
     static String emailTextString;
-    public static void NewEmail() {
+    public void NewEmail() {
         JLabel enterEmail;
         JTextField emailText;
 
@@ -1400,7 +1414,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ConfirmEmail() {
+    public void ConfirmEmail() {
         JLabel editEmail;
         JButton yes;
         JButton no;
@@ -1468,7 +1482,7 @@ public class GUI {
         frame.setVisible(true);
     }
     static String passwordTextString;
-    public static void NewPassword() {
+    public void NewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
 
@@ -1522,7 +1536,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ConfirmPassword() {
+    public void ConfirmPassword() {
         JLabel areYouSure;
         JButton yes;
         JButton no;
@@ -1583,7 +1597,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SellerMenu() {
+    public void SellerMenu() {
         JLabel choose;
         JButton viewListings;
         JButton viewStatistics;
@@ -1666,7 +1680,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ListingsMenu() {
+    public void ListingsMenu() {
         JLabel choose;
         JButton add;
         JButton edit;
@@ -1739,7 +1753,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void AddOptions() {
+    public void AddOptions() {
         JButton add;
         JButton csv;
 
@@ -1795,7 +1809,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void AddItem() {
+    public void AddItem() {
         JLabel enterName;
         JTextField name;
         JLabel enterStore;
@@ -1879,7 +1893,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void AddFromCSV() {
+    public void AddFromCSV() {
         JLabel enterFileName;
         JTextField fileName;
 
@@ -1923,7 +1937,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ChooseItemToEdit() {
+    public void ChooseItemToEdit() {
         JLabel chooseItem;
         JTextField item;
         JLabel options;
@@ -2037,7 +2051,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void Remove() {                                                               //(also need to print the cart) ****
+    public void Remove() {                                                               //(also need to print the cart) ****
         JLabel chooseItem;
         JTextField item;
 
@@ -2081,7 +2095,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void ViewStatistics() {
+    public void ViewStatistics() {
         JLabel choose;
         JButton allStats;
         JButton specificStats;
@@ -2143,7 +2157,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SpecificStats() {
+    public void SpecificStats() {
         JLabel byPriceOrQuantity;
         JButton price;
         JButton quantity;
@@ -2231,7 +2245,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void HaveNoStores() {
+    public void HaveNoStores() {
         frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -2268,7 +2282,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void EditOptions() {
+    public void EditOptions() {
         JLabel choose;
         JButton editEmail;
         JButton editPassword;
@@ -2342,7 +2356,7 @@ public class GUI {
     });
     }
     static String enterEmailString;
-    public static void SellerNewEmail() {
+    public void SellerNewEmail() {
         JLabel enterEmail;
         JTextField emailText;
 
@@ -2387,7 +2401,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SellerConfirmEmail() {
+    public void SellerConfirmEmail() {
         JLabel editSellerEmail;
         JButton yes;
         JButton no;
@@ -2460,7 +2474,7 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    public static void SellerEnterValidEmailAddress() {
+    public void SellerEnterValidEmailAddress() {
         //shown if the email submitted in SellerConfirmEmail() is invalid
         JLabel enterValidEmail;
         JButton back;
@@ -2502,7 +2516,7 @@ public class GUI {
         frame.setVisible(true);
     }
     static String enterPasswordString;
-    public static void SellerNewPassword() {
+    public void SellerNewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
         JButton confirm;
@@ -2558,7 +2572,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public static void SellerConfirmPassword() {
+    public void SellerConfirmPassword() {
         JLabel areYouSure;
         JButton yes;
         JButton no;
