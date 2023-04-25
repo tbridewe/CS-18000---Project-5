@@ -12,13 +12,46 @@ import java.io.*;
 
 public class GUI {
     static JFrame frame;
-    public PrintWriter writer;
+    private PrintWriter writer;
     private ObjectInputStream reader;
+    public static Object input;
+    public static String Output;
+
+    private int test = 1;
     public GUI(PrintWriter write, ObjectInputStream read) {
         // sets up reader and write for talking to server
         this.writer = write;
         this.reader = read;
     }
+
+    /**
+     * sendToServer(String message)
+     * sends a message to the werver using the printwriter passed through the constructor
+     * @param message: The message (String) to send to the server. The first 2 characters should be an integer corresponding to the desired action (use leading 0!). Then add any other information the action needs
+     */
+    private void sendToServer(String message) {
+        this.writer.write(message);
+        this.writer.println();
+        this.writer.flush();
+    }
+
+    /**
+     * readFromServer()
+     * reads an object from the server socket using the ObjectInputStream passed through the constructor
+     * returns null if there is an exception
+     * You will probably want to cast the object into the correct type before you use it
+     */
+    private Object readFromServer() {
+        Object o = null;
+        try {
+            o = reader.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            o = null;
+        }
+        return o;    
+    }
+    
     public void ShowWelcome() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
         JLabel welcome;
@@ -41,7 +74,6 @@ public class GUI {
         welcomMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 WelcomeMenuGUI();
             }
         });
@@ -164,7 +196,6 @@ public class GUI {
         loginPanel.add(success);
         frame.setVisible(true);
 
-
         loginButton.addActionListener(new ActionListener() {
             //TODO: HERE
             @Override
@@ -243,6 +274,7 @@ public class GUI {
         makeNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                sendToServer("02,Username:hhh@gmail.com,Password:1234"); // testing server stuff here
                 if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
                     String user = userText.getText();
                     String password = new String(passwordText.getPassword());
