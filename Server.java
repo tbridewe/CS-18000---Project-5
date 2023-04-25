@@ -8,6 +8,7 @@ public class Server implements Runnable {
     private Socket socket;
     private String userEmail;
     private String userPassword;
+    private final static String userData = "userData.txt";
     public Server(Socket socket) {
         this.socket = socket;
     }
@@ -33,7 +34,7 @@ public class Server implements Runnable {
             Seller seller = null;
             Customer customer = null;
             String info = null;
-            
+
             while ((input = bfr.readLine()) != null) { // reads the next line
                 action = Integer.valueOf(input.substring(0, 2)); // TODO: exception catching here
                 if (input.length() > 2) { // checks for any other info in the client's message
@@ -71,7 +72,7 @@ public class Server implements Runnable {
                         }
 
                         ObjectInputStream ois = null;
-                        
+
                         try {
                             ois = new ObjectInputStream(new FileInputStream("file.txt"));
                             Object obj;
@@ -81,12 +82,12 @@ public class Server implements Runnable {
                             while ((obj = ois.readObject()) != null) {
                                 if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail) && (((Customer) obj).getPassword().equals(userPassword))) {
                                     customer = customer;
-                                    
+
                                     break;
                                 }
                                 if (obj instanceof Seller && ((Seller) obj).getEmail().equals(userEmail) && ((Seller) obj).getPassword().equals(userPassword)) {
                                     seller = seller;
-                                    
+
                                     break;
                                 }
                             }
