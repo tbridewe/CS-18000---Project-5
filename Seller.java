@@ -98,27 +98,6 @@ public class Seller extends User {
     }
 
 
-    // old code but It's needed id what it does gknsdsindsgkj
-    /*
-     * doesn't actually display it's just for sorting but whatever it works
-     */
-    protected ArrayList<String> displayItems() {
-        String[] itemsList = readFile(this.itemListingsFileName);
-        ArrayList<String> sellerItems = new ArrayList<>();
-        this.sortedListings.clear();
-
-        for (int i = 0; i < itemsList.length; i++) {
-            if (stores.contains(itemsList[i].split(",")[1])) {
-                sellerItems.add(itemsList[i]);
-                // System.out.println(itemsList[i]);
-                try {
-                    sortedListings.add(new Item(itemsList[i]));
-                } catch (InvalidLineException e) {
-                }
-            }
-        }
-        return sellerItems;
-    }
 
     /*
      * findSelleraItems
