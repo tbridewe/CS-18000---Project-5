@@ -1,6 +1,6 @@
 /**
  * Client.java
- * 
+ *
  * Takes user input from the customer and sends it to a server to be used
  * for data management operations.
  *
@@ -17,17 +17,23 @@ import java.io.*;
 
 public class Client {
     public static void main(String[] args) throws UnknownHostException, IOException {
+        new GUI.WelcomeMenuGUI().run();
+
         try {
             // server connection setup
-            String host = /*(String) JOptionPane.showInputDialog("Welcome\nPlease enter a host name")*/ "localhost";
-            int port = /*Integer.parseInt(JOptionPane.showInputDialog("Please enter a port number"))*/1800;
+            //String host = /*(String) JOptionPane.showInputDialog("Welcome\nPlease enter a host name")*/ "localhost";
+            //int port = /*Integer.parseInt(JOptionPane.showInputDialog("Please enter a port number"))*/1800;
 
-            Socket socket = new Socket(host, port); // make socket
+            //new GUI.WelcomeMenuGUI();
 
-            PrintWriter writer = new PrintWriter(socket.getOutputStream()); // for sending instructions to server as strings
-            ObjectInputStream oi = new ObjectInputStream(socket.getInputStream()); // for receiving information from the server as objects
+           // Socket s = new Socket("localhost", 1800);
 
-            JOptionPane.showMessageDialog(null, "Connection Successful!", "Success", JOptionPane.PLAIN_MESSAGE);
+            //Socket socket = new Socket(host, port); // make socket
+
+            //PrintWriter writer = new PrintWriter(socket.getOutputStream()); // for sending instructions to server as strings
+            //ObjectInputStream oi = new ObjectInputStream(socket.getInputStream()); // for receiving information from the server as objects
+
+            //JOptionPane.showMessageDialog(null, "Connection Successful!", "Success", JOptionPane.PLAIN_MESSAGE);
 
             // // loop for debugging
             // Scanner sc = new Scanner(System.in);
@@ -42,12 +48,12 @@ public class Client {
             //     System.out.println(o.toString());
             // }
 
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Connection Failed", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        
+
     }
 
     private static Object readObject(ObjectInputStream oi) {
