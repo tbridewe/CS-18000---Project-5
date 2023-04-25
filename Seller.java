@@ -202,7 +202,26 @@ public class Seller extends User {
             System.out.println(customerData.get(i));
         }
     }
-
+    
+    public void updatedViewAllStats() {
+        Object[] users = readObjectsFromFile("userData.txt");
+        ArrayList<Customer> customersOfSeller = new ArrayList<>();
+        
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] instanceof Customer) {
+                ArrayList<Item> cart = ((Customer) users[i]).getCart();
+                for (int j = 0; j < cart.size(); j++) {
+                    if (stores.contains(cart.get(j).getStore())) {
+                        customersOfSeller.add((Customer) users[i]);
+                    }
+                }
+            }
+        }
+        
+        // TODO: determine the way that the stats get displayed
+        
+    }
+    
     public void sortStats(int sortType, int sortOrder) {
         String[] stats = readFile(this.customerLogFileName);
         ArrayList<String> statsList = new ArrayList<>();
