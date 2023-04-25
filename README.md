@@ -35,7 +35,7 @@ Provides implementation of a User in the Marketplace, either of a Seller or a Cu
 | getDisplayedItem | public int index | Item | Returns the listing at the index - 1 passed to the method in the sortedListings ArrayList. Throws an IndexOutOfBoundsException if the value at index - 1 in sortedListings is out of bounds.
 | loadListings | protected String fileName| void | Calls the readFile() method with the passed fileName. Iterates through the read file and sets the listings to an Item ArrayList.
 | printListings | public none | void | Prints the formatted listings in their current sorted or unsorted order.
-| writeFile | protected static String filename, String[] lines | Writes to the provided file with the provided array of strings.
+| writeFile | protected static String filename, String[] lines | void | Writes to the provided file with the provided array of strings.
 | readFile | protected static String filename | String[] | Reads from the file and returns an array of file lines.
 | unsortListings | public none | void | Sets the sortedListings field to the initial listings field.
 ### Customer
