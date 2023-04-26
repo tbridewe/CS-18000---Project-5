@@ -42,7 +42,7 @@ public class GUI {
      * You will probably want to cast the object into the correct type before you use it
      */
     private Object readFromServer() {
-        Object o = null;
+        Object o;
         try {
             o = reader.readObject();
         } catch (Exception e) {
@@ -71,12 +71,7 @@ public class GUI {
         JButton welcomMenu = new JButton("Menu");
         welcomMenu.setBounds(10, 80, 80, 25);
         panel.add(welcomMenu);
-        welcomMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                WelcomeMenuGUI();
-            }
-        });
+        welcomMenu.addActionListener(e -> WelcomeMenuGUI());
 
         frame.setVisible(true);
     }
@@ -115,34 +110,14 @@ public class GUI {
         quit.setBounds(10, 80, 80, 25);
         panelOne.add(quit);
         frame.setVisible(true);
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
-        createAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewAccountGUI();
-            }
-        });
-        quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        login.addActionListener(e -> LoginGui());
+        createAccount.addActionListener(e -> NewAccountGUI());
+        quit.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        back.addActionListener(e -> ShowWelcome());
     }
     public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
@@ -196,39 +171,26 @@ public class GUI {
         loginPanel.add(success);
         frame.setVisible(true);
 
-        loginButton.addActionListener(new ActionListener() {
-            //TODO: HERE
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
-                    String user = userText.getText();
-                    String password = new String(passwordText.getPassword());
-                } else if ((!User.isValidEmail(userText.getText()))) {
-                    EnterValidEmailAddress();
-                } else if (!User.accountExists(userText.getText())) {
-                    IncorrectCredentials();
-                }
+        //TODO: HERE
+        loginButton.addActionListener(e -> {
+            if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
+                String user = userText.getText();
+                String password = new String(passwordText.getPassword());
+            } else if ((!User.isValidEmail(userText.getText()))) {
+                EnterValidEmailAddress();
+            } else if (!User.accountExists(userText.getText())) {
+                IncorrectCredentials();
             }
         });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                WelcomeMenuGUI();
-            }
-        });
+        back.addActionListener(e -> WelcomeMenuGUI());
     }
     public void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
@@ -268,20 +230,17 @@ public class GUI {
         makeNewAccount = new JButton("Create new account");
         makeNewAccount.setBounds(10, 80, 80, 25);
         newAccountPanel.add(makeNewAccount);
-        makeNewAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sendToServer("05" + userText.getText());
-                boolean emailIsValid = (boolean) readFromServer();
-                sendToServer("06" + userText.getText());
-                boolean accountExists = (boolean) readFromServer();
-                if (emailIsValid && accountExists) {
-                    String user = userText.getText();
-                    String password = new String(passwordText.getPassword());
-                    LoginSuccessful();
-                } else if (!emailIsValid) {
-                    EnterValidEmailAddress();
-                }
+        makeNewAccount.addActionListener(e -> {
+            sendToServer("05" + userText.getText());
+            boolean emailIsValid = (boolean) readFromServer();
+            sendToServer("06" + userText.getText());
+            boolean accountExists = (boolean) readFromServer();
+            if (emailIsValid && accountExists) {
+                String user = userText.getText();
+                String password = new String(passwordText.getPassword());
+                LoginSuccessful();
+            } else if (!emailIsValid) {
+                EnterValidEmailAddress();
             }
         });
 
@@ -292,21 +251,11 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                WelcomeMenuGUI();
-            }
-        });
+        back.addActionListener(e -> WelcomeMenuGUI());
         frame.setVisible(true);
     }
     public void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
@@ -330,22 +279,12 @@ public class GUI {
         back = new JButton("Back");
         back.setBounds(10, 20, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        back.addActionListener(e -> LoginGui());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
     public void IncorrectCredentials() {
@@ -368,31 +307,16 @@ public class GUI {
         JButton tryAgain = new JButton("Try again");
         tryAgain.setBounds(10, 20, 80, 25);
         panel.add(tryAgain);
-        tryAgain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreateOptions();
-            }
-        });
+        tryAgain.addActionListener(e -> CreateOptions());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        back.addActionListener(e -> LoginGui());
         frame.setVisible(true);
     }
     public void CreateOptions() {
@@ -425,42 +349,22 @@ public class GUI {
         createNewAccount = new JButton("Create new account");
         createNewAccount.setBounds(10, 80, 80, 25);
         createPanel.add(createNewAccount);
-        createNewAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewAccountGUI();
-            }
-        });
+        createNewAccount.addActionListener(e -> NewAccountGUI());
 
         reAttemptLogin = new JButton("Re-attempt login");
         reAttemptLogin.setBounds(10, 80, 80, 25);
         createPanel.add(reAttemptLogin);
-        reAttemptLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        reAttemptLogin.addActionListener(e -> LoginGui());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         createPanel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        back.addActionListener(e -> LoginGui());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -483,21 +387,11 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        back.addActionListener(e -> LoginGui());
         frame.setVisible(true);
     }
     public void BuyerMenuGui() {
@@ -525,71 +419,36 @@ public class GUI {
         chooseItem = new JButton("Choose an item");
         chooseItem.setBounds(10, 80, 80, 25);
         panel.add(chooseItem);
-        chooseItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SelectItem();
-            }
-        });
+        chooseItem.addActionListener(e -> SelectItem());
 
         search = new JButton("Search");
         search.setBounds(10, 80, 80, 25);
         panel.add(search);
-        search.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SearchByKeywordOrNot();
-            }
-        });
+        search.addActionListener(e -> SearchByKeywordOrNot());
 
         sort = new JButton("Sort");
         sort.setBounds(10, 80, 80, 25);
         panel.add(sort);
-        sort.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SortingItems();
-            }
-        });
+        sort.addActionListener(e -> SortingItems());
 
         viewCart = new JButton("View cart");
         viewCart.setBounds(10, 80, 80, 25);
         panel.add(viewCart);
-        viewCart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewCartOptions();
-            }
-        });
+        viewCart.addActionListener(e -> ViewCartOptions());
 
         editAccount = new JButton("Edit account");
         editAccount.setBounds(10, 80, 80, 25);
         panel.add(editAccount);
-        editAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditUserInfo();
-            }
-        });
+        editAccount.addActionListener(e -> EditUserInfo());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        back.addActionListener(e -> LoginGui());
         frame.setVisible(true);
     }
     public void SearchByKeywordOrNot() {
@@ -609,32 +468,17 @@ public class GUI {
         searchByKeyword = new JButton("Search by Keyword");
         searchByKeyword.setBounds(10, 80, 80, 25);
         panel.add(searchByKeyword);
-        searchByKeyword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SearchBar();
-            }
-        });
+        searchByKeyword.addActionListener(e -> SearchBar());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuyerMenuGui();
-            }
-        });
+        back.addActionListener(e -> BuyerMenuGui());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -665,22 +509,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SearchByKeywordOrNot();
-            }
-        });
+        back.addActionListener(e -> SearchByKeywordOrNot());
 
         frame.setVisible(true);
     }
@@ -726,22 +560,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuyerMenuGui();
-            }
-        });
+        back.addActionListener(e -> BuyerMenuGui());
 
         frame.setVisible(true);
     }
@@ -767,42 +591,22 @@ public class GUI {
         cancel = new JButton("Cancel");
         cancel.setBounds(10, 80, 80, 25);
         panel.add(cancel);
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PurchaseCancelled();
-            }
-        });
+        cancel.addActionListener(e -> PurchaseCancelled());
 
         approve = new JButton("Don't cancel");
         approve.setBounds(10, 80, 80, 25);
         panel.add(approve);
-        approve.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddedToCart();
-            }
-        });
+        approve.addActionListener(e -> AddedToCart());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SelectItem();
-            }
-        });
+        back.addActionListener(e -> SelectItem());
 
         frame.setVisible(true);
     }
@@ -825,22 +629,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelPurchase();
-            }
-        });
+        back.addActionListener(e -> cancelPurchase());
 
         frame.setVisible(true);
     }
@@ -863,22 +657,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SelectItem();
-            }
-        });
+        back.addActionListener(e -> SelectItem());
 
         frame.setVisible(true);
     }
@@ -900,22 +684,12 @@ public class GUI {
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SelectItem();
-            }
-        });
+        back.addActionListener(e -> SelectItem());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -944,21 +718,15 @@ public class GUI {
         price = new JButton("Price");
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
-        price.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //should allow the buyer to sort items by price                                                             ******
-            }
+        price.addActionListener(e -> {
+            //should allow the buyer to sort items by price                                                             ******
         });
 
         quantity = new JButton("Quantity");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
-        quantity.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //should allow the buyer to sort items by quantity                                                             ******
-            }
+        quantity.addActionListener(e -> {
+            //should allow the buyer to sort items by quantity                                                             ******
         });
 
         ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
@@ -968,42 +736,26 @@ public class GUI {
         ascending = new JButton("Ascending");
         ascending.setBounds(10, 80, 80, 25);
         panel.add(ascending);
-        ascending.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //should allow the buyer to sort items ascending                                                             ******
-            }
+        ascending.addActionListener(e -> {
+            //should allow the buyer to sort items ascending                                                             ******
         });
 
         descending = new JButton("Descending");
         descending.setBounds(10, 80, 80, 25);
         panel.add(descending);
-        descending.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //should allow the buyer to sort items descending                                                             ******
-            }
+        descending.addActionListener(e -> {
+            //should allow the buyer to sort items descending                                                             ******
         });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuyerMenuGui();
-            }
-        });
+        back.addActionListener(e -> BuyerMenuGui());
 
         frame.setVisible(true);
     }
@@ -1031,52 +783,29 @@ public class GUI {
         checkout = new JButton("Checkout");
         checkout.setBounds(10, 80, 80, 25);
         panel.add(checkout);
-        checkout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CheckoutComplete();
-            }
-        });
+        checkout.addActionListener(e -> CheckoutComplete());
 
         view = new JButton("View Purchase History");
         view.setBounds(10, 80, 80, 25);
         panel.add(view);
-        view.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //view purchase history                                                                                     ***
-            }
+        view.addActionListener(e -> {
+            //view purchase history                                                                                     ***
         });
 
         remove = new JButton("Remove Item");
         remove.setBounds(10, 80, 80, 25);
         panel.add(remove);
-        remove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RemoveItem();
-            }
-        });
+        remove.addActionListener(e -> RemoveItem());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuyerMenuGui();
-            }
-        });
+        back.addActionListener(e -> BuyerMenuGui());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -1098,22 +827,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewCartOptions();
-            }
-        });
+        back.addActionListener(e -> ViewCartOptions());
 
         frame.setVisible(true);
     }
@@ -1139,41 +858,23 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EnterNameOfFile();
-            }
-        });
+        yes.addActionListener(e -> EnterNameOfFile());
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewCartOptions();
-            }
-        });
+        no.addActionListener(e -> ViewCartOptions());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        back.addActionListener(e -> {
 
-            }
         });                                                                                                                     //back***
 
         frame.setVisible(true);
@@ -1204,22 +905,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EnterNameOfFile();
-            }
-        });
+        back.addActionListener(e -> EnterNameOfFile());
 
         frame.setVisible(true);
     }
@@ -1242,22 +933,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EnterNameOfFile();
-            }
-        });
+        back.addActionListener(e -> EnterNameOfFile());
 
         frame.setVisible(true);
     }
@@ -1299,22 +980,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewCartOptions();
-            }
-        });
+        back.addActionListener(e -> ViewCartOptions());
 
         frame.setVisible(true);
     }
@@ -1342,52 +1013,31 @@ public class GUI {
         editEmail = new JButton("Edit Account Email");
         editEmail.setBounds(10, 80, 80, 25);
         panel.add(editEmail);
-        editEmail.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewEmail();
-            }
-        });
+        editEmail.addActionListener(e -> NewEmail());
 
         editPassword = new JButton("Edit Account Password");                                                            //what is a valid password?
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
-        editPassword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String password = new String(editPassword.getText());
-            }
+        editPassword.addActionListener(e -> {
+            String password = new String(editPassword.getText());
         });
 
         delete = new JButton("Delete Account");
         delete.setBounds(10, 80, 80, 25);
         panel.add(delete);
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        delete.addActionListener(e -> {
 
-            }
         });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuyerMenuGui();
-            }
-        });
+        back.addActionListener(e -> BuyerMenuGui());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -1417,32 +1067,17 @@ public class GUI {
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ConfirmEmail();
-            }
-        });
+        enter.addActionListener(e -> ConfirmEmail());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditUserInfo();
-            }
-        });
+        back.addActionListener(e -> EditUserInfo());
 
         frame.setVisible(true);
     }
@@ -1468,48 +1103,30 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if ((User.isValidEmail(emailTextString) &&
-                        (User.accountExists(emailTextString)))) {
-                    String user = emailTextString;
-                    LoginSuccessful();
-                } else if ((!User.isValidEmail(emailTextString))) {
-                    EnterValidEmailAddress();
-                }
+        yes.addActionListener(e -> {
+            sendToServer("05" + emailTextString);
+            boolean emailIsValid = (boolean) readFromServer();
+            if (emailIsValid) {
+                String user = emailTextString;
+            } else if (!emailIsValid) {
+                EnterValidEmailAddress();                                                                               //make new version of this
             }
         });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewEmail();
-            }
-        });
+        no.addActionListener(e -> NewEmail());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditUserInfo();
-            }
-        });
+        back.addActionListener(e -> EditUserInfo());
 
         frame.setVisible(true);
     }
@@ -1539,32 +1156,17 @@ public class GUI {
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ConfirmPassword();
-            }
-        });
+        enter.addActionListener(e -> ConfirmPassword());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditUserInfo();
-            }
-        });
+        back.addActionListener(e -> EditUserInfo());
 
         frame.setVisible(true);
     }
@@ -1590,42 +1192,24 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String password = passwordTextString;
-            }
+        yes.addActionListener(e -> {
+            String password = passwordTextString;                                                                           //determin if password is valid
         });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewPassword();
-            }
-        });
+        no.addActionListener(e -> NewPassword());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewPassword();
-            }
-        });
+        back.addActionListener(e -> NewPassword());
 
         frame.setVisible(true);
     }
@@ -1653,62 +1237,34 @@ public class GUI {
         viewListings = new JButton("View listings");
         viewListings.setBounds(10, 80, 80, 25);
         panel.add(viewListings);
-        viewListings.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ListingsMenu();
-            }
-        });
+        viewListings.addActionListener(e -> ListingsMenu());
 
         viewStatistics = new JButton("View statistics");
         viewStatistics.setBounds(10, 80, 80, 25);
         panel.add(viewStatistics);
-        viewStatistics.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewStatistics();
-            }
-        });
+        viewStatistics.addActionListener(e -> ViewStatistics());
 
         editAccount = new JButton("Edit account");
         editAccount.setBounds(10, 80, 80, 25);
         panel.add(editAccount);
-        editAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditOptions();
-            }
-        });
+        editAccount.addActionListener(e -> EditOptions());
 
         logOut = new JButton("Log out");
         logOut.setBounds(10, 80, 80, 25);
         panel.add(logOut);
-        logOut.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        logOut.addActionListener(e -> {
 
-            }
         });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginGui();
-            }
-        });
+        back.addActionListener(e -> LoginGui());
 
         frame.setVisible(true);
     }
@@ -1736,52 +1292,27 @@ public class GUI {
         add = new JButton("Add");
         add.setBounds(10, 80, 80, 25);
         panel.add(add);
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddOptions();
-            }
-        });
+        add.addActionListener(e -> AddOptions());
 
         edit = new JButton("Edit");
         edit.setBounds(10, 80, 80, 25);
         panel.add(edit);
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ChooseItemToEdit();
-            }
-        });
+        edit.addActionListener(e -> ChooseItemToEdit());
 
         delete = new JButton("Delete");
         delete.setBounds(10, 80, 80, 25);
         panel.add(delete);
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Remove();
-            }
-        });
+        delete.addActionListener(e -> Remove());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerMenu();
-            }
-        });
+        back.addActionListener(e -> SellerMenu());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -1802,42 +1333,22 @@ public class GUI {
         add = new JButton("Add item");
         add.setBounds(10, 80, 80, 25);
         panel.add(add);
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddItem();
-            }
-        });
+        add.addActionListener(e -> AddItem());
 
         csv = new JButton("Add from CSV");
         csv.setBounds(10, 80, 80, 25);
         panel.add(csv);
-        csv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddFromCSV();
-            }
-        });
+        csv.addActionListener(e -> AddFromCSV());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ListingsMenu();
-            }
-        });
+        back.addActionListener(e -> ListingsMenu());
 
         frame.setVisible(true);
     }
@@ -1906,22 +1417,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddOptions();
-            }
-        });
+        back.addActionListener(e -> AddOptions());
 
         frame.setVisible(true);
     }
@@ -1950,22 +1451,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddOptions();
-            }
-        });
+        back.addActionListener(e -> AddOptions());
 
         frame.setVisible(true);
     }
@@ -2006,51 +1497,36 @@ public class GUI {
         name = new JButton("Name");
         name.setBounds(10, 80, 80, 25);
         panel.add(name);
-        name.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        name.addActionListener(e -> {
 
-            }
         });
 
         store = new JButton("Store");
         store.setBounds(10, 80, 80, 25);
         panel.add(store);
-        store.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        store.addActionListener(e -> {
 
-            }
         });
 
         description = new JButton("Description");
         description.setBounds(10, 80, 80, 25);
         panel.add(description);
-        description.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        description.addActionListener(e -> {
 
-            }
         });
 
         quantity = new JButton("Quantity");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
-        quantity.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        quantity.addActionListener(e -> {
 
-            }
         });
 
         price = new JButton("Price");
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
-        price.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        price.addActionListener(e -> {
 
-            }
         });
 
         change = new JLabel("What would you like to change it to?");
@@ -2064,22 +1540,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ListingsMenu();
-            }
-        });
+        back.addActionListener(e -> ListingsMenu());
 
         frame.setVisible(true);
     }
@@ -2108,22 +1574,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerMenu();
-            }
-        });
+        back.addActionListener(e -> SellerMenu());
 
         frame.setVisible(true);
     }
@@ -2150,42 +1606,24 @@ public class GUI {
         allStats = new JButton("View all statistics");
         allStats.setBounds(10, 80, 80, 25);
         panel.add(allStats);
-        allStats.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        allStats.addActionListener(e -> {
 
-            }
         });
 
         specificStats = new JButton("View specific statistics");
         specificStats.setBounds(10, 80, 80, 25);
         panel.add(specificStats);
-        specificStats.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SpecificStats();
-            }
-        });
+        specificStats.addActionListener(e -> SpecificStats());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerMenu();
-            }
-        });
+        back.addActionListener(e -> SellerMenu());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -2214,21 +1652,15 @@ public class GUI {
         price = new JButton("Price");
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
-        price.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        price.addActionListener(e -> {
 
-            }
         });
 
         quantity = new JButton("Price");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
-        quantity.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        quantity.addActionListener(e -> {
 
-            }
         });
 
         ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
@@ -2238,42 +1670,26 @@ public class GUI {
         ascending = new JButton("Ascending");
         ascending.setBounds(10, 80, 80, 25);
         panel.add(ascending);
-        ascending.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        ascending.addActionListener(e -> {
 
-            }
         });
 
         descending = new JButton("Descending");
         descending.setBounds(10, 80, 80, 25);
         panel.add(descending);
-        descending.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        descending.addActionListener(e -> {
 
-            }
         });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewStatistics();
-            }
-        });
+        back.addActionListener(e -> ViewStatistics());
 
         frame.setVisible(true);
     }
@@ -2295,21 +1711,13 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        back.addActionListener(e -> {
 
-            }
         });                                                                                                                     //back***
 
         frame.setVisible(true);
@@ -2338,52 +1746,29 @@ public class GUI {
         editEmail = new JButton("Edit account email");
         editEmail.setBounds(10, 80, 80, 25);
         panel.add(editEmail);
-        editEmail.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NewEmail();
-            }
-        });
+        editEmail.addActionListener(e -> NewEmail());
 
         editPassword = new JButton("Edit account password");
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
-        editPassword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerNewPassword();
-            }
-        });
+        editPassword.addActionListener(e -> SellerNewPassword());
 
         deleteAccount = new JButton("Delete account");
         deleteAccount.setBounds(10, 80, 80, 25);
         panel.add(deleteAccount);
-        deleteAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        deleteAccount.addActionListener(e -> {
 
-            }
         });
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerMenu();
-            }
-        });
+        back.addActionListener(e -> SellerMenu());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
     static String enterEmailString;
@@ -2413,22 +1798,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditOptions();
-            }
-        });
+        back.addActionListener(e -> EditOptions());
 
         frame.setVisible(true);
     }
@@ -2454,53 +1829,30 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                yes.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if ((User.isValidEmail(enterEmailString) &&
-                                (User.accountExists(enterEmailString)))) {
-                            String email = enterEmailString;
-                            LoginSuccessful();
-                        } else if ((!User.isValidEmail(enterEmailString))) {
-                            SellerEnterValidEmailAddress();
-                        }
-                    }
-                });
+        yes.addActionListener(e -> yes.addActionListener(e1 -> {
+            sendToServer("05" + enterEmailString);
+            boolean emailIsValid = (boolean) readFromServer();
+            if (emailIsValid) {
+                String email = enterEmailString;
+            } else if (!emailIsValid) {
+                EnterValidEmailAddress();                                                                               //make new method
             }
-        });
+        }));
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerNewEmail();
-            }
-        });
+        no.addActionListener(e -> SellerNewEmail());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerNewEmail();
-            }
-        });
+        back.addActionListener(e -> SellerNewEmail());
 
         frame.setVisible(true);
     }
@@ -2527,22 +1879,12 @@ public class GUI {
         back = new JButton("Back");
         back.setBounds(10, 20, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerNewEmail();
-            }
-        });
+        back.addActionListener(e -> SellerNewEmail());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         frame.setVisible(true);
     }
@@ -2570,12 +1912,7 @@ public class GUI {
         confirm = new JButton("Confirm");
         confirm.setBounds(10, 80, 80, 25);
         panel.add(confirm);
-        confirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerConfirmPassword();
-            }
-        });
+        confirm.addActionListener(e -> SellerConfirmPassword());
 
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
@@ -2584,22 +1921,12 @@ public class GUI {
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditOptions();
-            }
-        });
+        back.addActionListener(e -> EditOptions());
 
         frame.setVisible(true);
     }
@@ -2625,42 +1952,24 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String password = enterPasswordString;
-            }
+        yes.addActionListener(e -> {
+            String password = enterPasswordString;                                                                          //determine if password is valid
         });
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerNewPassword();
-            }
-        });
+        no.addActionListener(e -> SellerNewPassword());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowWelcome();
-            }
-        });
+        logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SellerNewPassword();
-            }
-        });
+        back.addActionListener(e -> SellerNewPassword());
 
         frame.setVisible(true);
     }
