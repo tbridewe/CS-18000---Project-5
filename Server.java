@@ -14,6 +14,13 @@ public class Server implements Runnable {
     }
 
     public void run() {
+        String input; // store the input read from the client. This should start with a 2 cahracter action number code, any additional information needed fro that action should follow
+        int action; // the number of the action the server should do
+        Object output = null; // the object to be sent to the client
+        Seller seller = null;
+        Customer customer = null;
+        String info = null;
+
         try {
             BufferedReader bfr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             ObjectOutputStream objectOut = new ObjectOutputStream(socket.getOutputStream());
@@ -28,12 +35,7 @@ public class Server implements Runnable {
              * output is an object that is passed back to the client
              * for actions that don't need an output the ouput will be true if the action happens sucessfully and ?something? if there is an error
              */
-            String input; // store the input read from the client. This should start with a 2 cahracter action number code, any additional information needed fro that action should follow
-            int action; // the number of the action the server should do
-            Object output = null; // the object to be sent to the client
-            Seller seller = null;
-            Customer customer = null;
-            String info = null;
+            
 
             while ((input = bfr.readLine()) != null) { // reads the next line
                 action = Integer.valueOf(input.substring(0, 2)); // TODO: exception catching here
@@ -81,19 +83,19 @@ public class Server implements Runnable {
 
                             while ((obj = ois.readObject()) != null) {
                                 if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail) && (((Customer) obj).getPassword().equals(userPassword))) {
-                                    customer = customer;
+                                    customer = (Customer) obj;
 
                                     break;
                                 }
                                 if (obj instanceof Seller && ((Seller) obj).getEmail().equals(userEmail) && ((Seller) obj).getPassword().equals(userPassword)) {
-                                    seller = seller;
+                                    seller = (Seller) obj;
 
                                     break;
                                 }
                             }
                             ois.close();
                         } catch (EOFException eofException) {
-                            // display GUI that says user not found, create an account
+                            // TODO: display GUI that says user not found, create an account
                         } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -108,11 +110,12 @@ public class Server implements Runnable {
 
                     }
                     case 5 -> { // check valid email
-                        //TODO: fix these so they actually check
-                        output = true;
+                        //info = username string
+                        output = User.isValidEmail(info);
                     }
                     case 6 -> { // check if account exists
-                        output = true;
+                        // info = username strings
+                        output = User.accountExists(info);
                     }
                 }
                 if (customer != null) { // all the customer actions here
@@ -120,8 +123,45 @@ public class Server implements Runnable {
                     switch (action) {
                         case 20 -> { // view all listings
                             customer.refreshListings(); // loads all listings
-output = customer.getSortedItems(); // gets all the listings
+                            output = customer.getSortedItems(); // gets all the listings
                         }
+                        case 21 -> { // sort listings by `info`
+
+                        }
+                        case 22 -> { // keyword search
+
+                        }
+                        case 23 -> { // view cart
+
+                        }
+                        case 24 -> { // add to cart
+                            // TODO: Amber how to you want the GUI to do this, pass item or index?
+                            // info = displayedIndex,quanitity
+                            String[] s = info.split(",");
+                            int i = Integer.valueOf(s[0]);
+                            int q = Integer.valueOf(s[1]);
+                            Item item = customer.getDisplayedItem(i);
+                            try {
+                                customer.addToCart(item, q);
+                                output = true;
+                            } catch (InvalidQuantityException e) {
+                                output = e;
+                            }
+                        }
+                        case 25 -> { // remove from cart
+
+                        }
+                        case 26 -> { // view purchase log
+
+                        }
+                        case 27 -> { // export purchase log
+
+                        }
+                        case 28 -> { // checkout
+
+                        }
+
+
                     }
                 } else if (seller != null) {
                     switch (action) {
