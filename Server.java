@@ -101,7 +101,56 @@ public class Server implements Runnable {
                         }
                     }
                     case 2 -> { // create new account
+                        String[] limitedInput = input.split(",");
+                        
+                        String userEmail = "";
+                        String userPassword = "";
+                        String userType = "";
+                        
+                        for (int i = 0; i < limitedInput.length; i++) {
+                            if (limitedInput[i].lastIndexOf("Username:") > -1) {
+                                userEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("Username:"));
+                            } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
+                                userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
+                            }  else if (limitedInput[i].lastIndexOf("UserType:") > -1) {
+                                userType = limitedInput[i].substring(limitedInput[i].lastIndexOf("UserType:"));
+                            }
+                        }
 
+                        ObjectInputStream ois = null;
+                        
+                        boolean accountExists = false;
+
+                        try {
+                            ois = new ObjectInputStream(new FileInputStream("file.txt"));
+                            Object obj;
+                            // String userEmail = /GUI textfield that has email/
+                            // String userPassword = /GUI textfield that has password/
+
+                            while ((obj = ois.readObject()) != null) {
+                                if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail)) {
+                                    accountExists = true;
+
+                                    break;
+                                }
+                                if (obj instanceof Seller && ((Seller) obj).getEmail().equals(userEmail)) {
+                                    accountExists = true;
+
+                                    break;
+                                }
+                            }
+                            ois.close();
+                        } catch (EOFException eofException) {
+                            // display GUI that says user not found, create an account
+                        } catch (IOException | ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        
+                        if (!accountExists) {
+                            // create user
+                        } else {
+                            // return possible error that the account already exists
+                        }
                     }
                     case 3 -> { // change username
 
