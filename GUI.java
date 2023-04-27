@@ -189,15 +189,19 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
     }
+    int userNumber;
     public void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
         JLabel userLabel;
         JTextField userText;
+        JLabel userTypeLabel;
+        JButton customer;
+        JButton seller;
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton makeNewAccount;
         JLabel success;
-        
+
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -211,12 +215,32 @@ public class GUI {
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(newAccountPanel);
-        userLabel = new JLabel("User");
+
+        userTypeLabel = new JLabel("User type");
+        userTypeLabel.setBounds(10,20, 80, 25);
+        newAccountPanel.add(userTypeLabel);
+
+        customer = new JButton("Customer");
+        customer.setBounds(10, 80, 80, 25);
+        panel.add(customer);
+        customer.addActionListener(e -> {
+            userNumber = 0;
+        });
+
+        seller = new JButton("Seller");
+        seller.setBounds(10, 80, 80, 25);
+        panel.add(seller);
+        seller.addActionListener(e -> {
+            userNumber = 1;
+        });
+
+        userLabel = new JLabel("Email");
         userLabel.setBounds(10,20, 80, 25);
         newAccountPanel.add(userLabel);
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
         newAccountPanel.add(userText);
+
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
         newAccountPanel.add(passwordLabel);
@@ -231,11 +255,15 @@ public class GUI {
             boolean emailIsValid = (boolean) readFromServer();
             sendToServer("06" + userText.getText());
             boolean accountExists = (boolean) readFromServer();
-            if (emailIsValid && accountExists) {
+            if (emailIsValid && !accountExists) {                                                                           //create an error message for if the email is already associated with an account
                 String user = userText.getText();
                 String password = new String(passwordText.getPassword());                                                       //does not create new account
                 LoginGui();
-            } else if (!emailIsValid) {
+                String serverMessage = "02," + user + "," + password + "," + userNumber + "";
+                sendToServer(serverMessage);
+            } else if (emailIsValid && accountExists) {
+                EmailAlreadyExists();
+            } else {                                                                                                            //doesn't work
                 EnterValidEmailAddress();
             }
         });
@@ -252,6 +280,34 @@ public class GUI {
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
+        frame.setVisible(true);
+    }
+    public void EmailAlreadyExists() { //shown if the email submitted in the new account GUI is associated with an existing account
+        JLabel enterValidEmail;
+        JButton back;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        enterValidEmail = new JLabel("This email is associated with an existing account.  Please log in.");
+        enterValidEmail.setBounds(10, 20, 80, 25);
+        panel.add(enterValidEmail);
+
+        back = new JButton("Back");
+        back.setBounds(10, 20, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> LoginGui());
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
     public void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
@@ -925,7 +981,7 @@ public class GUI {
         JTextField item;
         JLabel number;
         JTextField quantity;
-        
+
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -972,7 +1028,7 @@ public class GUI {
         JButton editPassword;
         JButton delete;
         JButton back;
-        
+
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
