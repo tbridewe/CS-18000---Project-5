@@ -11,7 +11,6 @@ import java.io.*;
 
 
 public class GUI {
-    static JFrame frame;
     private PrintWriter writer;
     private ObjectInputStream reader;
     public static Object input;
@@ -51,16 +50,16 @@ public class GUI {
         }
         return o;
     }
-
+    Container content;
+    static JFrame frame = new JFrame();
     public void ShowWelcome() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
         JLabel welcome;
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
         JPanel panel = new JPanel();
-        Container welcomeContent = frame.getContentPane();
+        content = frame.getContentPane();
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
@@ -81,12 +80,11 @@ public class GUI {
         JButton quit;
         JLabel welcomeOptions;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
         JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
+        content = frame.getContentPane();
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
@@ -130,12 +128,11 @@ public class GUI {
         JButton loginButton;
         JLabel success;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
         JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
+        content = frame.getContentPane();
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
@@ -200,8 +197,7 @@ public class GUI {
         JPasswordField passwordText;
         JButton makeNewAccount;
         JLabel success;
-
-        frame = new JFrame();
+        
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -237,8 +233,8 @@ public class GUI {
             boolean accountExists = (boolean) readFromServer();
             if (emailIsValid && accountExists) {
                 String user = userText.getText();
-                String password = new String(passwordText.getPassword());
-                LoginSuccessful();
+                String password = new String(passwordText.getPassword());                                                       //does not create new account
+                LoginGui();
             } else if (!emailIsValid) {
                 EnterValidEmailAddress();
             }
@@ -262,7 +258,6 @@ public class GUI {
         JLabel enterValidEmail;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -289,7 +284,6 @@ public class GUI {
     }
     public void IncorrectCredentials() {
         //shown if there is nt an account associated with the email and password submitted in the login menu
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -326,8 +320,6 @@ public class GUI {
         JButton reAttemptLogin;
         JButton back;
 
-        frame = new JFrame();
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -371,7 +363,6 @@ public class GUI {
     public void LoginSuccessful() {
         //shown if the login is successful
         JLabel loginSuccessful;
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -403,7 +394,6 @@ public class GUI {
         JButton logOut;
         JLabel buyerOptions;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -455,7 +445,6 @@ public class GUI {
         JButton searchByKeyword;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -486,7 +475,6 @@ public class GUI {
         JLabel search;
         JTextField searchBar;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -526,7 +514,6 @@ public class GUI {
         JLabel number;
         JTextField quantity;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -574,7 +561,6 @@ public class GUI {
         JButton cancel;
         JButton approve;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -611,7 +597,6 @@ public class GUI {
         frame.setVisible(true);
     }
     public void PurchaseCancelled() {
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -639,7 +624,6 @@ public class GUI {
         frame.setVisible(true);
     }
     public void AddedToCart() {
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -667,7 +651,6 @@ public class GUI {
         frame.setVisible(true);
     }
     public void InvalidQuantityException() {
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -701,7 +684,6 @@ public class GUI {
         JButton ascending;
         JButton descending;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -766,7 +748,6 @@ public class GUI {
         JButton remove;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -810,7 +791,6 @@ public class GUI {
         frame.setVisible(true);
     }
     public void CheckoutComplete() { //if the buyer chooses to checkout and checks out successfully
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -841,7 +821,6 @@ public class GUI {
         JButton yes;
         JButton no;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -883,7 +862,6 @@ public class GUI {
         JLabel nameFile;
         JTextField file;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -916,7 +894,6 @@ public class GUI {
     }
     public void PurchaseHistoryExported() {
         //message shown if the buyer successfully saves purchase history to file
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -948,8 +925,7 @@ public class GUI {
         JTextField item;
         JLabel number;
         JTextField quantity;
-
-        frame = new JFrame();
+        
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -971,11 +947,12 @@ public class GUI {
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
         panel.add(number);
-        //should save the number as a variable                                                                              ***
+        //should save the number as a variable
 
         quantity = new JTextField(20);
         quantity.setBounds(100, 20, 165, 25);
         panel.add(quantity);
+        int numberOfItems = Integer.parseInt(quantity.getText());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -995,8 +972,7 @@ public class GUI {
         JButton editPassword;
         JButton delete;
         JButton back;
-
-        frame = new JFrame();
+        
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1015,7 +991,7 @@ public class GUI {
         panel.add(editEmail);
         editEmail.addActionListener(e -> NewEmail());
 
-        editPassword = new JButton("Edit Account Password");                                                            //what is a valid password?
+        editPassword = new JButton("Edit Account Password");
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
         editPassword.addActionListener(e -> {
@@ -1046,7 +1022,6 @@ public class GUI {
         JLabel enterEmail;
         JTextField emailText;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1086,7 +1061,6 @@ public class GUI {
         JButton yes;
         JButton no;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1109,7 +1083,7 @@ public class GUI {
             if (emailIsValid) {
                 String user = emailTextString;
             } else if (!emailIsValid) {
-                EnterValidEmailAddress();                                                                               //make new version of this
+                EnterValidEmailAddressTwo();
             }
         });
 
@@ -1130,12 +1104,39 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    public void EnterValidEmailAddressTwo() { //shown if the email submitted in the customer edit user info is invalid
+        JLabel enterValidEmail;
+        JButton back;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        enterValidEmail = new JLabel("Please enter a valid email address");
+        enterValidEmail.setBounds(10, 20, 80, 25);
+        panel.add(enterValidEmail);
+
+        back = new JButton("Back");
+        back.setBounds(10, 20, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> ConfirmEmail());
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+        frame.setVisible(true);
+    }
     static String passwordTextString;
     public void NewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1175,7 +1176,6 @@ public class GUI {
         JButton yes;
         JButton no;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1193,7 +1193,7 @@ public class GUI {
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
         yes.addActionListener(e -> {
-            String password = passwordTextString;                                                                           //determin if password is valid
+            String password = passwordTextString;
         });
 
         no = new JButton("No");
@@ -1220,7 +1220,6 @@ public class GUI {
         JButton editAccount;
         JButton logOut;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1275,7 +1274,6 @@ public class GUI {
         JButton delete;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1320,7 +1318,6 @@ public class GUI {
         JButton add;
         JButton csv;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1364,7 +1361,6 @@ public class GUI {
         JLabel enterPrice;
         JTextField price;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1430,7 +1426,6 @@ public class GUI {
         JLabel enterFileName;
         JTextField fileName;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1472,7 +1467,6 @@ public class GUI {
         JLabel change;
         JTextField theChange;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1553,7 +1547,6 @@ public class GUI {
         JLabel chooseItem;
         JTextField item;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1589,7 +1582,6 @@ public class GUI {
         JButton specificStats;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1635,7 +1627,6 @@ public class GUI {
         JButton ascending;
         JButton descending;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1694,7 +1685,6 @@ public class GUI {
         frame.setVisible(true);
     }
     public void HaveNoStores() {
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1716,9 +1706,7 @@ public class GUI {
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(e -> {
-
-        });                                                                                                                     //back***
+        back.addActionListener(e -> ViewStatistics());
 
         frame.setVisible(true);
     }
@@ -1729,7 +1717,6 @@ public class GUI {
         JButton deleteAccount;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1776,7 +1763,6 @@ public class GUI {
         JLabel enterEmail;
         JTextField emailText;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1812,7 +1798,6 @@ public class GUI {
         JButton yes;
         JButton no;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1835,7 +1820,7 @@ public class GUI {
             if (emailIsValid) {
                 String email = enterEmailString;
             } else if (!emailIsValid) {
-                EnterValidEmailAddress();                                                                               //make new method
+                EnterValidEmailAddressThree();
             }
         }));
 
@@ -1856,13 +1841,40 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    public void EnterValidEmailAddressThree() { //shown if the email submitted in the seller edit user info is invalid
+        JLabel enterValidEmail;
+        JButton back;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(350, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        enterValidEmail = new JLabel("Please enter a valid email address");
+        enterValidEmail.setBounds(10, 20, 80, 25);
+        panel.add(enterValidEmail);
+
+        back = new JButton("Back");
+        back.setBounds(10, 20, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> SellerConfirmEmail());
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+        frame.setVisible(true);
+    }
 
     public void SellerEnterValidEmailAddress() {
         //shown if the email submitted in SellerConfirmEmail() is invalid
         JLabel enterValidEmail;
         JButton back;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1894,7 +1906,6 @@ public class GUI {
         JTextField passwordText;
         JButton confirm;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1935,7 +1946,6 @@ public class GUI {
         JButton yes;
         JButton no;
 
-        frame = new JFrame();
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1953,7 +1963,7 @@ public class GUI {
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
         yes.addActionListener(e -> {
-            String password = enterPasswordString;                                                                          //determine if password is valid
+            String password = enterPasswordString;
         });
 
         no = new JButton("No");
