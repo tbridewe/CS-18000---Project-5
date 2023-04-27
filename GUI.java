@@ -168,11 +168,24 @@ public class GUI {
         loginPanel.add(success);
         frame.setVisible(true);
 
-        //TODO: HERE
+        //TODO: Login HERE
         loginButton.addActionListener(e -> {
-            if ((User.isValidEmail(userText.getText())) && (User.accountExists(userText.getText()))) {
+            // get info from server
+            sendToServer("05" + userText.getText());
+            boolean emailIsValid = (boolean) readFromServer();
+            sendToServer("06" + userText.getText());
+            boolean accountExists = (boolean) readFromServer();
+
+            if (emailIsValid && accountExists) {
                 String user = userText.getText();
                 String password = new String(passwordText.getPassword());
+                sendToServer(String.format("01,Username: %s, Password: %s", user, password));
+                int out = (Integer) readFromServer(); // get feedback on wether login is invalid, customer, or seller
+                switch (out) {
+                    case -1 -> LoginGui(); // TODO: Invalid password here
+                    case 0 -> BuyerMenuGui();
+                    case 1 -> SellerMenu();
+                }
             } else if ((!User.isValidEmail(userText.getText()))) {
                 EnterValidEmailAddress();
             } else if (!User.accountExists(userText.getText())) {
@@ -251,19 +264,21 @@ public class GUI {
         makeNewAccount.setBounds(10, 80, 80, 25);
         newAccountPanel.add(makeNewAccount);
         makeNewAccount.addActionListener(e -> {
+            // TODO: New account stuff HERE (done I just want the marker)
             sendToServer("05" + userText.getText());
             boolean emailIsValid = (boolean) readFromServer();
             sendToServer("06" + userText.getText());
             boolean accountExists = (boolean) readFromServer();
-            if (emailIsValid && !accountExists) {                                                                           //create an error message for if the email is already associated with an account
+            if (emailIsValid && !accountExists) {  // create new accounts                                                                         //create an error message for if the email is already associated with an account
                 String user = userText.getText();
                 String password = new String(passwordText.getPassword());                                                       //does not create new account
-                LoginGui();
-                String serverMessage = "02," + user + "," + password + "," + userNumber + "";
+                String serverMessage = "02" + user + "," + password + "," + userNumber + "";
                 sendToServer(serverMessage);
-            } else if (emailIsValid && accountExists) {
+                readFromServer(); // just read and ignore the return message
+                LoginGui();
+            } else if (emailIsValid && accountExists) { // account exists, go back to login
                 EmailAlreadyExists();
-            } else {                                                                                                            //doesn't work
+            } else {      // invalid email                                                                                                      //doesn't work
                 EnterValidEmailAddress();
             }
         });
