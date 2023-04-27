@@ -150,7 +150,7 @@ public class Server implements Runnable {
                             // create user
 
                             if (userType.equals("Customer")) {
-                                customer = new Customer(userEmail, userPassword, 1);
+                                customer = new Customer(userEmail, userPassword, 0);
                                 
                                 User.updatedSaveNewCustomer(userEmail, userPassword);
                             } else if (userType.equals("Seller")) {
