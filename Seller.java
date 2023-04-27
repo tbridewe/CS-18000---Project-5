@@ -203,7 +203,7 @@ public class Seller extends User {
         }
     }
     
-    public void updatedViewAllStats() {
+    public ArrayList<Customer> updatedViewAllStats() {
         Object[] users = readObjectsFromFile("userData.txt");
         ArrayList<Customer> customersOfSeller = new ArrayList<>();
         
@@ -219,7 +219,7 @@ public class Seller extends User {
         }
         
         // TODO: determine the way that the stats get displayed
-        
+        return(customersOfSeller); // done I think
     }
     public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder) {
         ArrayList<Customer> customersOfSeller = updatedViewAllStats();
@@ -240,7 +240,7 @@ public class Seller extends User {
         }
 
         if (sortType == 2 && sortOrder == 1) {
-            sellerTransactions.sort(new newQuantityComparatorAscending);
+            sellerTransactions.sort(new newQuantityComparatorAscending());
         }
 
         if (sortType == 2 && sortOrder == 2) {
