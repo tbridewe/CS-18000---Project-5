@@ -148,11 +148,15 @@ public class Server implements Runnable {
                         
                         if (!accountExists) {
                             // create user
-                            
+
                             if (userType.equals("Customer")) {
-                                customer = new Customer(userEmail, userPassword, 0);
+                                customer = new Customer(userEmail, userPassword, 1);
+                                
+                                User.updatedSaveNewCustomer(userEmail, userPassword);
                             } else if (userType.equals("Seller")) {
                                 seller = new Seller(userEmail, userPassword, 1);
+
+                                User.updatedSaveNewSeller(userEmail, userPassword);
                                 // save the new user
                             } else {
                                 // return an error that no customer account type was selected
