@@ -49,7 +49,7 @@ public class Server implements Runnable {
                 System.out.printf("Server Received: %s\n", input);
                 // output = new Item("banana", "store1", "fruit", 7, 1.25);
                 ArrayList<String> l= new ArrayList<>();
-                l.add("hi");
+                l.add("hi. Nothing happening here");
 
                 output = l;
 
@@ -74,9 +74,10 @@ public class Server implements Runnable {
                         }
 
                         ObjectInputStream ois = null;
+                        System.out.printf("Username:%s\nPassword:%s.\n", userEmail, userPassword);
 
                         try {
-                            ois = new ObjectInputStream(new FileInputStream("file.txt"));
+                            ois = new ObjectInputStream(new FileInputStream("userData.txt"));
                             Object obj;
                             // String userEmail = /GUI textfield that has email/
                             // String userPassword = /GUI textfield that has password/
@@ -99,9 +100,37 @@ public class Server implements Runnable {
                         } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
                         }
+
+                        if (seller != null) {
+                            output = 1;
+                        } else if (customer != null) {
+                            output = 0;
+                        } else {
+                            output = -1;
+                        }
+
                     }
                     case 2 -> { // create new account
-
+                        // 0 = customer
+                        // 1 = seller
+                        //info = `username,password,usertype`
+                        String[] s = info.split(",");
+                        String email = s[0];
+                        String password = s[1];
+                        int userType = Integer.valueOf(s[2]);
+                        try {
+                        if (userType == 0) {
+                            User.updatedSaveNewCustomer(email, password);
+                            customer = new Customer(email, password, userType);
+                        } else if (userType == 1) {
+                            User.updatedSaveNewSeller(email, password);
+                            seller = new Seller(email, password, userType);
+                        }
+                        } catch (InvalidUserInput e) {
+                        }
+                        // TODO: save user data
+                        // User.saveNewUser(email, password, userType);
+                        output = "New account created";
                     }
                     case 3 -> { // change username
 
