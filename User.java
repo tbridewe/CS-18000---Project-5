@@ -198,17 +198,17 @@ public class User extends FileFunctions implements Serializable{
         return null;
     }
 
-    public void updatedSaveNewCustomer(String email, String password) {
+    public static void updatedSaveNewCustomer(String email, String password) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))) {
-            oos.writeObject(new Customer(email, password));
+            oos.writeObject(new Customer(email, password, 0));
         } catch (Exception e) {
             e.printStackTrace(); // TODO: change print stack trace
         }
     }
     
-    public void updatedSaveNewSeller(String email, String password) {
+    public static void updatedSaveNewSeller(String email, String password) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userData.txt"))) {
-            oos.writeObject(new Seller(email, password));
+            oos.writeObject(new Seller(email, password, 1));
         } catch (Exception e) {
             e.printStackTrace(); // TODO: change print stack trace
         }
