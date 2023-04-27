@@ -207,7 +207,44 @@ public class Server implements Runnable {
                         }
                     }
                     case 4 -> { // change password
+                        String[] limitedInput = input.split(",");
 
+                        String userEmail = "";
+                        String oldPassword = "";
+                        String newPassword = "";
+
+                        for (int i = 0; i < limitedInput.length; i++) {
+                            if (limitedInput[i].lastIndexOf("Username:") > -1) {
+                                userEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("Username:"));
+                            } else if (limitedInput[i].lastIndexOf("NewPassword:") > -1)  {
+                                newPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewPassword:"));
+                            }  else if (limitedInput[i].lastIndexOf("OldPassword:") > -1) {
+                                oldPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("OldPassword:"));
+                            }
+                        }
+
+                        if (User.isCorrectLogin(userEmail, oldPassword) > -1)  {
+                            // account attempted to change exists
+                            // assuming that they are already logged in
+
+                            try {
+                                if (customer != null) {
+                                    // edit customer
+
+                                    customer.setPassword(newPassword);
+                                } else if (seller != null) {
+                                    // edit seller
+
+                                    seller.setPassword(newPassword);
+                                }
+
+                                // save new account information inside of the try bracket... is there a method that exists for this?
+                            } catch (InvalidUserInput e) {
+                                // display to the user that they entered an invalid email
+                            }
+                        } else {
+                            // account attempted to change does not exist
+                        }
                     }
                     case 5 -> { // check valid email
                         //info = username string
