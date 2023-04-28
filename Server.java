@@ -255,6 +255,9 @@ public class Server implements Runnable {
                             output = true;
                         }
                     }
+                    case 7 -> { // delete account
+
+                    }
                     case 9 -> { // log out
                         //TODO: save the data
                         seller = null;
