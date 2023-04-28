@@ -265,6 +265,9 @@ public class Server implements Runnable {
                     }
                 }
                 if (customer != null) { // all the customer actions here
+                    // cusomter specific vars
+                    int sortType;
+                    int sortOrder;
                     // 20-39: Buyer functions
                     switch (action) {
                         case 20 -> { // view all listings
@@ -272,6 +275,8 @@ public class Server implements Runnable {
                             output = customer.getSortedItems(); // gets all the listings
                         }
                         case 21 -> { // sort listings by `info`
+                            customer.sortMarketplace(action, action);
+                            output = customer.getSortedItems();
 
                         }
                         case 22 -> { // keyword search
@@ -305,6 +310,12 @@ public class Server implements Runnable {
                         }
                         case 28 -> { // checkout
 
+                        }
+                        case 31 -> { // set sort type
+                            sortType = Integer.valueOf(info);
+                        }
+                        case 32 -> { // set sort order
+                            sortOrder = Integer.valueOf(info);
                         }
 
 

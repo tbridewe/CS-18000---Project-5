@@ -276,8 +276,8 @@ public class Customer extends User implements Serializable{
      * sortMarketplace(int sortType, int sortOrder)
      * sorts the marketplace listings based on user input
      *
-     * @param sortType:  either sort by 1price or by 2quantity
-     * @param sortOrder: either sort in ascending or descending order
+     * @param sortType  either sort by 1price or by 2quantity
+     * @param sortOrder either sort in 1ascending or 2descending order
      */
 
     public void sortMarketplace(int sortType, int sortOrder) {

@@ -60,7 +60,7 @@ public class GUI {
      * @return Object from the server
      */
     private Object serverAction(int actionNumber, String info) {
-        String message = String.format("%0d2", actionNumber);
+        String message = String.format("%02d", actionNumber);
         if (info != null) {
             message += info;
         }
@@ -808,13 +808,15 @@ public class GUI {
         panel.add(price);
         price.addActionListener(e -> {
             //should allow the buyer to sort items by price                                                             ******
+            serverAction(31, "1"); // set price
         });
 
         quantity = new JButton("Quantity");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
         quantity.addActionListener(e -> {
-            //should allow the buyer to sort items by quantity                                                             ******
+            //should allow the buyer to sort items by quantity
+            serverAction(31, "2"); // set qnty
         });
 
         ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
@@ -825,14 +827,16 @@ public class GUI {
         ascending.setBounds(10, 80, 80, 25);
         panel.add(ascending);
         ascending.addActionListener(e -> {
-            //should allow the buyer to sort items ascending                                                             ******
+            //should allow the buyer to sort items ascending
+            serverAction(32, "1"); // set ascending
         });
 
         descending = new JButton("Descending");
         descending.setBounds(10, 80, 80, 25);
         panel.add(descending);
         descending.addActionListener(e -> {
-            //should allow the buyer to sort items descending                                                             ******
+            //should allow the buyer to sort items descending
+            serverAction(32, "2"); // set desceding
         });
 
         JButton logout = new JButton("Log out");
