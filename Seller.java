@@ -61,6 +61,10 @@ public class Seller extends User implements Serializable{
         this.stores = stores;
     }
 
+    public void addStore(String storeName) {
+        this.stores.add(storeName);
+    }
+
     public void saveStores() {
         // TODO: new user stuff
         String fileName = this.FILENAME; // user data file

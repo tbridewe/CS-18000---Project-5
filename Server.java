@@ -73,7 +73,7 @@ public class Server implements Runnable {
                             }
                         }
 
-                        // fix the stupid formatting
+                        // fix the weird formatting (separate Username: username)
                         userEmail = userEmail.split(": ")[1];
                         userPassword = userPassword.split(": ")[1];
 
@@ -88,6 +88,7 @@ public class Server implements Runnable {
                             // String userPassword = /GUI textfield that has password/
 
                             Object[] users =  FileFunctions.readObjectsFromFile(userData); // use the nice functions we made!
+                            // TODO: the nice function^ is broken :(
                             for (int i = 0; i < users.length; i++) { 
                                 Object obj = users[i];
                                 if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail) && (((Customer) obj).getPassword().equals(userPassword))) {
@@ -101,12 +102,34 @@ public class Server implements Runnable {
                                     break;
                                 }
                             }
+
+                            
+
                             // ois.close();
                             // TODO: display GUI that says user not found, create an account
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
 
+                        //////// DEBUG LOGIN OVERRIDE ///////
+                        try {
+
+                            if (userEmail.equals("seller@gmail.com") && userPassword.equals("test")) {
+                                seller = new Seller("seller@gmail.com", "test", 1);
+                                seller.addStore("store1");
+                                System.out.println("Login Override as seller");
+                            }
+                            if (userEmail.equals("customer@gmail.com") && userPassword.equals("test")) {
+                                customer = new Customer("customer@gmail.com", "test", 0);
+                                System.out.println("Login Override as customer");
+                            }
+                        } catch (InvalidUserInput e) {
+                            System.out.println("How did you break the debug override case???");
+                            e.printStackTrace();
+                        }
+                        //////// DEBUG LOGIN OVERRIDE ///////
+
+                        // response to client
                         if (seller != null) {
                             output = 1;
                         } else if (customer != null) {
@@ -226,6 +249,11 @@ public class Server implements Runnable {
                     case 6 -> { // check if account exists
                         // info = username strings
                         output = User.accountExists(info);
+
+                        // DEBUG LOGIN OVERRIDE
+                        if (info == "seller@gmail.com" || info == "customer@gmail.com"); {
+                            output = true;
+                        }
                     }
                 }
                 if (customer != null) { // all the customer actions here
