@@ -51,10 +51,32 @@ public class GUI {
         }
         return o;
     }
+
+    /**
+     * serverAction()
+     * A combination of send and receive from server just to make the code cleaner
+     * @param actionNumber int number for desired action
+     * @param info String of any other info needed for action, use null for none
+     * @return Object from the server
+     */
+    private Object serverAction(int actionNumber, String info) {
+        String message = String.format("%0d2", actionNumber);
+        if (info != null) {
+            message += info;
+        }
+        sendToServer(message);
+        Object out = readFromServer();
+        return out;
+    }
+
     Container content;
     static JFrame frame = new JFrame();
     public void ShowWelcome() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
+        
+        sendToServer("09"); // Tell the server user has logged out
+        readFromServer(); // just read and ignore the return message
+
         JLabel welcome;
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -171,6 +193,9 @@ public class GUI {
 
         //TODO: Login HERE
         loginButton.addActionListener(e -> {
+            // first make sure we are logged out
+            serverAction(9, null);
+            
             // get info from server
             sendToServer("05" + userText.getText());
             boolean emailIsValid = (boolean) readFromServer();

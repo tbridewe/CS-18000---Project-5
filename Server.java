@@ -255,6 +255,11 @@ public class Server implements Runnable {
                             output = true;
                         }
                     }
+                    case 9 -> { // log out
+                        //TODO: save the data
+                        seller = null;
+                        customer  = null;
+                    }
                 }
                 if (customer != null) { // all the customer actions here
                     // 20-39: Buyer functions
@@ -347,6 +352,12 @@ public class Server implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            if (e instanceof SocketException) { // user disconnects/closes gui
+                // TODO: save the data
+                System.out.println("User disconnected");
+                seller = null;
+                customer  = null;
+            }
         } finally {
             try {
                 socket.close();
