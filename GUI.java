@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.PrintWriter;
 import java.util.List;
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class GUI {
@@ -585,6 +586,11 @@ public class GUI {
         JLabel number;
         JTextField quantity;
 
+        // Get items form server
+        // TODO: Amber I got the items, you figure out how you want to display them
+        sendToServer("20"); // case to get all listings
+        ArrayList<Item> itemListings = (ArrayList<Item>) readFromServer(); // display these somehow and select one
+
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -614,6 +620,10 @@ public class GUI {
         } else {
             InvalidQuantityException();
         }
+
+        // send response to server
+        int index = 0; // the index of the selcted item from the arraylist
+        sendToServer(String.format("24%d,%d", index, quantity)); // I assume we want it to add to cart or is this mulitpurpose for any type of item selection?
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
