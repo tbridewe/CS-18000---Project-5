@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @version 2023-4-10
  * @author Hannah, Tristen
  */
-public class Customer extends User {
+public class Customer extends User implements Serializable{
     private ArrayList<Item> cart = new ArrayList<>(); // stores the user's items. Everytime the cart is updtates the cart file will also be updated
     
     public Customer(String email, String password, int userType) throws InvalidUserInput {

@@ -11,7 +11,7 @@ import java.util.Comparator;
  * @version 2023-4-10
  * @author Hannah, Tristen, Amber 
  */
-public class Seller extends User {
+public class Seller extends User implements Serializable{
     private ArrayList<String> stores;
     
 

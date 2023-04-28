@@ -62,8 +62,8 @@ public class Server implements Runnable {
 
                         String[] limitedInput = input.split(",");
 
-                        String userEmail = "";
-                        String userPassword = "";
+                        String userEmail = ""; //USERNAME: email
+                        String userPassword = ""; //PASSWORD: password
 
                         for (int i = 0; i < limitedInput.length; i++) {
                             if (limitedInput[i].lastIndexOf("Username:") > -1) {
@@ -73,16 +73,23 @@ public class Server implements Runnable {
                             }
                         }
 
-                        ObjectInputStream ois = null;
+                        // fix the stupid formatting
+                        userEmail = userEmail.split(": ")[1];
+                        userPassword = userPassword.split(": ")[1];
+
+                        // ObjectInputStream ois = null;
                         System.out.printf("Username:%s\nPassword:%s.\n", userEmail, userPassword);
 
                         try {
-                            ois = new ObjectInputStream(new FileInputStream("userData.txt"));
-                            Object obj;
+                            // ois = new ObjectInputStream(new FileInputStream("userData.txt"));
+                            // Object obj;
+
                             // String userEmail = /GUI textfield that has email/
                             // String userPassword = /GUI textfield that has password/
 
-                            while ((obj = ois.readObject()) != null) {
+                            Object[] users =  FileFunctions.readObjectsFromFile(userData); // use the nice functions we made!
+                            for (int i = 0; i < users.length; i++) { 
+                                Object obj = users[i];
                                 if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail) && (((Customer) obj).getPassword().equals(userPassword))) {
                                     customer = (Customer) obj;
 
@@ -94,10 +101,9 @@ public class Server implements Runnable {
                                     break;
                                 }
                             }
-                            ois.close();
-                        } catch (EOFException eofException) {
+                            // ois.close();
                             // TODO: display GUI that says user not found, create an account
-                        } catch (IOException | ClassNotFoundException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
