@@ -306,10 +306,11 @@ public class Customer extends User implements Serializable{
      */
 
     public void sortMarketplace(int sortType, int sortOrder) {
+        ArrayList<Item> items = readItems(); // sort these
         String[] listings = readFile("itemListings.txt");
         ArrayList<String> itemListings = new ArrayList<>();
         Collections.addAll(itemListings, listings);
-        ArrayList<Item> sorted = new ArrayList<>();
+        ArrayList<Item> sorted = new ArrayList<>(); // put sorted items here
 
         switch (sortType) {
             case 1: // price
