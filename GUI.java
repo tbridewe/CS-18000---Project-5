@@ -270,11 +270,6 @@ public class GUI {
         userText.setBounds(100, 20, 165, 25);
         newAccountPanel.add(userText);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(enter);
-        enter.addActionListener(e -> emailContents = userText.getText());
-
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
         newAccountPanel.add(passwordLabel);
@@ -282,16 +277,13 @@ public class GUI {
         passwordText.setBounds(100, 50, 165, 25);
         newAccountPanel.add(passwordText);
 
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(enterTwo);
-        enterTwo.addActionListener(e -> newPasswordContents = passwordText.getText());
-
         makeNewAccount = new JButton("Create new account");
         makeNewAccount.setBounds(10, 80, 80, 25);
         newAccountPanel.add(makeNewAccount);
         makeNewAccount.addActionListener(e -> {
             // TODO: New account stuff HERE (done I just want the marker)
+            emailContents = userText.getText();
+            newPasswordContents = passwordText.getText();
             sendToServer("05" + emailContents);
             boolean emailIsValid = (boolean) readFromServer();
             sendToServer("06" + emailContents);
