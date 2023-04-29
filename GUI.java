@@ -140,6 +140,8 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> ShowWelcome());
     }
+    String userTextContents;
+    String passwordTextContents;
     public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
@@ -173,6 +175,11 @@ public class GUI {
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
         loginPanel.add(userText);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        loginPanel.add(enter);
+        enter.addActionListener(e -> userTextContents = userText.getText());
 
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
@@ -181,6 +188,11 @@ public class GUI {
         passwordText = new JPasswordField(20);
         passwordText.setBounds(100, 50, 165, 25);
         loginPanel.add(passwordText);
+        
+        JButton enterTwo = new JButton("Enter");
+        enterTwo.setBounds(10, 80, 80, 25);
+        loginPanel.add(enterTwo);
+        enterTwo.addActionListener(e -> passwordTextContents = passwordText.getText());
 
         loginButton = new JButton("Login");
         loginButton.setBounds(10, 80, 80, 25);
@@ -197,14 +209,14 @@ public class GUI {
             serverAction(9, null);
             
             // get info from server
-            sendToServer("05" + userText.getText());
+            sendToServer("05" + userTextContents);
             boolean emailIsValid = (boolean) readFromServer();
-            sendToServer("06" + userText.getText());
+            sendToServer("06" + userTextContents);
             boolean accountExists = (boolean) readFromServer();
 
             if (emailIsValid && accountExists) {
-                String user = userText.getText();
-                String password = new String(passwordText.getPassword());
+                String user = userTextContents;
+                String password = new String(passwordTextContents);
                 sendToServer(String.format("01,Username: %s, Password: %s", user, password));
                 int out = (Integer) readFromServer(); // get feedback on wether login is invalid, customer, or seller
                 switch (out) {
@@ -212,9 +224,9 @@ public class GUI {
                     case 0 -> BuyerMenuGui();
                     case 1 -> SellerMenu();
                 }
-            } else if ((!User.isValidEmail(userText.getText()))) {
+            } else if ((!User.isValidEmail(userTextContents))) {
                 EnterValidEmailAddress();
-            } else if (!User.accountExists(userText.getText())) {
+            } else if (!User.accountExists(userTextContents)) {
                 IncorrectCredentials();
             }
         });
@@ -229,6 +241,8 @@ public class GUI {
         back.addActionListener(e -> WelcomeMenuGUI());
     }
     int userNumber;
+    String emailContents;
+    String newPasswordContents;
     public void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
         JLabel userLabel;
@@ -279,6 +293,11 @@ public class GUI {
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
         newAccountPanel.add(userText);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panelTwo.add(enter);
+        enter.addActionListener(e -> emailContents = userText.getText());
 
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
@@ -286,18 +305,24 @@ public class GUI {
         passwordText = new JPasswordField(20);
         passwordText.setBounds(100, 50, 165, 25);
         newAccountPanel.add(passwordText);
+        
+        JButton enterTwo = new JButton("Enter");
+        enterTwo.setBounds(10, 80, 80, 25);
+        panelTwo.add(enterTwo);
+        enterTwo.addActionListener(e -> newPasswordContents = passwordText.getText());
+        
         makeNewAccount = new JButton("Create new account");
         makeNewAccount.setBounds(10, 80, 80, 25);
         newAccountPanel.add(makeNewAccount);
         makeNewAccount.addActionListener(e -> {
             // TODO: New account stuff HERE (done I just want the marker)
-            sendToServer("05" + userText.getText());
+            sendToServer("05" + emailContents);
             boolean emailIsValid = (boolean) readFromServer();
-            sendToServer("06" + userText.getText());
+            sendToServer("06" + emailContents);
             boolean accountExists = (boolean) readFromServer();
             if (emailIsValid && !accountExists) {  // create new accounts                                                                         //create an error message for if the email is already associated with an account
-                String user = userText.getText();
-                String password = new String(passwordText.getPassword());                                                       //does not create new account
+                String user = emailContents;
+                String password = new String(newPasswordContents);                                                       //does not create new account
                 String serverMessage = "02" + user + "," + password + "," + userNumber + "";
                 sendToServer(serverMessage);
                 readFromServer(); // just read and ignore the return message
@@ -588,8 +613,13 @@ public class GUI {
         searchBar = new JTextField(20);
         searchBar.setBounds(100, 20, 165, 25);
         panel.add(searchBar);
-
-        String keyword = new String(searchBar.getText());
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String keyword = new String(searchBar.getText());
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -632,6 +662,13 @@ public class GUI {
         item = new JTextField(20);
         item.setBounds(100, 20, 165, 25);
         panel.add(item);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String selectedItem = item.getText();
+        });
 
         number = new JLabel("Please enter how many you would like to buy:");
         number.setBounds(10,20, 80, 25);
@@ -989,6 +1026,13 @@ public class GUI {
         file.setBounds(100, 20, 165, 25);
         panel.add(file);
         String filename = file.getText();
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String filename = file.getText();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1053,6 +1097,13 @@ public class GUI {
         item = new JTextField(20);
         item.setBounds(100, 20, 165, 25);
         panel.add(item);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String itemToRemove = item.getText();
+        });
 
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
@@ -1063,6 +1114,13 @@ public class GUI {
         quantity.setBounds(100, 20, 165, 25);
         panel.add(quantity);
         int numberOfItems = Integer.parseInt(quantity.getText());
+        
+        JButton enterTwo = new JButton("Enter");
+        enterTwo.setBounds(10, 80, 80, 25);
+        panel.add(enterTwo);
+        enterTwo.addActionListener(e -> {
+            int numberOfItems = Integer.parseInt(quantity.getText());
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1149,6 +1207,13 @@ public class GUI {
         emailText.setBounds(100, 20, 165, 25);
         panel.add(emailText);
         emailTextString = emailText.getText();
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        enter.addActionListener(e -> {
+            emailTextString = emailText.getText();
+            ConfirmEmail();
+        });
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
@@ -1267,7 +1332,10 @@ public class GUI {
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        enter.addActionListener(e -> ConfirmPassword());
+        enter.addActionListener(e -> {
+            passwordTextString = passwordText.getText();
+            ConfirmPassword();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1461,15 +1529,15 @@ public class GUI {
     }
     public void AddItem() {
         JLabel enterName;
-        JTextField name;
+        JTextField nameField;
         JLabel enterStore;
-        JTextField store;
+        JTextField storeField;
         JLabel enterDescription;
-        JTextField description;
+        JTextField descriptionField;
         JLabel enterQuantity;
-        JTextField quantity;
+        JTextField quantityField;
         JLabel enterPrice;
-        JTextField price;
+        JTextField priceField;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1484,41 +1552,76 @@ public class GUI {
         enterName.setBounds(10,20, 80, 25);
         panel.add(enterName);
 
-        name = new JTextField(20);
-        name.setBounds(100, 20, 165, 25);
-        panel.add(name);
+        nameField = new JTextField(20);
+        nameField.setBounds(100, 20, 165, 25);
+        panel.add(nameField);
+
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String name = enterName.getText();
+        });
 
         enterStore = new JLabel("Enter store:");
         enterStore.setBounds(10,20, 80, 25);
         panel.add(enterStore);
 
-        store = new JTextField(20);
-        store.setBounds(100, 20, 165, 25);
-        panel.add(store);
+        storeField = new JTextField(20);
+        storeField.setBounds(100, 20, 165, 25);
+        panel.add(storeField);
+
+        JButton enterTwo = new JButton("Enter");
+        enterTwo.setBounds(10, 80, 80, 25);
+        panel.add(enterTwo);
+        enterTwo.addActionListener(e -> {
+            String store = storeField.getText();
+        });
 
         enterDescription = new JLabel("Enter description:");
         enterDescription.setBounds(10,20, 80, 25);
         panel.add(enterDescription);
 
-        description = new JTextField(20);
-        description.setBounds(100, 20, 165, 25);
-        panel.add(description);
+        descriptionField = new JTextField(20);
+        descriptionField.setBounds(100, 20, 165, 25);
+        panel.add(descriptionField);
+
+        JButton enterThree = new JButton("Enter");
+        enterThree.setBounds(10, 80, 80, 25);
+        panel.add(enterThree);
+        enterThree.addActionListener(e -> {
+            String description1 = descriptionField.getText();
+        });
 
         enterQuantity = new JLabel("Enter quantity:");
         enterQuantity.setBounds(10,20, 80, 25);
         panel.add(enterQuantity);
 
-        quantity = new JTextField(20);
-        quantity.setBounds(100, 20, 165, 25);
-        panel.add(quantity);
+        quantityField = new JTextField(20);
+        quantityField.setBounds(100, 20, 165, 25);
+        panel.add(quantityField);
+
+        JButton enterFour = new JButton();
+        enterFour.setBounds(10, 80, 80, 25);
+        panel.add(enterFour);
+        enterFour.addActionListener(e -> {
+            String quantity = quantityField.getText();
+        });
 
         enterPrice = new JLabel("Enter price:");
         enterPrice.setBounds(10,20, 80, 25);
         panel.add(enterPrice);
 
-        price = new JTextField(20);
-        price.setBounds(100, 20, 165, 25);
-        panel.add(price);
+        priceField = new JTextField(20);
+        priceField.setBounds(100, 20, 165, 25);
+        panel.add(priceField);
+
+        JButton enterFive = new JButton();
+        enterFive.setBounds(10, 80, 80, 25);
+        panel.add(enterFive);
+        enterFive.addActionListener(e -> {
+            String price = priceField.getText();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1534,7 +1637,7 @@ public class GUI {
     }
     public void AddFromCSV() {
         JLabel enterFileName;
-        JTextField fileName;
+        JTextField fileNameField;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1549,9 +1652,16 @@ public class GUI {
         enterFileName.setBounds(10,20, 80, 25);
         panel.add(enterFileName);
 
-        fileName = new JTextField(20);
-        fileName.setBounds(100, 20, 165, 25);
-        panel.add(fileName);
+        fileNameField = new JTextField(20);
+        fileNameField.setBounds(100, 20, 165, 25);
+        panel.add(fileNameField);
+        
+        JButton enter = new JButton();
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String fileName = fileNameField.getText();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1593,6 +1703,13 @@ public class GUI {
         item = new JTextField(20);
         item.setBounds(100, 20, 165, 25);
         panel.add(item);
+        
+        JButton enter = new JButton();
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String itemToEdit = item.getText();
+        });
 
         options = new JLabel("What would you like to change?");
         options.setBounds(10, 20, 80, 25);
@@ -1640,6 +1757,13 @@ public class GUI {
         theChange = new JTextField(20);
         theChange.setBounds(100, 20, 165, 25);
         panel.add(theChange);
+        
+        JButton enterTwo = new JButton("Enter");
+        enterTwo.setBounds(10, 80, 80, 25);
+        panel.add(enterTwo);
+        enterTwo.addActionListener(e -> {
+            String newName = theChange.getText();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1673,6 +1797,13 @@ public class GUI {
         item = new JTextField(20);
         item.setBounds(100, 20, 165, 25);
         panel.add(item);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String itemToRemoveFrom = item.getText();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1868,7 +1999,7 @@ public class GUI {
         logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
-    static String enterEmailString;
+    String potentialNewEmail;
     public void SellerNewEmail() {
         JLabel enterEmail;
         JTextField emailText;
@@ -1890,6 +2021,11 @@ public class GUI {
         emailText = new JTextField(20);
         emailText.setBounds(100, 20, 165, 25);
         panel.add(emailText);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+       panel.add(enter);
+       enter.addActionListener(e -> potentialNewEmail = emailText.getText());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1925,10 +2061,10 @@ public class GUI {
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
         yes.addActionListener(e -> yes.addActionListener(e1 -> {
-            sendToServer("05" + enterEmailString);
+            sendToServer("05" + potentialNewEmail);
             boolean emailIsValid = (boolean) readFromServer();
             if (emailIsValid) {
-                String email = enterEmailString;
+                String email = potentialNewEmail;
             } else if (!emailIsValid) {
                 EnterValidEmailAddressThree();
             }
@@ -2010,7 +2146,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    static String enterPasswordString;
+    String potentialNewPassword;
     public void SellerNewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
@@ -2038,6 +2174,13 @@ public class GUI {
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
         panel.add(passwordText);
+        
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            potentialNewPassword = passwordText.getText();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -2073,7 +2216,7 @@ public class GUI {
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
         yes.addActionListener(e -> {
-            String password = enterPasswordString;
+            String password = potentialNewPassword;
         });
 
         no = new JButton("No");
