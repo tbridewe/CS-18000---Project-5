@@ -1333,7 +1333,6 @@ public class GUI {
         JButton viewListings;
         JButton viewStatistics;
         JButton editAccount;
-        JButton logOut;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1571,9 +1570,9 @@ public class GUI {
             Object o = serverAction(41, fileName); // send to server
             if (o instanceof Exception) {
                 String errorMessage = ((Exception) o).getMessage();
-                // TODO: error message here that shows error message
+                CSVError();
             } else {
-                // TODO: success message and or go back to menu
+                CSVSuccess();
                 int numAdded = (int) o;
                 System.out.printf("%d Items added!", numAdded);
             }
@@ -1588,6 +1587,62 @@ public class GUI {
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
         back.addActionListener(e -> AddOptions());
+
+        frame.setVisible(true);
+    }
+    public void CSVSuccess() {
+        //this GUI is a success message when items are added from CSV
+        // TODO: show how many items were successfully added from CSV
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Items were successfully added from CSV");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
+        logOut.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> AddFromCSV());
+
+        frame.setVisible(true);
+    }
+    public void CSVError() {
+        //this GUI is an error message for when items are not added from CSV
+
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Error: Items were not successfully added from CSV");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
+        logOut.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> AddFromCSV());
 
         frame.setVisible(true);
     }
@@ -2029,37 +2084,6 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
-        frame.setVisible(true);
-    }
-
-    public void SellerEnterValidEmailAddress() {
-        //shown if the email submitted in SellerConfirmEmail() is invalid
-        JLabel enterValidEmail;
-        JButton back;
-
-        frame.getContentPane().removeAll();
-        frame.revalidate();
-        frame.repaint();
-        JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
-        frame.setSize(600, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-
-        enterValidEmail = new JLabel("Please enter a valid email address");
-        enterValidEmail.setBounds(10, 20, 80, 25);
-        panel.add(enterValidEmail);
-
-        back = new JButton("Back");
-        back.setBounds(10, 20, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> SellerNewEmail());
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-
         frame.setVisible(true);
     }
     String potentialNewPassword;
