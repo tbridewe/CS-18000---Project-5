@@ -25,7 +25,7 @@ public class GUI {
 
     /**
      * sendToServer(String message)
-     * sends a message to the werver using the printwriter passed through the constructor
+     * sends a message to the server using the printwriter passed through the constructor
      * @param message: The message (String) to send to the server. The first 2 characters should be an integer corresponding to the desired action (use leading 0!). Then add any other information the action needs
      */
     private void sendToServer(String message) {
@@ -89,14 +89,14 @@ public class GUI {
         welcome.setBounds(10, 20, 80, 25);
         panel.add(welcome);
 
-        JButton welcomMenu = new JButton("Menu");
-        welcomMenu.setBounds(10, 80, 80, 25);
-        panel.add(welcomMenu);
-        welcomMenu.addActionListener(e -> WelcomeMenuGUI());
+        JButton welcomeMenu = new JButton("Menu");
+        welcomeMenu.setBounds(10, 80, 80, 25);
+        panel.add(welcomeMenu);
+        welcomeMenu.addActionListener(e -> WelcomeMenuGUI());
 
         frame.setVisible(true);
     }
-    public void WelcomeMenuGUI() { //this GUI gives a user an option to login, create an account, or log out
+    public void WelcomeMenuGUI() { //this GUI gives a user an option to log in, create an account, or log out
         JButton login;
         JButton createAccount;
         JButton quit;
@@ -135,28 +135,24 @@ public class GUI {
         quit.addActionListener(e -> ShowWelcome());
     }
     public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
-        //if the user chooses to login in the welcome menu, this GUI allows them to log in
+        //if the user chooses to log in in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
-        //and then attempting to log in by using the log in button
+        //and then attempting to log in by using the login button
         JLabel userLabel;
         JTextField userText;
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton loginButton;
 
-
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(600, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
 
         JPanel loginPanel = new JPanel();
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(loginPanel);
 
@@ -322,12 +318,6 @@ public class GUI {
         back.setBounds(10, 20, 80, 25);
         panel.add(back);
         back.addActionListener(e -> LoginGui());
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-        frame.setVisible(true);
     }
     public void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
         JLabel enterValidEmail;
@@ -350,12 +340,6 @@ public class GUI {
         back.setBounds(10, 20, 80, 25);
         panel.add(back);
         back.addActionListener(e -> LoginGui());
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-        frame.setVisible(true);
     }
     public void IncorrectCredentials() {
         //shown if there is nt an account associated with the email and password submitted in the login menu
@@ -378,10 +362,6 @@ public class GUI {
         panel.add(tryAgain);
         tryAgain.addActionListener(e -> CreateOptions());
 
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
@@ -428,36 +408,6 @@ public class GUI {
         createPanel.add(back);
         back.addActionListener(e -> LoginGui());
 
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-
-        frame.setVisible(true);
-    }
-    public void LoginSuccessful() {
-        //shown if the login is successful
-        JLabel loginSuccessful;
-        frame.getContentPane().removeAll();
-        frame.revalidate();
-        frame.repaint();
-        JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
-        frame.setSize(600, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-        loginSuccessful = new JLabel("Login successful");
-        frame.setBounds(10, 20, 80, 25);
-        panel.add(loginSuccessful);
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-        JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> LoginGui());
         frame.setVisible(true);
     }
     public void BuyerMenuGui() {
@@ -590,7 +540,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void SelectItem() {
-        //should print out all of the available items                                                                   ******
+        //should print out all the available items                                                                   ******
         //and make them easier to select
         JLabel select;
         // JTextField item;
@@ -868,7 +818,7 @@ public class GUI {
         panel.add(descending);
         descending.addActionListener(e -> {
             //should allow the buyer to sort items descending
-            serverAction(32, "2"); // set desceding
+            serverAction(32, "2"); // set descending
         });
 
         JButton logout = new JButton("Log out");
@@ -936,7 +886,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-    public void CheckoutComplete() { //if the buyer chooses to checkout and checks out successfully
+    public void CheckoutComplete() { //if the buyer chooses to check out and checks out successfully
         double price = (double) serverAction(28, null); // tell server checkout has happened
         
         frame.getContentPane().removeAll();
@@ -1189,6 +1139,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
+
     static String emailTextString;
     public void NewEmail() {
         JLabel enterEmail;
@@ -1396,7 +1347,6 @@ public class GUI {
         JButton viewListings;
         JButton viewStatistics;
         JButton editAccount;
-        JButton logOut;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1425,13 +1375,6 @@ public class GUI {
         editAccount.setBounds(10, 80, 80, 25);
         panel.add(editAccount);
         editAccount.addActionListener(e -> EditOptions());
-
-        logOut = new JButton("Log out");
-        logOut.setBounds(10, 80, 80, 25);
-        panel.add(logOut);
-        logOut.addActionListener(e -> {
-
-        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -1641,9 +1584,9 @@ public class GUI {
             Object o = serverAction(41, fileName); // send to server
             if (o instanceof Exception) {
                 String errorMessage = ((Exception) o).getMessage();
-                // TODO: error message here that shows error message
+                CSVError();
             } else {
-                // TODO: sucess message and or go back to menu
+                CSVSuccess();
                 int numAdded = (int) o;
                 System.out.printf("%d Items added!", numAdded);
             }
@@ -1658,6 +1601,62 @@ public class GUI {
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
         back.addActionListener(e -> AddOptions());
+
+        frame.setVisible(true);
+    }
+    public void CSVSuccess() {
+        //this GUI is a success message when items are added from CSV
+        // TODO: show how many items were successfully added from CSV
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Items were successfully added from CSV");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
+        logOut.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> AddFromCSV());
+
+        frame.setVisible(true);
+    }
+    public void CSVError() {
+        //this GUI is an error message for when items are not added from CSV
+
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Error: Items were not successfully added from CSV");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
+        logOut.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> AddFromCSV());
 
         frame.setVisible(true);
     }
@@ -1970,9 +1969,7 @@ public class GUI {
         deleteAccount = new JButton("Delete account");
         deleteAccount.setBounds(10, 80, 80, 25);
         panel.add(deleteAccount);
-        deleteAccount.addActionListener(e -> {
-
-        });
+        deleteAccount.addActionListener(e -> DeleteAccountQuestion());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
@@ -1983,6 +1980,44 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
+        frame.setVisible(true);
+    }
+    public void DeleteAccountQuestion() {
+        //this GUI is an error message for when items are not added from CSV
+
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Are you sure you want to delete your account?");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton deleteAccount = new JButton("Delete account");
+        deleteAccount.setBounds(10, 80, 80, 25);
+        panel.add(deleteAccount);
+        deleteAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add a delete account action
+            }
+        });
+
+        JButton logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
+        logOut.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> AddFromCSV());
+
         frame.setVisible(true);
     }
     String potentialNewEmail;
@@ -2099,37 +2134,6 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
-        frame.setVisible(true);
-    }
-
-    public void SellerEnterValidEmailAddress() {
-        //shown if the email submitted in SellerConfirmEmail() is invalid
-        JLabel enterValidEmail;
-        JButton back;
-
-        frame.getContentPane().removeAll();
-        frame.revalidate();
-        frame.repaint();
-        JPanel panel = new JPanel();
-        Container content = frame.getContentPane();
-        frame.setSize(600, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-
-        enterValidEmail = new JLabel("Please enter a valid email address");
-        enterValidEmail.setBounds(10, 20, 80, 25);
-        panel.add(enterValidEmail);
-
-        back = new JButton("Back");
-        back.setBounds(10, 20, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> SellerNewEmail());
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-
         frame.setVisible(true);
     }
     String potentialNewPassword;
