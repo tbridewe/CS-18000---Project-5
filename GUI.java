@@ -1094,13 +1094,6 @@ public class GUI {
         item.setBounds(100, 20, 165, 25);
         panel.add(item);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> {
-            String itemToRemove = item.getText();
-        });
-
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
         panel.add(number);
@@ -1114,6 +1107,7 @@ public class GUI {
         enterTwo.setBounds(10, 80, 80, 25);
         panel.add(enterTwo);
         enterTwo.addActionListener(e -> {
+            String itemToRemove = item.getText();
             int numberOfItems = Integer.parseInt(quantity.getText());
         });
 
