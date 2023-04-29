@@ -288,7 +288,7 @@ public class Server implements Runnable {
                             output = customer.getSortedItems();
                         }
                         case 23 -> { // view cart
-
+                            output = customer.getCart();
                         }
                         case 24 -> { // add to cart
                             // info = displayedIndex,quanitity
@@ -304,7 +304,10 @@ public class Server implements Runnable {
                             }
                         }
                         case 25 -> { // remove from cart
-
+                            String[] s = info.split(",");
+                            int i = Integer.valueOf(s[0]);
+                            int q = Integer.valueOf(s[1]); 
+                            customer.removeFromCart(i, q);
                         }
                         case 26 -> { // view purchase log
 

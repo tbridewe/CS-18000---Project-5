@@ -683,7 +683,7 @@ public class GUI {
                 itemInfo += String.format(" | %-30s", item.getStore());
             }
             if (showQnty) {
-                itemInfo += String.format(" | x-%4d", item.getQuantity());
+                itemInfo += String.format(" | x%-4d", item.getQuantity());
             }
             if (showPrice) {
                 itemInfo += String.format(" | $%-6.2f", item.getPrice());
@@ -912,7 +912,7 @@ public class GUI {
         view.setBounds(10, 80, 80, 25);
         panel.add(view);
         view.addActionListener(e -> {
-            //view purchase history                                                                                     ***
+            //view purchase history                                                                                   
         });
 
         remove = new JButton("Remove Item");
@@ -929,6 +929,10 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
+
+        ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null); 
+        JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
+        panel.add(dropdown);
 
         frame.setVisible(true);
     }
@@ -1072,7 +1076,7 @@ public class GUI {
     public void RemoveItem() {
         //should print out all items in the cart so the buyer can select one                                                ***
         JLabel select;
-        JTextField item;
+        // JTextField item;
         JLabel number;
         JTextField quantity;
 
@@ -1085,22 +1089,17 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        select = new JLabel("Enter an item to remove from cart:");
+        select = new JLabel("Select an item to remove from cart:");
         select.setBounds(10,20, 80, 25);
         panel.add(select);
-        //should save the item as a variable                                                                                ***
 
-        item = new JTextField(20);
-        item.setBounds(100, 20, 165, 25);
-        panel.add(item);
+        ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null); 
+        JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
+        panel.add(dropdown);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> {
-            String itemToRemove = item.getText();
-        });
-
+        // item = new JTextField(20);
+        // item.setBounds(100, 20, 165, 25);
+        // panel.add(item);
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
         panel.add(number);
@@ -1110,12 +1109,24 @@ public class GUI {
         quantity.setBounds(100, 20, 165, 25);
         panel.add(quantity);
 
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        panel.add(enterTwo);
-        enterTwo.addActionListener(e -> {
-            int numberOfItems = Integer.parseInt(quantity.getText());
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            int itemToRemove = dropdown.getSelectedIndex();
+            int numToRemove = Integer.valueOf(quantity.getText());
+            serverAction(25, String.format("%d,%d", itemToRemove, numToRemove));
+            RemoveItem(); // reloads this guid to see changes
         });
+
+        
+
+        // JButton enterTwo = new JButton("Enter");
+        // enterTwo.setBounds(10, 80, 80, 25);
+        // panel.add(enterTwo);
+        // enterTwo.addActionListener(e -> {
+        //     int numberOfItems = Integer.parseInt(quantity.getText());
+        // });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);

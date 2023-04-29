@@ -155,9 +155,9 @@ public class Customer extends User implements Serializable{
      * @param item: the specified listing that the user wants to remove from cart
      * @param quantity: the amount of the item to be reomved
      */
-    public void removeFromCart(int index, int quantity) {
-        int i = index - 1;
-        try {
+    public void removeFromCart(int index, int quantity) throws IndexOutOfBoundsException {
+        int i = index;
+        // try {
             Item item = this.cart.get(i);
             if (quantity >= cart.get(i).getQuantity()) {
                 if (quantity > cart.get(i).getQuantity()) {
@@ -177,12 +177,12 @@ public class Customer extends User implements Serializable{
             replaceItem(i, item); // replaces item and saves changes
             
             // save cart
-            saveCart(this.cartFileName);
+            // saveCart(this.cartFileName);
 
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid item number selected!");
-            e.printStackTrace(); // TODO: remove stack trace
-        }
+        // } catch (IndexOutOfBoundsException e) {
+        //     System.out.println("Invalid item number selected!");
+        //     e.printStackTrace(); // TODO: remove stack trace
+        // }
     }
 
     /**

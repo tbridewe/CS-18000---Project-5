@@ -6,4 +6,4 @@ jeb@gmail.com;Bose SoundLink Revolve+,Audio World,Portable Bluetooth Speaker Tri
 hhh@gmail.com;Chocolate,store1,Candy,3,1.75;Chocolate,store1,Candy,3,1.75;Chocolate,store1,Candy,3,1.75;Chocolate,store1,Candy,3,1.75;Chocolate,store1,Candy,3,1.75;
 hk@gmail.com;
 hannah@purdue.edu;
-customer@gmail.com;Apple Watch Series 7,Tech Hub,44mm GPS + Cellular Midnight Aluminum Case with Deep Navy Sport Band,1,499.99;
+customer@gmail.com;Chocolate,store1,Candy,5,1.75;Legos,Lego Store,Fun to build!,2,99.99;
