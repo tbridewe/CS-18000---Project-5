@@ -639,7 +639,7 @@ public class GUI {
         //should print out all of the available items                                                                   ******
         //and make them easier to select
         JLabel select;
-        JTextField item;
+        // JTextField item;
         JLabel number;
         JTextField quantity;
 
@@ -661,16 +661,19 @@ public class GUI {
         select.setBounds(10,20, 80, 25);
         panel.add(select);
 
-        item = new JTextField(20);
-        item.setBounds(100, 20, 165, 25);
-        panel.add(item);
+        // item = new JTextField(20);
+        // item.setBounds(100, 20, 165, 25);
+        // panel.add(item);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> {
-            String selectedItem = item.getText();
-        });
+        // TODO: Dropdown menu here
+        String[] choices = new String[itemListings.size()];
+        for (int i = 0; i < itemListings.size(); i++) {
+            Item item = itemListings.get(i);
+            String itemInfo = String.format("%20s | $%-6.2f", item.getName(), item.getPrice());
+            choices[i] = itemInfo;
+        }
+        JComboBox<String> dropdown = new JComboBox<>(choices);
+        panel.add(dropdown);
 
         number = new JLabel("Please enter how many you would like to buy:");
         number.setBounds(10,20, 80, 25);
@@ -685,9 +688,15 @@ public class GUI {
             InvalidQuantityException();
         }
 
-        // send response to server
-        int index = 0; // the index of the selcted item from the arraylist
-        sendToServer(String.format("24%d,%d", index, quantity)); // I assume we want it to add to cart or is this mulitpurpose for any type of item selection?
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            int selection = dropdown.getSelectedIndex();
+            int amount = Integer.valueOf(quantity.getText());
+            serverAction(24, String.format("%d,%d", selection, amount)); // add to cart
+            
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -699,6 +708,7 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> BuyerMenuGui());
 
+        panel.setVisible(true);
         frame.setVisible(true);
     }
     public void cancelPurchase() {
