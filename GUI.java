@@ -643,7 +643,7 @@ public class GUI {
         }
 
         JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
+        enter.setBounds(200, 20, 80, 25);
         panel.add(enter);
         enter.addActionListener(e -> {
             int selection = dropdown.getSelectedIndex();
@@ -653,12 +653,12 @@ public class GUI {
         });
 
         JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
+        logout.setBounds(300, 20, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
+        back.setBounds(400, 20, 80, 25);
         panel.add(back);
         back.addActionListener(e -> BuyerMenuGui());
 
