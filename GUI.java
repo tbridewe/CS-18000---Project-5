@@ -229,7 +229,6 @@ public class GUI {
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton makeNewAccount;
-        JLabel success;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -251,14 +250,14 @@ public class GUI {
 
         customer = new JButton("Customer");
         customer.setBounds(10, 80, 80, 25);
-        panel.add(customer);
+        newAccountPanel.add(customer);
         customer.addActionListener(e -> {
             userNumber = 0;
         });
 
         seller = new JButton("Seller");
         seller.setBounds(10, 80, 80, 25);
-        panel.add(seller);
+        newAccountPanel.add(seller);
         seller.addActionListener(e -> {
             userNumber = 1;
         });
@@ -302,17 +301,9 @@ public class GUI {
             }
         });
 
-        success = new JLabel("");
-        success.setBounds(10, 110, 300, 25);
-        newAccountPanel.add(success);
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        newAccountPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
         frame.setVisible(true);
     }
