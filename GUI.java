@@ -197,7 +197,7 @@ public class GUI {
                 String user = userTextContents;
                 String password = new String(passwordTextContents);
                 sendToServer(String.format("01,Username: %s, Password: %s", user, password));
-                int out = (Integer) readFromServer(); // get feedback on wether login is invalid, customer, or seller
+                int out = (int) readFromServer(); // get feedback on whether login is invalid, customer, or seller
                 switch (out) {
                     case -1 -> ShowWelcome(); // TODO: Invalid password here
                     case 0 -> BuyerMenuGui();
