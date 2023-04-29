@@ -144,7 +144,6 @@ public class GUI {
         JPasswordField passwordText;
         JButton loginButton;
 
-
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1126,6 +1125,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
+
     static String emailTextString;
     public void NewEmail() {
         JLabel enterEmail;
@@ -1955,9 +1955,7 @@ public class GUI {
         deleteAccount = new JButton("Delete account");
         deleteAccount.setBounds(10, 80, 80, 25);
         panel.add(deleteAccount);
-        deleteAccount.addActionListener(e -> {
-
-        });
+        deleteAccount.addActionListener(e -> DeleteAccountQuestion());
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
@@ -1968,6 +1966,44 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
+        frame.setVisible(true);
+    }
+    public void DeleteAccountQuestion() {
+        //this GUI is an error message for when items are not added from CSV
+
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        welcome = new JLabel("Are you sure you want to delete your account?");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton deleteAccount = new JButton("Delete account");
+        deleteAccount.setBounds(10, 80, 80, 25);
+        panel.add(deleteAccount);
+        deleteAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add a delete account action
+            }
+        });
+
+        JButton logOut = new JButton("Log out");
+        logOut.setBounds(10, 80, 80, 25);
+        panel.add(logOut);
+        logOut.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> AddFromCSV());
+
         frame.setVisible(true);
     }
     String potentialNewEmail;
