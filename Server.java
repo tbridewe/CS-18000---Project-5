@@ -8,6 +8,7 @@ public class Server implements Runnable {
     private Socket socket;
     private String userEmail;
     private String userPassword;
+    static ArrayList<Object> usersList; // stores list of users from usersData so they can be edited and rewritten to the file
     private final static String userData = "userData.txt";
     public Server(Socket socket) {
         this.socket = socket;
@@ -389,6 +390,9 @@ public class Server implements Runnable {
     public static void main(String[] args) {
         try {
             ServerSocket ss = new ServerSocket(1800);
+            usersList = new ArrayList<>();
+            Object[] users = FileFunctions.readObjectsFromFile("userData.txt");
+            Collections.addAll(usersList, users);
 
             while(true) {
                 Socket socket = ss.accept();

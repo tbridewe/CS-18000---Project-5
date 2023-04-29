@@ -82,7 +82,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         welcome = new JLabel("Welcome");
@@ -107,11 +107,11 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         JPanel panelOne = new JPanel();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panelOne);
         welcomeOptions = new JLabel("Please select an option:");
@@ -150,13 +150,13 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
         JPanel loginPanel = new JPanel();
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(loginPanel);
 
@@ -233,12 +233,12 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
         JPanel newAccountPanel = new JPanel();
-        frame.setSize(350, 200);
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(newAccountPanel);
 
@@ -310,7 +310,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -338,7 +338,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -364,7 +364,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -400,7 +400,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         JPanel createPanel = new JPanel();
@@ -443,7 +443,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         loginSuccessful = new JLabel("Login successful");
@@ -474,7 +474,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         buyerOptions = new JLabel("Please select an option:");
@@ -525,7 +525,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -555,7 +555,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -607,7 +607,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -665,7 +665,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -702,7 +702,7 @@ public class GUI {
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
 
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -728,7 +728,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -755,7 +755,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -788,7 +788,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -856,7 +856,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -901,7 +901,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -931,7 +931,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -972,7 +972,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1010,7 +1010,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1042,7 +1042,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1102,7 +1102,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1149,7 +1149,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1191,7 +1191,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1238,7 +1238,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1267,7 +1267,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1309,7 +1309,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1353,7 +1353,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1407,7 +1407,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1451,7 +1451,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1494,7 +1494,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1571,7 +1571,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1628,7 +1628,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1722,7 +1722,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1764,7 +1764,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1809,7 +1809,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1867,7 +1867,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1899,7 +1899,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1945,7 +1945,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1985,7 +1985,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2032,7 +2032,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2062,7 +2062,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2093,7 +2093,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2138,7 +2138,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
