@@ -6,9 +6,7 @@ To run Project 5, navigate to the Server class and run Server.java. Before you c
 ## Submissions
 - Brightspace - 
 - Vocareum -
-
-## Descriptions
-
+---
 ## User
 Provides implementation of a User in the Marketplace, either of a Seller or a Customer.
 ### Constructor 
