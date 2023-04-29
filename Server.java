@@ -280,7 +280,8 @@ public class Server implements Runnable {
 
                         }
                         case 22 -> { // keyword search
-
+                            customer.keywordSearch(info);
+                            output = customer.getSortedItems();
                         }
                         case 23 -> { // view cart
 
@@ -328,8 +329,11 @@ public class Server implements Runnable {
                             output = seller.getSortedItems(); // gets the filtered items
                         }
                         case 41 -> { // add items from csv
-                            seller.addFromCSV(info); // info assumed to be filename
-                            output = true;
+                            try {
+                                output = seller.addFromCSV(info); // info assumed to be filename, output is number of items added;
+                            } catch (FileNotFoundException e) {
+                                output = e;
+                            }
                         }
                         case 42 -> { //add new individual item
                             try {

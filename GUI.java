@@ -617,6 +617,9 @@ public class GUI {
         panel.add(enter);
         enter.addActionListener(e -> {
             String keyword = new String(searchBar.getText());
+            // get search results from server
+            ArrayList<Item> searchResults = (ArrayList<Item>) serverAction(22, keyword);
+            // TODO: Display the search results
         });
 
         JButton logout = new JButton("Log out");
@@ -1653,6 +1656,15 @@ public class GUI {
         panel.add(enter);
         enter.addActionListener(e -> {
             String fileName = fileNameField.getText();
+            Object o = serverAction(41, fileName); // send to server
+            if (o instanceof Exception) {
+                String errorMessage = ((Exception) o).getMessage();
+                // TODO: error message here that shows error message
+            } else {
+                // TODO: sucess message and or go back to menu
+                int numAdded = (int) o;
+                System.out.printf("%d Items added!", numAdded);
+            }
         });
 
         JButton logout = new JButton("Log out");

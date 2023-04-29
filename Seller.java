@@ -67,38 +67,39 @@ public class Seller extends User implements Serializable{
 
     public void saveStores() {
         // TODO: new user stuff
-        String fileName = this.FILENAME; // user data file
-        String[] fileLines = readFile(fileName);
-        for (int l = 0; l < fileLines.length; l++) { // find the correct user line
-            String user = this.getEmail(); 
-            String line = fileLines[l];
-            String newStoresString = " ";
-            String[] splitUserLine = line.split(", "); // get user line as string
-            if (splitUserLine[0].split(":")[1].equals(user)) { // found correct line
-                // String storesString = line.split(",")[3]; // get stores as string
-                newStoresString = ", ";
-                for (int i = 0; i < this.stores.size(); i++) {
-                    newStoresString += this.stores.get(i) + ";";
-                }
-                if (splitUserLine.length > 3) { // some stores already saved
-                    splitUserLine[3] = newStoresString;
-                    // remake line
-                    line = "";
-                    for (int i = 0; i < splitUserLine.length; i++) {
-                        line += splitUserLine[i];
-                        if (i < splitUserLine.length -2) {
-                            line += ", ";
-                        }
-                    }
-                } else { // not stores saved yet
-                    line += ", " + newStoresString.substring(1, newStoresString.length());
-                }
+        System.out.println("The save stores function needs updated!");
+        // String fileName = this.FILENAME; // user data file
+        // String[] fileLines = readFile(fileName);
+        // for (int l = 0; l < fileLines.length; l++) { // find the correct user line
+        //     String user = this.getEmail(); 
+        //     String line = fileLines[l];
+        //     String newStoresString = " ";
+        //     String[] splitUserLine = line.split(", "); // get user line as string
+        //     if (splitUserLine[0].split(":")[1].equals(user)) { // found correct line
+        //         // String storesString = line.split(",")[3]; // get stores as string
+        //         newStoresString = ", ";
+        //         for (int i = 0; i < this.stores.size(); i++) {
+        //             newStoresString += this.stores.get(i) + ";";
+        //         }
+        //         if (splitUserLine.length > 3) { // some stores already saved
+        //             splitUserLine[3] = newStoresString;
+        //             // remake line
+        //             line = "";
+        //             for (int i = 0; i < splitUserLine.length; i++) {
+        //                 line += splitUserLine[i];
+        //                 if (i < splitUserLine.length -2) {
+        //                     line += ", ";
+        //                 }
+        //             }
+        //         } else { // not stores saved yet
+        //             line += ", " + newStoresString.substring(1, newStoresString.length());
+        //         }
 
-                fileLines[l] = line; // replace updated line
-                break;
-            }
-        }
-        writeFile(fileName, fileLines);
+        //         fileLines[l] = line; // replace updated line
+        //         break;
+        //     }
+        // }
+        // writeFile(fileName, fileLines);
     }
 
 
@@ -124,18 +125,22 @@ public class Seller extends User implements Serializable{
         }
     }
 
-    public void addFromCSV(String filename) {
+    public int addFromCSV(String filename) throws FileNotFoundException{
         String[] fileData = readFile(filename);
         int counter = 0;
+        if (fileData.length < 1) {
+            throw new FileNotFoundException("File doesn't exist or is empty.");
+        }
         for (int i = 0; i < fileData.length; i++) {
             try {
                 addNewItem(new Item(fileData[i]));
                 counter += 1;
             } catch (InvalidLineException e) {
-                System.out.printf("Invalid Item format in file %s line %d!\n", filename, i+1);
+                System.out.println("Invalid line.");
             }
         }
         System.out.printf("Added %d items.\n", counter);
+        return counter;
     }
 
     public void addNewItem(Item item) {
