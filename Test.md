@@ -81,3 +81,48 @@ Test Status: Passed
 Expected Result: The application displays the items listed by price in ascending order in the items dropdown to the user.
 
 Test Status: Failed
+
+## Test 8 User edits account information
+1. User launches application.
+2. User logs in (see above).
+3. User selects the Edit Account button on the second page.
+4. User selects the Edit Account Email button on the Edit Account page.
+5. User selects the text box for entering a new email.
+6. User enters the log out button after entering a new email.
+7. User selects the Menu button from the welcome page.
+8. User logs in with their new email (see above).
+
+Expected Result: Application allows user to login with the new email that they entered for their account in the edit account section.
+
+Test Status: Failed
+
+## Test 9 Delete Account
+1. User launches application
+2. User logs in (see above).
+
+Expected Result: Not Applicable
+
+Test Status: Not Applicable
+
+## Test 10 Customer Checks out items
+1. User launches application
+2. User logs in (see above).
+3. User presses the View Cart button on the second page.
+4. User presses the Checkout button on the View Cart page.
+
+Expected Result: The user is able to checkout with their items (assuming the items being checked out still exist)
+
+Test Status: Failed
+
+## Test 11 User adds an item to their cart
+1. User launches application.
+2. Users logs in (see above).
+3. User presses the Choose an Item button on the second page.
+4. User selects an available item from the dropdown menu.
+5. User selects the quantity of items to purchase textbox.
+6. User enters how many items they want to buy in the quantity of items to purchase textbox.
+7. User presses the Enter button on the View Listings page.
+
+Expected Result: The item and quantity that was entered of that item are added to the user's cart
+
+Test Status: Failed
