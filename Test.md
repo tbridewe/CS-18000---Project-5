@@ -6,7 +6,8 @@
 3. User selects the Create Account button on the second page.
 4. User selects the Username and Password textboxes.
 5. User enters username and password into the textbox with their keyboard.
-6. User selects the Create New Account button after entering their information.
+6. User selects the Seller or Customer button to identify which type of account they are trying to make
+7. User selects the Create New Account button after entering their information.
 
 Expected Result: Application verifies that the username and password are correct and creates an account. The account is saved to the userData.txt file and the user is automatically logged into the program.
 
