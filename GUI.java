@@ -133,11 +133,6 @@ public class GUI {
         login.addActionListener(e -> LoginGui());
         createAccount.addActionListener(e -> NewAccountGUI());
         quit.addActionListener(e -> ShowWelcome());
-
-        JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> ShowWelcome());
     }
     String userTextContents;
     String passwordTextContents;
@@ -175,11 +170,6 @@ public class GUI {
         userText.setBounds(100, 20, 165, 25);
         loginPanel.add(userText);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        loginPanel.add(enter);
-        enter.addActionListener(e -> userTextContents = userText.getText());
-
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
         loginPanel.add(passwordLabel);
@@ -188,22 +178,14 @@ public class GUI {
         passwordText.setBounds(100, 50, 165, 25);
         loginPanel.add(passwordText);
 
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        loginPanel.add(enterTwo);
-        enterTwo.addActionListener(e -> passwordTextContents = passwordText.getText());
-
         loginButton = new JButton("Login");
         loginButton.setBounds(10, 80, 80, 25);
         loginPanel.add(loginButton);
 
-        success = new JLabel("");
-        success.setBounds(10, 110, 300, 25);
-        loginPanel.add(success);
-        frame.setVisible(true);
-
         //TODO: Login HERE
         loginButton.addActionListener(e -> {
+            userTextContents = userText.getText();
+            passwordTextContents = passwordText.getText();
             // first make sure we are logged out
             serverAction(9, null);
 
@@ -229,11 +211,6 @@ public class GUI {
                 IncorrectCredentials();
             }
         });
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
