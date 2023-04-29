@@ -213,7 +213,7 @@ public class GUI {
         });
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        loginPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
     }
     int userNumber;
