@@ -1512,13 +1512,6 @@ public class GUI {
         nameField.setBounds(100, 20, 165, 25);
         panel.add(nameField);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> {
-            String name = enterName.getText();
-        });
-
         enterStore = new JLabel("Enter store:");
         enterStore.setBounds(10,20, 80, 25);
         panel.add(enterStore);
@@ -1526,13 +1519,6 @@ public class GUI {
         storeField = new JTextField(20);
         storeField.setBounds(100, 20, 165, 25);
         panel.add(storeField);
-
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        panel.add(enterTwo);
-        enterTwo.addActionListener(e -> {
-            String store = storeField.getText();
-        });
 
         enterDescription = new JLabel("Enter description:");
         enterDescription.setBounds(10,20, 80, 25);
@@ -1542,12 +1528,6 @@ public class GUI {
         descriptionField.setBounds(100, 20, 165, 25);
         panel.add(descriptionField);
 
-        JButton enterThree = new JButton("Enter");
-        enterThree.setBounds(10, 80, 80, 25);
-        panel.add(enterThree);
-        enterThree.addActionListener(e -> {
-            String description1 = descriptionField.getText();
-        });
 
         enterQuantity = new JLabel("Enter quantity:");
         enterQuantity.setBounds(10,20, 80, 25);
@@ -1557,13 +1537,6 @@ public class GUI {
         quantityField.setBounds(100, 20, 165, 25);
         panel.add(quantityField);
 
-        JButton enterFour = new JButton();
-        enterFour.setBounds(10, 80, 80, 25);
-        panel.add(enterFour);
-        enterFour.addActionListener(e -> {
-            String quantity = quantityField.getText();
-        });
-
         enterPrice = new JLabel("Enter price:");
         enterPrice.setBounds(10,20, 80, 25);
         panel.add(enterPrice);
@@ -1572,10 +1545,14 @@ public class GUI {
         priceField.setBounds(100, 20, 165, 25);
         panel.add(priceField);
 
-        JButton enterFive = new JButton();
-        enterFive.setBounds(10, 80, 80, 25);
-        panel.add(enterFive);
-        enterFive.addActionListener(e -> {
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String name = enterName.getText();
+            String store = storeField.getText();
+            String description1 = descriptionField.getText();
+            String quantity = quantityField.getText();
             String price = priceField.getText();
         });
 
