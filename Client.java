@@ -31,7 +31,7 @@ public class Client {
 
             // Setup the GUI
             GUI gui = new GUI(writer, oi);
-            gui.WelcomeMenuGUI();
+            gui.ShowWelcome();
 
             JOptionPane.showMessageDialog(null, "Connection Successful!", "Success", JOptionPane.PLAIN_MESSAGE);
 
