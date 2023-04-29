@@ -287,7 +287,6 @@ public class Server implements Runnable {
 
                         }
                         case 24 -> { // add to cart
-                            // TODO: Amber how to you want the GUI to do this, pass item or index?
                             // info = displayedIndex,quanitity
                             String[] s = info.split(",");
                             int i = Integer.valueOf(s[0]);
