@@ -149,13 +149,10 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(200, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
 
         JPanel loginPanel = new JPanel();
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(loginPanel);
 
