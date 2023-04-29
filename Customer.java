@@ -11,13 +11,13 @@ import java.util.Arrays;
  * @author Hannah, Tristen
  */
 public class Customer extends User implements Serializable{
-    private ArrayList<Item> cart = new ArrayList<>(); // stores the user's items. Everytime the cart is updtates the cart file will also be updated
+    private ArrayList<Item> cart = new ArrayList<>(); // stores the user's items. 
+    private ArrayList<Item> purchaseHistory = new ArrayList<>(); // stores the user's past purchases
     
     public Customer(String email, String password, int userType) throws InvalidUserInput {
         super(email, password, userType);
-        // TODO: why is usertype an input here? The type is known to be customer
 
-        loadCart(this.cartFileName); // loads items from the cart file into the cart
+        // loadCart(this.cartFileName); // loads items from the cart file into the cart
         this.sortedListings = readItems();
     }
     
@@ -44,6 +44,20 @@ public class Customer extends User implements Serializable{
             price += item.getPrice() * item.getQuantity();
         }
         System.out.printf("TOTAL: $%74.2f\n", price);
+    }
+
+    /**
+     * getCartPrice()
+     * 
+     * @return total price of all the items in the cart
+     */
+    public double getCartPrice() {
+        double price = 0;
+        for (int i = 0; i < cart.size(); i++) {
+            Item item = cart.get(i);
+            price += item.getPrice() * item.getQuantity();
+        }
+        return price;
     }
 
 
@@ -196,9 +210,18 @@ public class Customer extends User implements Serializable{
      * @return double the total price of the cart 
      */
     public void checkout() {
-
-        String[] fileLines = readFile(this.customerLogFileName);
+        // String[] fileLines = readFile(this.customerLogFileName);
         // copied from saveCart()
+
+        // Done: update this with new cart saving code
+        for (int i = 0; i < this.cart.size(); i++) {
+            this.purchaseHistory.add(this.cart.get(i));
+        }
+        cart.clear();
+
+        /* 
+        // update cart file (old)
+
         for (int l = 0; l < fileLines.length; l++) { // find the correct user line
             String user = this.getEmail(); 
             String line = fileLines[l];
@@ -226,6 +249,8 @@ public class Customer extends User implements Serializable{
         System.out.println("Thank you for your purchase!");
         this.cart.clear(); // remove all items
         saveCart(cartFileName);
+        */
+        printCart();
     }
 
     private ArrayList<Item> readPurchaseLog() { 

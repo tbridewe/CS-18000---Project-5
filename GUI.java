@@ -939,6 +939,8 @@ public class GUI {
         frame.setVisible(true);
     }
     public void CheckoutComplete() { //if the buyer chooses to checkout and checks out successfully
+        double price = (double) serverAction(28, null); // tell server checkout has happened
+        
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -948,7 +950,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        JLabel checkoutComplete = new JLabel("Checkout complete!");
+        JLabel checkoutComplete = new JLabel(String.format("Checkout complete!\nYour total was $%.2f\n", price));
         checkoutComplete.setBounds(10, 20, 80, 25);
         panel.add(checkoutComplete);
 

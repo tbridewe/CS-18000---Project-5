@@ -310,7 +310,8 @@ public class Server implements Runnable {
 
                         }
                         case 28 -> { // checkout
-
+                            output = customer.getCartPrice(); // get the total price
+                            customer.checkout(); // moves cart items to purcahse history. 
                         }
                         case 31 -> { // set sort type
                             sortType = Integer.valueOf(info);
