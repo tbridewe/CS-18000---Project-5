@@ -251,16 +251,12 @@ public class GUI {
         customer = new JButton("Customer");
         customer.setBounds(10, 80, 80, 25);
         newAccountPanel.add(customer);
-        customer.addActionListener(e -> {
-            userNumber = 0;
-        });
+        customer.addActionListener(e -> userNumber = 0);
 
         seller = new JButton("Seller");
         seller.setBounds(10, 80, 80, 25);
         newAccountPanel.add(seller);
-        seller.addActionListener(e -> {
-            userNumber = 1;
-        });
+        seller.addActionListener(e -> userNumber = 1);
 
         userLabel = new JLabel("Email");
         userLabel.setBounds(10,20, 80, 25);
@@ -1589,7 +1585,7 @@ public class GUI {
         fileNameField.setBounds(100, 20, 165, 25);
         panel.add(fileNameField);
 
-        JButton enter = new JButton();
+        JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
         panel.add(enter);
         enter.addActionListener(e -> {
@@ -2120,9 +2116,7 @@ public class GUI {
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
         panel.add(enter);
-        enter.addActionListener(e -> {
-            potentialNewPassword = passwordText.getText();
-        });
+        enter.addActionListener(e -> potentialNewPassword = passwordText.getText());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
