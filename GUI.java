@@ -149,7 +149,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(700, 700);
+        frame.setSize(700, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
