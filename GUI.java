@@ -1124,9 +1124,7 @@ public class GUI {
         editPassword = new JButton("Edit Account Password");
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
-        editPassword.addActionListener(e -> {
-            String password = new String(editPassword.getText());
-        });
+        editPassword.addActionListener(e -> NewPassword());
 
         delete = new JButton("Delete Account");
         delete.setBounds(10, 80, 80, 25);
