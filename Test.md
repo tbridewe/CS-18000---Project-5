@@ -11,7 +11,7 @@
 
 Expected Result: Application verifies that the username and password are correct and creates an account. The account is saved to the userData.txt file and the user is automatically logged into the program.
 
-Test Status: Error
+Test Status: Failed
 
 ## Test 2: User logs in
 1. User launches application.
@@ -23,7 +23,7 @@ Test Status: Error
 
 Expected Result: Application verifies that the username and password exist in the userData.txt file and that the user being entered exists. User is logged in and able to utilize the program.
 
-Test Status: Error
+Test Status: Failed
 
 ## Test 3 Quit
 1. User launches application.
@@ -33,3 +33,51 @@ Test Status: Error
 Expected Result: Application returns to the welcome page.
 
 Test Status: Passed
+
+## Test 4 Seller creates single listing
+1. User launches application.
+2. User logs in (see instructions above).
+3. User selects View Listings button on the second page.
+4. User selects Add Item button on the listings page.
+5. User selects the Name, Description, Price, Quantity, and Store textboxes.
+6. User enters information into the afforementioned textboxes.
+7. User selects the Enter button.
+
+Expected Result: Application verifies that the information entered is valid and then creates a new listing based on the information entered.
+
+Test Status: Failed
+
+## Test 5 Seller creates listings from .csv
+1. User launches application.
+2. User logs in (see instructions above).
+3. User selects View Listings button on the second page.
+4. User selects the Add from CSV button on the listings page.
+5. User selects the Enter File Name text box.
+6. User enters a .csv file name into the text box.
+7. User presses the Enter button.
+
+Expected Result: The application verifies that the file entered exists, and then reads information from the file. Items read are created and listed as new items in the marketplace.
+
+Test Status: Passed
+
+## Test 6 User logs out
+1. User launches application.
+2. User logs in (see above).
+3. User selects the Log Out button on the second page.
+
+Expected Result: The application logs the user out and returns them to the welcome page
+
+Test Status: Passed
+
+## Test 7 Customer sorts items by price (ascending)
+1. User launches application.
+2. User logs in (see above).
+3. User selects the sort button on the second page.
+4. User presses the Price button and then the Ascending button on the sort page.
+5. User selects the Back button on the sort page.
+7. User selects the Choose an Item button on the second page.
+8. User views the drop down menu.
+
+Expected Result: The application displays the items listed by price in ascending order in the items dropdown to the user.
+
+Test Status: Failed
