@@ -619,14 +619,15 @@ public class GUI {
         // item.setBounds(100, 20, 165, 25);
         // panel.add(item);
 
-        // TODO: Dropdown menu here
-        String[] choices = new String[itemListings.size()];
-        for (int i = 0; i < itemListings.size(); i++) {
-            Item item = itemListings.get(i);
-            String itemInfo = String.format("%20s | $%-6.2f", item.getName(), item.getPrice());
-            choices[i] = itemInfo;
-        }
-        JComboBox<String> dropdown = new JComboBox<>(choices);
+        
+        // String[] choices = new String[itemListings.size()];
+        // for (int i = 0; i < itemListings.size(); i++) {
+        //     Item item = itemListings.get(i);
+        //     String itemInfo = String.format("%20s | $%-6.2f", item.getName(), item.getPrice());
+        //     choices[i] = itemInfo;
+        // }
+
+        JComboBox<String> dropdown = createItemDropdown(itemListings, false, true, true);
         panel.add(dropdown);
 
         number = new JLabel("Please enter how many you would like to buy:");
@@ -636,11 +637,11 @@ public class GUI {
         quantity = new JTextField(20);
         quantity.setBounds(100, 20, 165, 25);
         panel.add(quantity);
-        if (Integer.valueOf(quantity.getName()) >= 0) {
-            int theQuantity = Integer.valueOf(quantity.getName());
-        } else {
-            InvalidQuantityException();
-        }
+        // if (Integer.valueOf(quantity.getName()) >= 0) {
+        //     int theQuantity = Integer.valueOf(quantity.getName());
+        // } else {
+        //     InvalidQuantityException();
+        // }
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
@@ -665,6 +666,34 @@ public class GUI {
         panel.setVisible(true);
         frame.setVisible(true);
     }
+
+    /**
+     * @param items Arraylist of items to show
+     * @param showStore Boolean to show store
+     * @param showQnty Boolean to show quantity of item
+     * @param showPrice Boolean to show price
+     * @return a dropdown menu that can be added to a panel
+     */
+    private JComboBox<String> createItemDropdown(ArrayList<Item> items, boolean showStore, boolean showQnty, boolean showPrice) {
+        String[] choices = new String[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            String itemInfo = String.format("%-40s", item.getName());
+            if (showStore) {
+                itemInfo += String.format(" | %-30s", item.getStore());
+            }
+            if (showQnty) {
+                itemInfo += String.format(" | x-%4d", item.getQuantity());
+            }
+            if (showPrice) {
+                itemInfo += String.format(" | $%-6.2f", item.getPrice());
+            }
+            choices[i] = itemInfo;
+        }
+        JComboBox<String> dropdown = new JComboBox<>(choices);
+        return dropdown;
+    }
+
     public void cancelPurchase() {
         JLabel cancelQuestion;
         JButton cancel;
