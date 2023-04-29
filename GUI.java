@@ -82,7 +82,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         welcome = new JLabel("Welcome");
@@ -107,11 +107,11 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         JPanel panelOne = new JPanel();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panelOne);
         welcomeOptions = new JLabel("Please select an option:");
@@ -133,14 +133,7 @@ public class GUI {
         login.addActionListener(e -> LoginGui());
         createAccount.addActionListener(e -> NewAccountGUI());
         quit.addActionListener(e -> ShowWelcome());
-
-        JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> ShowWelcome());
     }
-    String userTextContents;
-    String passwordTextContents;
     public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
@@ -150,20 +143,20 @@ public class GUI {
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton loginButton;
-        JLabel success;
+
 
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
         JPanel panel = new JPanel();
         content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
         JPanel loginPanel = new JPanel();
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(loginPanel);
 
@@ -175,11 +168,6 @@ public class GUI {
         userText.setBounds(100, 20, 165, 25);
         loginPanel.add(userText);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        loginPanel.add(enter);
-        enter.addActionListener(e -> userTextContents = userText.getText());
-
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
         loginPanel.add(passwordLabel);
@@ -188,22 +176,14 @@ public class GUI {
         passwordText.setBounds(100, 50, 165, 25);
         loginPanel.add(passwordText);
 
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        loginPanel.add(enterTwo);
-        enterTwo.addActionListener(e -> passwordTextContents = passwordText.getText());
-
         loginButton = new JButton("Login");
         loginButton.setBounds(10, 80, 80, 25);
         loginPanel.add(loginButton);
 
-        success = new JLabel("");
-        success.setBounds(10, 110, 300, 25);
-        loginPanel.add(success);
-        frame.setVisible(true);
-
         //TODO: Login HERE
         loginButton.addActionListener(e -> {
+            String userTextContents = userText.getText();
+            String passwordTextContents = passwordText.getText();
             // first make sure we are logged out
             serverAction(9, null);
 
@@ -229,14 +209,9 @@ public class GUI {
                 IncorrectCredentials();
             }
         });
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        loginPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
     }
     int userNumber;
@@ -252,19 +227,18 @@ public class GUI {
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton makeNewAccount;
-        JLabel success;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
         JPanel newAccountPanel = new JPanel();
-        frame.setSize(350, 200);
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(newAccountPanel);
 
@@ -274,17 +248,13 @@ public class GUI {
 
         customer = new JButton("Customer");
         customer.setBounds(10, 80, 80, 25);
-        panel.add(customer);
-        customer.addActionListener(e -> {
-            userNumber = 0;
-        });
+        newAccountPanel.add(customer);
+        customer.addActionListener(e -> userNumber = 0);
 
         seller = new JButton("Seller");
         seller.setBounds(10, 80, 80, 25);
-        panel.add(seller);
-        seller.addActionListener(e -> {
-            userNumber = 1;
-        });
+        newAccountPanel.add(seller);
+        seller.addActionListener(e -> userNumber = 1);
 
         userLabel = new JLabel("Email");
         userLabel.setBounds(10,20, 80, 25);
@@ -293,11 +263,6 @@ public class GUI {
         userText.setBounds(100, 20, 165, 25);
         newAccountPanel.add(userText);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(enter);
-        enter.addActionListener(e -> emailContents = userText.getText());
-
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
         newAccountPanel.add(passwordLabel);
@@ -305,16 +270,13 @@ public class GUI {
         passwordText.setBounds(100, 50, 165, 25);
         newAccountPanel.add(passwordText);
 
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(enterTwo);
-        enterTwo.addActionListener(e -> newPasswordContents = passwordText.getText());
-
         makeNewAccount = new JButton("Create new account");
         makeNewAccount.setBounds(10, 80, 80, 25);
         newAccountPanel.add(makeNewAccount);
         makeNewAccount.addActionListener(e -> {
             // TODO: New account stuff HERE (done I just want the marker)
+            emailContents = userText.getText();
+            newPasswordContents = passwordText.getText();
             sendToServer("05" + emailContents);
             boolean emailIsValid = (boolean) readFromServer();
             sendToServer("06" + emailContents);
@@ -333,17 +295,9 @@ public class GUI {
             }
         });
 
-        success = new JLabel("");
-        success.setBounds(10, 110, 300, 25);
-        newAccountPanel.add(success);
-
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        newAccountPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
         frame.setVisible(true);
     }
@@ -356,7 +310,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -384,7 +338,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -410,7 +364,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -446,7 +400,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         JPanel createPanel = new JPanel();
@@ -489,7 +443,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         loginSuccessful = new JLabel("Login successful");
@@ -520,7 +474,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         buyerOptions = new JLabel("Please select an option:");
@@ -571,7 +525,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -601,7 +555,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -653,7 +607,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -721,7 +675,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -758,7 +712,7 @@ public class GUI {
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
 
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -784,7 +738,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -811,7 +765,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -844,7 +798,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -912,7 +866,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -957,7 +911,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -987,7 +941,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1028,7 +982,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1066,7 +1020,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1098,7 +1052,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1158,7 +1112,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1174,9 +1128,7 @@ public class GUI {
         editPassword = new JButton("Edit Account Password");
         editPassword.setBounds(10, 80, 80, 25);
         panel.add(editPassword);
-        editPassword.addActionListener(e -> {
-            String password = new String(editPassword.getText());
-        });
+        editPassword.addActionListener(e -> NewPassword());
 
         delete = new JButton("Delete Account");
         delete.setBounds(10, 80, 80, 25);
@@ -1207,7 +1159,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1249,7 +1201,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1296,7 +1248,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1325,7 +1277,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1367,7 +1319,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1411,7 +1363,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1465,7 +1417,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1509,7 +1461,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1552,7 +1504,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1564,13 +1516,6 @@ public class GUI {
         nameField.setBounds(100, 20, 165, 25);
         panel.add(nameField);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> {
-            String name = enterName.getText();
-        });
-
         enterStore = new JLabel("Enter store:");
         enterStore.setBounds(10,20, 80, 25);
         panel.add(enterStore);
@@ -1578,13 +1523,6 @@ public class GUI {
         storeField = new JTextField(20);
         storeField.setBounds(100, 20, 165, 25);
         panel.add(storeField);
-
-        JButton enterTwo = new JButton("Enter");
-        enterTwo.setBounds(10, 80, 80, 25);
-        panel.add(enterTwo);
-        enterTwo.addActionListener(e -> {
-            String store = storeField.getText();
-        });
 
         enterDescription = new JLabel("Enter description:");
         enterDescription.setBounds(10,20, 80, 25);
@@ -1594,12 +1532,6 @@ public class GUI {
         descriptionField.setBounds(100, 20, 165, 25);
         panel.add(descriptionField);
 
-        JButton enterThree = new JButton("Enter");
-        enterThree.setBounds(10, 80, 80, 25);
-        panel.add(enterThree);
-        enterThree.addActionListener(e -> {
-            String description1 = descriptionField.getText();
-        });
 
         enterQuantity = new JLabel("Enter quantity:");
         enterQuantity.setBounds(10,20, 80, 25);
@@ -1609,13 +1541,6 @@ public class GUI {
         quantityField.setBounds(100, 20, 165, 25);
         panel.add(quantityField);
 
-        JButton enterFour = new JButton();
-        enterFour.setBounds(10, 80, 80, 25);
-        panel.add(enterFour);
-        enterFour.addActionListener(e -> {
-            String quantity = quantityField.getText();
-        });
-
         enterPrice = new JLabel("Enter price:");
         enterPrice.setBounds(10,20, 80, 25);
         panel.add(enterPrice);
@@ -1624,10 +1549,14 @@ public class GUI {
         priceField.setBounds(100, 20, 165, 25);
         panel.add(priceField);
 
-        JButton enterFive = new JButton();
-        enterFive.setBounds(10, 80, 80, 25);
-        panel.add(enterFive);
-        enterFive.addActionListener(e -> {
+        JButton enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            String name = enterName.getText();
+            String store = storeField.getText();
+            String description1 = descriptionField.getText();
+            String quantity = quantityField.getText();
             String price = priceField.getText();
         });
 
@@ -1652,7 +1581,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1664,7 +1593,7 @@ public class GUI {
         fileNameField.setBounds(100, 20, 165, 25);
         panel.add(fileNameField);
 
-        JButton enter = new JButton();
+        JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
         panel.add(enter);
         enter.addActionListener(e -> {
@@ -1709,7 +1638,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1803,7 +1732,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1845,7 +1774,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1890,7 +1819,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1948,7 +1877,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1980,7 +1909,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2026,7 +1955,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2066,7 +1995,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2113,7 +2042,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2143,7 +2072,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2174,7 +2103,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -2195,9 +2124,7 @@ public class GUI {
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
         panel.add(enter);
-        enter.addActionListener(e -> {
-            potentialNewPassword = passwordText.getText();
-        });
+        enter.addActionListener(e -> potentialNewPassword = passwordText.getText());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -2221,7 +2148,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
