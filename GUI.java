@@ -134,8 +134,6 @@ public class GUI {
         createAccount.addActionListener(e -> NewAccountGUI());
         quit.addActionListener(e -> ShowWelcome());
     }
-    String userTextContents;
-    String passwordTextContents;
     public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to login in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
@@ -145,7 +143,7 @@ public class GUI {
         JLabel passwordLabel;
         JPasswordField passwordText;
         JButton loginButton;
-        JLabel success;
+
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -184,8 +182,8 @@ public class GUI {
 
         //TODO: Login HERE
         loginButton.addActionListener(e -> {
-            userTextContents = userText.getText();
-            passwordTextContents = passwordText.getText();
+            String userTextContents = userText.getText();
+            String passwordTextContents = passwordText.getText();
             // first make sure we are logged out
             serverAction(9, null);
 
