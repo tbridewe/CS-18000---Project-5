@@ -197,7 +197,7 @@ public class GUI {
                 String user = userTextContents;
                 String password = new String(passwordTextContents);
                 sendToServer(String.format("01,Username: %s, Password: %s", user, password));
-                int out = (Integer) readFromServer(); // get feedback on wether login is invalid, customer, or seller
+                int out = (int) readFromServer(); // get feedback on whether login is invalid, customer, or seller
                 switch (out) {
                     case -1 -> ShowWelcome(); // TODO: Invalid password here
                     case 0 -> BuyerMenuGui();
@@ -644,7 +644,7 @@ public class GUI {
         // }
 
         JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
+        enter.setBounds(200, 100, 80, 25);
         panel.add(enter);
         enter.addActionListener(e -> {
             int selection = dropdown.getSelectedIndex();
@@ -654,12 +654,12 @@ public class GUI {
         });
 
         JButton logout = new JButton("Log out");
-        logout.setBounds(10, 80, 80, 25);
+        logout.setBounds(300, 200, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
+        back.setBounds(400, 300, 80, 25);
         panel.add(back);
         back.addActionListener(e -> BuyerMenuGui());
 
