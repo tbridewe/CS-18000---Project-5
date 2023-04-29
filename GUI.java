@@ -1,6 +1,4 @@
-//I added most of the ActionListeners and added logout and back buttons to every GUI
-// I am working on the rest of the ActionListeners
-//I put comments beyond 120 characters for all of the unfinished ActionListeners
+//I added enter buttons for the text fields
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
