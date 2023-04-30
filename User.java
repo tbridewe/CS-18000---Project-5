@@ -91,7 +91,7 @@ public class User extends FileFunctions implements Serializable{
      */
     public Item getDisplayedItem(int index) throws IndexOutOfBoundsException {
         // index from the printed listing
-        return this.sortedListings.get(index - 1);
+        return this.sortedListings.get(index);
     }
 
     /*

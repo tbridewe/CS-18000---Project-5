@@ -161,8 +161,13 @@ public class Seller extends User implements Serializable{
         replaceItem(item.findItem(readItems()), null);
     }
 
+    /**
+     * 
+     * @param item item to be edited
+     * @param changeType [1:5] -> name, store, desc, qnty, price
+     * @param changeValue
+     */
     public void editItem(Item item, int changeType, String changeValue ) {
-        // TODO: probably rewrite this
         ArrayList<Item> sellerItems = readItems();
         int index = item.findItem(readItems()); // get the index in the items file
 
