@@ -33,7 +33,20 @@ protected static synchronized Object[] readObjectsFromFile(String filename) {
         objectContents = objectArrayList.toArray();
         return objectContents;
     }
-
+	
+protected static synchronized void writeUsersToFile(String filename) {
+        ArrayList<Object> users = Server.usersList;
+        try {
+            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(filename));
+            
+            for (int i = 0; i < users.size(); i++) {
+                ois.writeObject(users.get(i));
+            }
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace(); // TODO: change exception handling
+        }
+    }
     protected static synchronized String[] readFile(String filename) {
         String[] fileContents;
         ArrayList<String> contents = new ArrayList<>();
