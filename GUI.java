@@ -147,35 +147,43 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
         content = frame.getContentPane();
 
-        JPanel loginPanel = new JPanel();
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(400, 200);
+        frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(loginPanel);
+
+        JPanel emailPanel = new JPanel();
+        frame.add(emailPanel);
+        content.add(emailPanel);
+
+        JPanel passwordPanel = new JPanel();
+        frame.add(passwordPanel);
+        content.add(passwordPanel);
+
+        JPanel backPanel = new JPanel();
+        frame.add(backPanel);
+        content.add(backPanel);
 
         userLabel = new JLabel("User");
         userLabel.setBounds(10, 20, 80, 25);
-        loginPanel.add(userLabel);
+        emailPanel.add(userLabel);
 
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
-        loginPanel.add(userText);
+        emailPanel.add(userText);
 
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
-        loginPanel.add(passwordLabel);
+        passwordPanel.add(passwordLabel);
 
         passwordText = new JPasswordField(20);
         passwordText.setBounds(100, 50, 165, 25);
-        loginPanel.add(passwordText);
+        passwordPanel.add(passwordText);
 
         loginButton = new JButton("Login");
         loginButton.setBounds(10, 80, 80, 25);
-        loginPanel.add(loginButton);
-
+        backPanel.add(loginButton);
         //TODO: Login HERE
         loginButton.addActionListener(e -> {
             String userTextContents = userText.getText();
@@ -205,10 +213,25 @@ public class GUI {
                 IncorrectCredentials();
             }
         });
+
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        loginPanel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, passwordPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
+        frame.add(sp2);
+        content.add(sp2, BorderLayout.CENTER);
+//        JPanel mainPanel = new JPanel();
+//        frame.add(mainPanel);
+//        content.add(mainPanel);
+//        mainPanel.add(emailPanel);
+//        mainPanel.add(passwordPanel);
+//        mainPanel.add(backPanel);
+
+
     }
     int userNumber;
     String emailContents;
