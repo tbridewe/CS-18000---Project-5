@@ -2,13 +2,13 @@ import java.io.*;
 import java.util.ArrayList;
 /**
  * User.java
- * 
- * User class. It contains basic account methods, 
- * along with item management methods used by both buyers and sellers. 
- * This class is extended by Customer and Seller. 
+ *
+ * User class. It contains basic account methods,
+ * along with item management methods used by both buyers and sellers.
+ * This class is extended by Customer and Seller.
  *
  * @version 2023-4-10
- * @author 
+ * @author
  */
 
 public class User extends FileFunctions implements Serializable{
@@ -33,14 +33,14 @@ public class User extends FileFunctions implements Serializable{
 
         this.buyer = (userType.equals("Buyer"));
         this.seller = !this.buyer;
-        
+
         this.password = password;
         this.email = email;
     }
-    
+
     public User(String email, String password, int userType) throws InvalidUserInput { // creates a new User object with email, password and userType; Buyer = 0, Seller = 1
         super(itemListingsFileName);
-        
+
         if (!isValidPassword(password) || !isValidEmail(email)) {
             throw new InvalidUserInput(INVALID_BOTH);
         }
@@ -62,7 +62,7 @@ public class User extends FileFunctions implements Serializable{
 
     /**
      * PrintListings()
-     * just prints the items in the cart with nice formatting. 
+     * just prints the items in the cart with nice formatting.
      */
     public void printListings() {
         if (this.sortedListings.size() < 1) {
@@ -78,8 +78,8 @@ public class User extends FileFunctions implements Serializable{
     }
 
     /*
-     * sets sorted listings to all the listings in the file. This is useful for unsorting them or checking for updates. 
-     * Note that sortedListings is always what gets printed, so call this beofre printing if ou want them unsorted. 
+     * sets sorted listings to all the listings in the file. This is useful for unsorting them or checking for updates.
+     * Note that sortedListings is always what gets printed, so call this beofre printing if ou want them unsorted.
      */
     public void refreshListings() {
         this.sortedListings = readItems();
@@ -96,14 +96,14 @@ public class User extends FileFunctions implements Serializable{
 
     /*
      * clearSortedListings
-     * clears the stored sorted listings. 
+     * clears the stored sorted listings.
      * Just because they aren't needef when storing a user object in a file
      */
     public void clearSortedItems() {
         this.sortedListings.clear();
     }
 
-   
+
 
     ///////////////////////////////////////////////////
     // Getters and setters and user stuff
@@ -116,7 +116,7 @@ public class User extends FileFunctions implements Serializable{
     public ArrayList<Item> getSortedItems() {
         return this.sortedListings;
     }
-    
+
     public String getEmail() { // gets the current user email
         return email;
     }
@@ -155,42 +155,38 @@ public class User extends FileFunctions implements Serializable{
     }
 
     // User Data
-    
-    public static boolean passwordIsCorrect(String email, String password, ArrayList<Object> userList) {
-        try {
-            if (userList.size() == 0)
-                return false;
 
+    public static Object passwordIsCorrect(String email, String password, ArrayList<Object> userList) {
+        try {
             for (int i = 0; i < userList.size(); i++) {
                 Object obj = userList.get(i);
                 if (obj instanceof Customer) {
                     Customer temp = ((Customer) obj);
 
                     if (temp.getEmail().equals(email) && temp.getPassword().equals(password)) {
-                        return true;
+                        return temp;
                     } else {
-                        return false;
+                        return null;
                     }
-                }
-                if (obj instanceof Seller) {
+                } else if (obj instanceof Seller) {
                     Seller temp = ((Seller) obj);
-                    
+
                     if (temp.getEmail().equals(email) && temp.getPassword().equals(password)) {
-                        return true;
+                        return temp;
                     } else {
-                        return false;
+                        return null;
                     }
                 }
             }
         } catch(Exception e) {
             e.printStackTrace();
 
-            return false;
+            return null;
         }
-        
-        return false;
+
+        return null;
     }
-    
+
     public static boolean accountObjectExists(String email, ArrayList<Object> userList) {
         try {
             if (userList.size() == 0)
@@ -200,8 +196,7 @@ public class User extends FileFunctions implements Serializable{
                 Object obj = userList.get(i);
                 if (obj instanceof Customer && ((Customer) obj).getEmail().equals(email)) {
                     return true;
-                }
-                if (obj instanceof Seller && ((Seller) obj).getEmail().equals(email)) {
+                } else if (obj instanceof Seller && ((Seller) obj).getEmail().equals(email)) {
                     return true;
                 }
             }
@@ -213,7 +208,7 @@ public class User extends FileFunctions implements Serializable{
 
         return false;
     }
-    
+
     public static boolean accountExists(String emailEntered) { // checks if a user's information is saved to userData.txt
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
             String line;
@@ -254,6 +249,14 @@ public class User extends FileFunctions implements Serializable{
         }
 
         return null;
+    }
+
+    public static void saveCustomerToList(Customer customer) {
+        Server.usersList.add(customer);
+    }
+
+    public static void saveSellerToList(Seller seller) {
+        Server.usersList.add(seller);
     }
 
     public static void saveNewUser(String email, String password, String userType) { // writes the new user information to userData.txt
@@ -333,9 +336,9 @@ public class User extends FileFunctions implements Serializable{
                 String fileUserType;
 
                 if (split.length > 2) {
-                     fileEmail = split[0].replace("Email:", "");
-                     filePassword = split[1].replace("Password:", "");
-                     fileUserType = split[2].replace("UserType:", "");
+                    fileEmail = split[0].replace("Email:", "");
+                    filePassword = split[1].replace("Password:", "");
+                    fileUserType = split[2].replace("UserType:", "");
                 } else {
                     continue;
                 }
@@ -360,17 +363,17 @@ public class User extends FileFunctions implements Serializable{
     }
 
     public static boolean isValidEmail(String email) { // verifies that the email is valid
-       if (email == null || email.isEmpty()) {
-           return false;
-       }
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
 
-       int at = email.indexOf('@');
-       int dot = email.lastIndexOf('.');
+        int at = email.indexOf('@');
+        int dot = email.lastIndexOf('.');
 
-       if (at <= 0 || dot < at + 2 || email.length() - 4 != dot) {
-           return false;
-       }
+        if (at <= 0 || dot < at + 2 || email.length() - 4 != dot) {
+            return false;
+        }
 
-       return true;
+        return true;
     }
 }
