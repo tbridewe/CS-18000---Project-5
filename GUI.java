@@ -674,7 +674,7 @@ public class GUI {
             int selection = dropdown.getSelectedIndex();
             int amount = Integer.valueOf(quantity.getText());
             serverAction(24, String.format("%d,%d", selection, amount)); // add to cart
-            
+            SelectItem(); // reload GUI
         });
 
         JButton logout = new JButton("Log out");
@@ -1673,6 +1673,7 @@ public class GUI {
             int price = Integer.valueOf(priceField.getText());
             Item newItem = new Item(name, store, description1, quantity, price);
             serverAction(42, newItem.toLine());
+            ListingsMenu(); // go back to listings
         });
 
         JButton logout = new JButton("Log out");
@@ -1932,6 +1933,7 @@ public class GUI {
         enter.addActionListener(e -> {
             int itemToRemove = dropdown.getSelectedIndex();
             serverAction(44, String.format("%d", itemToRemove));
+            ListingsMenu();
         });
 
         JButton logout = new JButton("Log out");

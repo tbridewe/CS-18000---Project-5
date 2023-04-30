@@ -198,14 +198,6 @@ public class User extends FileFunctions implements Serializable{
         return null;
     }
 
-    public static void saveCustomerToList(Customer customer) {
-        Server.usersList.add(customer);
-    }
-
-    public static void saveSellerToList(Seller seller) {
-        Server.usersList.add(seller);
-    }
-
     public static void saveNewUser(String email, String password, String userType) { // writes the new user information to userData.txt
         try {
             FileWriter fw = new FileWriter(FILENAME, true);

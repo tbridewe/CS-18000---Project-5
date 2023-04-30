@@ -159,11 +159,9 @@ public class Server implements Runnable {
                         int userType = Integer.valueOf(s[2]);
                         try {
                         if (userType == 0) {
-                            User.updatedSaveNewCustomer(email, password);
                             customer = new Customer(email, password, userType);
                             Server.usersList.add(customer);
                         } else if (userType == 1) {
-                            User.updatedSaveNewSeller(email, password);
                             seller = new Seller(email, password, userType);
                             Server.usersList.add(seller);
                         }
@@ -289,7 +287,7 @@ public class Server implements Runnable {
                             output = customer.getSortedItems(); // gets all the listings
                         }
                         case 21 -> { // sort listings by previously sent order and type
-                            customer.sortMarketplace(sortType, sortOrder);
+                            customer.updatedSortMarketplace(sortType, sortOrder);
                             output = customer.getSortedItems();
 
                         }
@@ -387,7 +385,8 @@ public class Server implements Runnable {
 
                         }
                         case 46 -> { // view sorted stats
-
+                            seller.updatedSortStats(sortType, sortOrder);
+                            output = ItemListToString(seller.getSortedItems());
                         }
                         case 47 -> { // set sort type
                             sortType = Integer.valueOf(info);
