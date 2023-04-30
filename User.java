@@ -156,6 +156,64 @@ public class User extends FileFunctions implements Serializable{
 
     // User Data
     
+    public static boolean passwordIsCorrect(String email, String password, ArrayList<Object> userList) {
+        try {
+            if (userList.size() == 0)
+                return false;
+
+            for (int i = 0; i < userList.size(); i++) {
+                Object obj = userList.get(i);
+                if (obj instanceof Customer) {
+                    Customer temp = ((Customer) obj);
+
+                    if (temp.getEmail().equals(email) && temp.getPassword().equals(password)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                if (obj instanceof Seller) {
+                    Seller temp = ((Seller) obj);
+                    
+                    if (temp.getEmail().equals(email) && temp.getPassword().equals(password)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+
+            return false;
+        }
+        
+        return false;
+    }
+    
+    public static boolean accountObjectExists(String email, ArrayList<Object> userList) {
+        try {
+            if (userList.size() == 0)
+                return false;
+
+            for (int i = 0; i < userList.size(); i++) {
+                Object obj = userList.get(i);
+                if (obj instanceof Customer && ((Customer) obj).getEmail().equals(email)) {
+                    return true;
+                }
+                if (obj instanceof Seller && ((Seller) obj).getEmail().equals(email)) {
+                    return true;
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+
+            return false;
+        }
+
+        return false;
+    }
+    
     public static boolean accountExists(String emailEntered) { // checks if a user's information is saved to userData.txt
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
             String line;
