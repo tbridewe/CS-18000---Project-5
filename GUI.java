@@ -1073,10 +1073,10 @@ public class GUI {
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
-        JButton back = new JButton("Back");
+        JButton back = new JButton("Return to menu");
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
-        back.addActionListener(e -> ViewCartOptions());
+        back.addActionListener(e -> BuyerMenuGui());
 
         frame.setVisible(true);
     }
