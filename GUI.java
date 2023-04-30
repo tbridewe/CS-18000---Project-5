@@ -1480,7 +1480,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        enterValidEmail = new JLabel("Please enter a valid email address");
+        enterValidEmail = new JLabel("Please enter a valid email address!");
         enterValidEmail.setBounds(10, 20, 80, 25);
         panel.add(enterValidEmail);
 
@@ -1503,19 +1503,23 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel passwordPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(passwordPanel);
+        content.add(passwordPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         enterPassword = new JLabel("Please enter a new password for your account:");
         enterPassword.setBounds(10,20, 80, 25);
-        panel.add(enterPassword);
+        passwordPanel.add(enterPassword);
 
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
-        panel.add(passwordText);
+        passwordPanel.add(passwordText);
         passwordTextString = passwordText.getText();
 
         JButton enter = new JButton("Enter");
@@ -1524,16 +1528,22 @@ public class GUI {
             passwordTextString = passwordText.getText();
             ConfirmPassword();
         });
+        passwordPanel.add(enter);
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EditUserInfo());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, passwordPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
