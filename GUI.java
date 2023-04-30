@@ -239,7 +239,6 @@ public class GUI {
         JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
         frame.add(sp2);
         content.add(sp2);
-        //content.add(sp2, BorderLayout.CENTER);
     }
     int userNumber = 99;
     String emailContents;
@@ -1165,23 +1164,27 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel enterPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(enterPanel);
+        content.add(backPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         nameFile = new JLabel("Enter the name of the file to save the purchase history to:");
         nameFile.setBounds(10,20, 80, 25);
-        panel.add(nameFile);
+        enterPanel.add(nameFile);
 
         file = new JTextField(20);
         file.setBounds(100, 20, 165, 25);
-        panel.add(file);
+        enterPanel.add(file);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> {
             String filename = file.getText();
             ExportPurchaseHistory();
@@ -1189,13 +1192,18 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EnterNameOfFile());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
