@@ -1208,6 +1208,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void PurchaseHistoryExported() {
+        //TODO: access this method
         //message shown if the buyer successfully saves purchase history to file
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1244,36 +1245,43 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel selectPanel = new JPanel();
+        JPanel enterPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(selectPanel);
+        content.add(selectPanel);
+        frame.add(enterPanel);
+        content.add(enterPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         select = new JLabel("Select an item to remove from cart:");
         select.setBounds(10,20, 80, 25);
-        panel.add(select);
+        selectPanel.add(select);
 
         // ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null);
         ArrayList<Item> cartItems = parseItemList((String) serverAction(23, null));
         JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
-        panel.add(dropdown);
+        selectPanel.add(dropdown);
 
         // item = new JTextField(20);
         // item.setBounds(100, 20, 165, 25);
         // panel.add(item);
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
-        panel.add(number);
+        enterPanel.add(number);
         //should save the number as a variable
 
         quantity = new JTextField(20);
         quantity.setBounds(100, 20, 165, 25);
-        panel.add(quantity);
+        enterPanel.add(quantity);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> {
             int itemToRemove = dropdown.getSelectedIndex();
             int numToRemove = Integer.valueOf(quantity.getText());
@@ -1292,13 +1300,19 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> ViewCartOptions());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, enterPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
