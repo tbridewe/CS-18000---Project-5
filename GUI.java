@@ -616,7 +616,8 @@ public class GUI {
 
         // Get items form server
         // TODO: Amber I got the items, you figure out how you want to display them
-        ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
+        // ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
+        ArrayList<Item> itemListings = parseItemList((String) serverAction(30, null)); // display these somehow and select one
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -938,7 +939,7 @@ public class GUI {
             serverAction(32, "2"); // set descending
         });
 
-        JButton enter = new JButton("Search");
+        JButton enter = new JButton("Sort");
         enter.setBounds(10, 80, 80, 25);
         ascendingOrDescendingPanel.add(enter);
         enter.addActionListener(e -> {
