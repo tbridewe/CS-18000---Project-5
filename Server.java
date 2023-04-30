@@ -159,11 +159,9 @@ public class Server implements Runnable {
                         int userType = Integer.valueOf(s[2]);
                         try {
                         if (userType == 0) {
-                            User.updatedSaveNewCustomer(email, password);
                             customer = new Customer(email, password, userType);
                             Server.usersList.add(customer);
                         } else if (userType == 1) {
-                            User.updatedSaveNewSeller(email, password);
                             seller = new Seller(email, password, userType);
                             Server.usersList.add(seller);
                         }
