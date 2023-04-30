@@ -2271,7 +2271,7 @@ public class GUI {
         deleteAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: add a delete account action
+                serverAction(7, null);
             }
         });
 
