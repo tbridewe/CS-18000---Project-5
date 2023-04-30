@@ -44,6 +44,7 @@ public class GUI {
         Object o;
         try {
             o = reader.readObject();
+            
         } catch (Exception e) {
             e.printStackTrace();
             o = null;
@@ -65,6 +66,7 @@ public class GUI {
         }
         sendToServer(message);
         Object out = readFromServer();
+        // Object out2 = readFromServer();
         return out;
     }
 
@@ -584,7 +586,6 @@ public class GUI {
         JTextField quantity;
 
         // Get items form server
-        // TODO: Amber I got the items, you figure out how you want to display them
         ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
 
         frame.getContentPane().removeAll();
@@ -612,7 +613,7 @@ public class GUI {
         //     choices[i] = itemInfo;
         // }
 
-        JComboBox<String> dropdown = createItemDropdown(itemListings, false, true, true);
+        JComboBox<String> dropdown = createItemDropdown(itemListings, true, true, true);
         panel.add(dropdown);
 
         number = new JLabel("Please enter how many you would like to buy:");
@@ -1467,9 +1468,12 @@ public class GUI {
         delete.addActionListener(e -> Remove());
 
         // show items
+        serverAction(50, null); // FIXME: mkflsdk
         ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
         panel.add(dropdown);
+        // FIXME: wtf is happening here? Server sends arraylist of 2 items, client recieves 3 (old arraylist?)
+        // Going back and forth = sometimes server update isn't called? but even when it is it reads the wrong thing
 
         back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
@@ -1886,7 +1890,7 @@ public class GUI {
 
         });
 
-        specificStats = new JButton("View specific statistics");
+        specificStats = new JButton("View Sorted statistics");
         specificStats.setBounds(10, 80, 80, 25);
         panel.add(specificStats);
         specificStats.addActionListener(e -> SpecificStats());
@@ -1928,14 +1932,14 @@ public class GUI {
         price.setBounds(10, 80, 80, 25);
         panel.add(price);
         price.addActionListener(e -> {
-
+            serverAction(47, "1"); // set price
         });
 
-        quantity = new JButton("Price");
+        quantity = new JButton("Quantity");
         quantity.setBounds(10, 80, 80, 25);
         panel.add(quantity);
         quantity.addActionListener(e -> {
-
+            serverAction(47, "2"); // set quantity
         });
 
         ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
@@ -1946,6 +1950,7 @@ public class GUI {
         ascending.setBounds(10, 80, 80, 25);
         panel.add(ascending);
         ascending.addActionListener(e -> {
+            serverAction(48, "1"); // set ascending
 
         });
 
@@ -1953,7 +1958,7 @@ public class GUI {
         descending.setBounds(10, 80, 80, 25);
         panel.add(descending);
         descending.addActionListener(e -> {
-
+            serverAction(48, "2"); // set descending
         });
 
         JButton logout = new JButton("Log out");

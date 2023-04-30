@@ -55,6 +55,10 @@ public class Server implements Runnable {
 
                 output = l;
 
+
+                // sort type vars
+                int sortType = 0;
+                int sortOrder = 0;
                 // Big switch statement for all the actions the server needs to perfrom
 
                 switch (action) {
@@ -119,6 +123,10 @@ public class Server implements Runnable {
                             if (userEmail.equals("seller@gmail.com") && userPassword.equals("test")) {
                                 seller = new Seller("seller@gmail.com", "test", 1);
                                 seller.addStore("store1");
+                                seller.addStore("Best Buy");
+                                seller.addStore("Cellular Express");
+                                seller.addStore("Frank's Store");
+                                seller.addStore("Tech Hub");
                                 System.out.println("Login Override as seller");
                             }
                             if (userEmail.equals("customer@gmail.com") && userPassword.equals("test")) {
@@ -267,11 +275,13 @@ public class Server implements Runnable {
                         seller = null;
                         customer  = null;
                     }
+                    case 50 -> { // test
+                        output = "test message";
+                    }
                 }
                 if (customer != null) { // all the customer actions here
                     // cusomter specific vars
-                    int sortType = 0;
-                    int sortOrder = 0;
+
                     // 20-39: Buyer functions
                     switch (action) {
                         case 20 -> { // view all listings
@@ -372,14 +382,24 @@ public class Server implements Runnable {
                             seller.removeItem(i);
                             output = "removed item " + i + "";
                         }
-                        case 45 -> { // TODO: stats stuff
+                        case 45 -> { // view all stats
 
+                        }
+                        case 46 -> { // view sorted stats
+
+                        }
+                        case 47 -> { // set sort type
+                            sortType = Integer.valueOf(info);
+                        }
+                        case 48 -> { // set sort order
+                            sortOrder = Integer.valueOf(info);
                         }
                         
                     }
 
                 }
                 objectOut.writeObject(output);
+                objectOut.flush();
                 // Print statements for debugging
                 System.out.printf("Server Sent: %s\n", output.toString());
             }
