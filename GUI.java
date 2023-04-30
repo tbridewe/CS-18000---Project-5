@@ -669,7 +669,7 @@ public class GUI {
             int selection = dropdown.getSelectedIndex();
             int amount = Integer.valueOf(quantity.getText());
             serverAction(24, String.format("%d,%d", selection, amount)); // add to cart
-            
+            BuyerMenuGui();; // go back to buyer menu
         });
 
         content.setLayout(new GridLayout());
