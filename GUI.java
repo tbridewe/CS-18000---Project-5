@@ -1233,7 +1233,7 @@ public class GUI {
             int itemToRemove = dropdown.getSelectedIndex();
             int numToRemove = Integer.valueOf(quantity.getText());
             serverAction(25, String.format("%d,%d", itemToRemove, numToRemove));
-            RemoveItem(); // reloads this guid to see changes
+            ViewCartOptions(); // go back to cart
         });
 
         
