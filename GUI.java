@@ -674,7 +674,7 @@ public class GUI {
             int selection = dropdown.getSelectedIndex();
             int amount = Integer.valueOf(quantity.getText());
             serverAction(24, String.format("%d,%d", selection, amount)); // add to cart
-            SelectItem(); // reload GUI
+            
         });
 
         JButton logout = new JButton("Log out");
@@ -690,8 +690,8 @@ public class GUI {
         content.setLayout(new GridLayout());
         JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, enterPanel);
         JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
-        frame.add(sp);
-        content.add(sp);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
@@ -843,13 +843,11 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    String priceOrQuantityString;
     public void SortingItems() {
         JLabel priceOrQuantity;
         JButton price;
         JButton quantity;
-        JLabel ascendingOrDescending;
-        JButton ascending;
-        JButton descending;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -870,6 +868,8 @@ public class GUI {
         price.addActionListener(e -> {
             //should allow the buyer to sort items by price                                                             ******
             serverAction(31, "1"); // set price
+            priceOrQuantityString = "You selected to sort by price.";
+            SortingItemsTwo();
         });
 
         quantity = new JButton("Quantity");
@@ -878,34 +878,8 @@ public class GUI {
         quantity.addActionListener(e -> {
             //should allow the buyer to sort items by quantity
             serverAction(31, "2"); // set qnty
-        });
-
-        ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
-        ascendingOrDescending.setBounds(10,20, 80, 25);
-        panel.add(ascendingOrDescending);
-
-        ascending = new JButton("Ascending");
-        ascending.setBounds(10, 80, 80, 25);
-        panel.add(ascending);
-        ascending.addActionListener(e -> {
-            //should allow the buyer to sort items ascending
-            serverAction(32, "1"); // set ascending
-        });
-
-        descending = new JButton("Descending");
-        descending.setBounds(10, 80, 80, 25);
-        panel.add(descending);
-        descending.addActionListener(e -> {
-            //should allow the buyer to sort items descending
-            serverAction(32, "2"); // set descending
-        });
-
-        JButton enter = new JButton("Search");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> {
-            serverAction(21, null); // perform the sort
-            SelectItem(); // go to selection menu
+            priceOrQuantityString = "You selected to sort by quantity.";
+            SortingItemsTwo();
         });
 
         JButton logout = new JButton("Log out");
@@ -917,6 +891,76 @@ public class GUI {
         back.setBounds(10, 80, 80, 25);
         panel.add(back);
         back.addActionListener(e -> BuyerMenuGui());
+
+        frame.setVisible(true);
+    }
+    public void SortingItemsTwo() {
+        JLabel priceOrQuantity;
+        JLabel ascendingOrDescending;
+        JButton ascending;
+        JButton descending;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel choicePanel = new JPanel();
+        JPanel ascendingOrDescendingPanel = new JPanel();
+        JPanel backPanel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(choicePanel);
+        content.add(choicePanel);
+        frame.add(ascendingOrDescendingPanel);
+        content.add(ascendingOrDescendingPanel);
+
+        priceOrQuantity = new JLabel(priceOrQuantityString);
+        priceOrQuantity.setBounds(10, 20, 80, 25);
+        choicePanel.add(priceOrQuantity);
+
+        ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
+        ascendingOrDescending.setBounds(10,20, 80, 25);
+        ascendingOrDescendingPanel.add(ascendingOrDescending);
+
+        ascending = new JButton("Ascending");
+        ascending.setBounds(10, 80, 80, 25);
+        ascendingOrDescendingPanel.add(ascending);
+        ascending.addActionListener(e -> {
+            //should allow the buyer to sort items ascending
+            serverAction(32, "1"); // set ascending
+        });
+
+        descending = new JButton("Descending");
+        descending.setBounds(10, 80, 80, 25);
+        ascendingOrDescendingPanel.add(descending);
+        descending.addActionListener(e -> {
+            //should allow the buyer to sort items descending
+            serverAction(32, "2"); // set descending
+        });
+
+        JButton enter = new JButton("Search");
+        enter.setBounds(10, 80, 80, 25);
+        ascendingOrDescendingPanel.add(enter);
+        enter.addActionListener(e -> {
+            serverAction(21, null); // perform the sort
+            SelectItem(); // go to selection menu
+        });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        backPanel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        backPanel.add(back);
+        back.addActionListener(e -> BuyerMenuGui());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, choicePanel, ascendingOrDescendingPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
@@ -1673,7 +1717,6 @@ public class GUI {
             int price = Integer.valueOf(priceField.getText());
             Item newItem = new Item(name, store, description1, quantity, price);
             serverAction(42, newItem.toLine());
-            ListingsMenu(); // go back to listings
         });
 
         JButton logout = new JButton("Log out");
@@ -1933,7 +1976,6 @@ public class GUI {
         enter.addActionListener(e -> {
             int itemToRemove = dropdown.getSelectedIndex();
             serverAction(44, String.format("%d", itemToRemove));
-            ListingsMenu();
         });
 
         JButton logout = new JButton("Log out");
