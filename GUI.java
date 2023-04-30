@@ -1746,56 +1746,73 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        //frame.add(panel);
 
+        JPanel namePanel = new JPanel();
+        frame.add(namePanel);
+        content.add(namePanel);
         enterName = new JLabel("Enter name:");
         enterName.setBounds(10,20, 80, 25);
-        panel.add(enterName);
+        namePanel.add(enterName);
 
         nameField = new JTextField(20);
         nameField.setBounds(100, 20, 165, 25);
-        panel.add(nameField);
+        namePanel.add(nameField);
 
+        JPanel storePanel = new JPanel();
+        frame.add(namePanel);
+        content.add(namePanel);
         enterStore = new JLabel("Enter store:");
         enterStore.setBounds(10,20, 80, 25);
-        panel.add(enterStore);
+        storePanel.add(enterStore);
 
         storeField = new JTextField(20);
         storeField.setBounds(100, 20, 165, 25);
-        panel.add(storeField);
+        storePanel.add(storeField);
 
+        JPanel descriptionPanel = new JPanel();
+        frame.add(descriptionPanel);
+        content.add(descriptionPanel);
         enterDescription = new JLabel("Enter description:");
         enterDescription.setBounds(10,20, 80, 25);
-        panel.add(enterDescription);
+        descriptionPanel.add(enterDescription);
 
         descriptionField = new JTextField(20);
         descriptionField.setBounds(100, 20, 165, 25);
-        panel.add(descriptionField);
+        descriptionPanel.add(descriptionField);
 
-
+        JPanel quantityPanel = new JPanel();
+        frame.add(quantityPanel);
+        content.add(quantityPanel);
         enterQuantity = new JLabel("Enter quantity:");
         enterQuantity.setBounds(10,20, 80, 25);
-        panel.add(enterQuantity);
+        quantityPanel.add(enterQuantity);
 
         quantityField = new JTextField(20);
         quantityField.setBounds(100, 20, 165, 25);
-        panel.add(quantityField);
+        quantityPanel.add(quantityField);
 
+        JPanel pricePanel = new JPanel();
+        frame.add(pricePanel);
+        content.add(pricePanel);
         enterPrice = new JLabel("Enter price:");
         enterPrice.setBounds(10,20, 80, 25);
-        panel.add(enterPrice);
+        pricePanel.add(enterPrice);
 
         priceField = new JTextField(20);
         priceField.setBounds(100, 20, 165, 25);
-        panel.add(priceField);
+        pricePanel.add(priceField);
 
+        JPanel enterPanel = new JPanel();
+        frame.add(enterPanel);
+        content.add(enterPanel);
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> {
             String name = enterName.getText();
             String store = storeField.getText();
@@ -1806,15 +1823,28 @@ public class GUI {
             serverAction(42, newItem.toLine());
         });
 
+        JPanel backPanel = new JPanel();
+        frame.add(backPanel);
+        content.add(backPanel);
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> AddOptions());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, namePanel, storePanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, descriptionPanel, quantityPanel);
+        JSplitPane sp3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, sp2);
+        JSplitPane sp4 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pricePanel, enterPanel);
+        JSplitPane sp5 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp4, backPanel);
+        JSplitPane sp6 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp3, sp5);
+        frame.add(sp6);
+        content.add(sp6);
 
         frame.setVisible(true);
     }
