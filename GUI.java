@@ -44,7 +44,7 @@ public class GUI {
         Object o;
         try {
             o = reader.readObject();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             o = null;
@@ -599,6 +599,7 @@ public class GUI {
         JTextField quantity;
 
         // Get items form server
+        // TODO: Amber I got the items, you figure out how you want to display them
         ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
 
         frame.getContentPane().removeAll();
@@ -919,7 +920,7 @@ public class GUI {
         view.setBounds(10, 80, 80, 25);
         panel.add(view);
         view.addActionListener(e -> {
-            //view purchase history                                                                                   
+            ViewPurchaseHistory();
         });
 
         remove = new JButton("Remove Item");
@@ -943,6 +944,40 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    public void ViewPurchaseHistory() {
+        //this GUI is a welcome message before the welcome menu and is shown when a user logs out
+
+        sendToServer("09"); // Tell the server user has logged out
+        readFromServer(); // just read and ignore the return message
+
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        //TODO: display purchase history
+        welcome = new JLabel("Purchase history");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> ViewCartOptions());
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+
+        frame.setVisible(true);
+    }
+
     public void CheckoutComplete() { //if the buyer chooses to check out and checks out successfully
         double price = (double) serverAction(28, null); // tell server checkout has happened
         
@@ -1923,6 +1958,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    String priceOrQuantityChoice;
     public void SpecificStats() {
         JLabel byPriceOrQuantity;
         JButton price;
@@ -1949,6 +1985,8 @@ public class GUI {
         panel.add(price);
         price.addActionListener(e -> {
             serverAction(47, "1"); // set price
+            SpecificStatsTwo();
+            priceOrQuantityChoice = "You selected to sort the statistics by price.";
         });
 
         quantity = new JButton("Quantity");
@@ -1956,7 +1994,39 @@ public class GUI {
         panel.add(quantity);
         quantity.addActionListener(e -> {
             serverAction(47, "2"); // set quantity
+            priceOrQuantityChoice = "You selected to sort the statistics by quantity.";
+            SpecificStatsTwo();
         });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> ViewStatistics());
+
+        frame.setVisible(true);
+    }
+    public void SpecificStatsTwo() {
+        JLabel ascendingOrDescending;
+        JButton ascending;
+        JButton descending;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        JLabel priceOrQuantity = new JLabel(priceOrQuantityChoice);
+        priceOrQuantity.setBounds(10,20, 80, 25);
+        panel.add(priceOrQuantity);
 
         ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
         ascendingOrDescending.setBounds(10,20, 80, 25);
@@ -1967,7 +2037,6 @@ public class GUI {
         panel.add(ascending);
         ascending.addActionListener(e -> {
             serverAction(48, "1"); // set ascending
-
         });
 
         descending = new JButton("Descending");
