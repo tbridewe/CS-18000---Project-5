@@ -171,44 +171,54 @@ public class Server implements Runnable {
                             // account attempted to change does not exist
                         }
                     }
-                    case 4 -> { // change password
-                        String[] limitedInput = input.split(",");
+                    case 3 -> { // change username
+                        String password = info;
 
-                        String userEmail = "";
-                        String oldPassword = "";
-                        String newPassword = "";
+                        boolean success = true;
 
-                        for (int i = 0; i < limitedInput.length; i++) {
-                            if (limitedInput[i].lastIndexOf("Username:") > -1) {
-                                userEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("Username:"));
-                            } else if (limitedInput[i].lastIndexOf("NewPassword:") > -1)  {
-                                newPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewPassword:"));
-                            }  else if (limitedInput[i].lastIndexOf("OldPassword:") > -1) {
-                                oldPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("OldPassword:"));
+                        if (customer != null) {
+                            try {
+                                customer.setPassword(password);
+                            } catch (InvalidUserInput e)  {
+                                success = false;
+                                // display error message for wrong email?
+                            }
+                        } else if (seller != null) {
+                            try {
+                                seller.setPassword(password);
+                            } catch (InvalidUserInput e) {
+                                success = false;
+                                // display error message for wrong email?
                             }
                         }
 
-                        if (User.isCorrectLogin(userEmail, oldPassword) > -1)  {
-                            // account attempted to change exists
-                            // assuming that they are already logged in
+                        if (success) {
+                            FileFunctions.writeUsersToFile(userData);
+                        }
+                    }
+                    case 4 -> { // change password
+                        String email = info;
 
+                        boolean success = true;
+
+                        if (customer != null) {
                             try {
-                                if (customer != null) {
-                                    // edit customer
-
-                                    customer.setPassword(newPassword);
-                                } else if (seller != null) {
-                                    // edit seller
-
-                                    seller.setPassword(newPassword);
-                                }
-
-                                // save new account information inside of the try bracket... is there a method that exists for this?
-                            } catch (InvalidUserInput e) {
-                                // display to the user that they entered an invalid email
+                                customer.setEmail(email);
+                            } catch (InvalidUserInput e)  {
+                                success = false;
+                                // display error message for wrong email?
                             }
-                        } else {
-                            // account attempted to change does not exist
+                        } else if (seller != null) {
+                            try {
+                                seller.setEmail(email);
+                            } catch (InvalidUserInput e) {
+                                success = false;
+                                // display error message for wrong email?
+                            }
+                        }
+
+                        if (success) {
+                            FileFunctions.writeUsersToFile(userData);
                         }
                     }
                     case 5 -> { // check valid email
@@ -225,7 +235,35 @@ public class Server implements Runnable {
                         System.out.printf("Output is: %b\n", output);
                     }
                     case 7 -> { // delete account
+                        if (customer != null || seller != null) {
+                            for (int i = 0; i < Server.usersList.size(); i++) {
+                                Object obj = Server.usersList.get(i);
 
+                                if (obj instanceof Customer && customer != null) {
+                                    Customer temp = (Customer) obj;
+
+                                    if (temp.getEmail().equals(seller.getEmail())) {
+                                        Server.usersList.remove(obj);
+                                        
+                                        customer = null;
+                                        
+                                        break;
+                                    }
+                                } else if (obj instanceof Seller && seller != null) {
+                                    Seller temp = (Seller) obj;
+
+                                    if (temp.getEmail().equals(seller.getEmail())) {
+                                        Server.usersList.remove(obj);
+                                        
+                                        seller = null;
+
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        FileFunctions.writeUsersToFile(userData);
                     }
                     case 9 -> { // log out
                         //TODO: save the data
