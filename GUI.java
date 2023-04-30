@@ -239,9 +239,8 @@ public class GUI {
         JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
         frame.add(sp2);
         content.add(sp2);
-        //content.add(sp2, BorderLayout.CENTER);
     }
-    int userNumber;
+    int userNumber = 99;
     String emailContents;
     String newPasswordContents;
     public void NewAccountGUI() { //this GUI allows the user to create a new account
@@ -264,7 +263,7 @@ public class GUI {
 
 
         Container content = frame.getContentPane();
-        frame.setSize(1000, 1000);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(userTypePanel);
         content.add(userTypePanel);
@@ -273,7 +272,6 @@ public class GUI {
         frame.add(createPanel);
         content.add(createPanel);
 
-        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         userTypeLabel = new JLabel("User type");
@@ -327,6 +325,9 @@ public class GUI {
             } else {      // invalid email                                                                                                      //doesn't work
                 EnterValidEmailAddress();
             }
+            if (userNumber == 99) {
+                NewAccountError();
+            }
         });
 
         JButton back = new JButton("Back");
@@ -341,6 +342,28 @@ public class GUI {
         content.add(sp2);
 
         frame.setVisible(true);
+    }
+    public void NewAccountError() {
+        JLabel enterValidEmail;
+        JButton back;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        enterValidEmail = new JLabel("Select whether you are a customer or seller!");
+        enterValidEmail.setBounds(10, 20, 80, 25);
+        panel.add(enterValidEmail);
+
+        back = new JButton("Back");
+        back.setBounds(10, 20, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> NewAccountGUI());
     }
     public void EmailAlreadyExists() { //shown if the email submitted in the new account GUI is associated with an existing account
         JLabel enterValidEmail;
@@ -1141,23 +1164,27 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel enterPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(enterPanel);
+        content.add(backPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         nameFile = new JLabel("Enter the name of the file to save the purchase history to:");
         nameFile.setBounds(10,20, 80, 25);
-        panel.add(nameFile);
+        enterPanel.add(nameFile);
 
         file = new JTextField(20);
         file.setBounds(100, 20, 165, 25);
-        panel.add(file);
+        enterPanel.add(file);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> {
             String filename = file.getText();
             ExportPurchaseHistory();
@@ -1165,13 +1192,18 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EnterNameOfFile());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
