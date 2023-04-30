@@ -66,25 +66,11 @@ public class Server implements Runnable {
                     case 1 -> { // login / check login credentials
                         // buyer OR seller should be not null
 
-                        String[] limitedInput = input.split(",");
+                        String[] s = info.split(",");
+                        String email = s[1];
+                        String password = s[2];
 
-                        String userEmail = ""; //USERNAME: email
-                        String userPassword = ""; //PASSWORD: password
-
-                        for (int i = 0; i < limitedInput.length; i++) {
-                            if (limitedInput[i].lastIndexOf("Username:") > -1) {
-                                userEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("Username:"));
-                            } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
-                                userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
-                            }
-                        }
-
-                        // fix the weird formatting (separate Username: username)
-                        userEmail = userEmail.split(": ")[1];
-                        userPassword = userPassword.split(": ")[1];
-
-                        // ObjectInputStream ois = null;
-                        System.out.printf("Username:%s\nPassword:%s.\n", userEmail, userPassword);
+                        System.out.printf("Email logging in: %s, Password logging in: %s\n", email, password);
 
                         try {
                             // ois = new ObjectInputStream(new FileInputStream("userData.txt"));
@@ -93,51 +79,21 @@ public class Server implements Runnable {
                             // String userEmail = /GUI textfield that has email/
                             // String userPassword = /GUI textfield that has password/
 
-                            Object[] users =  FileFunctions.readObjectsFromFile(userData); // use the nice functions we made!
-                            // TODO: the nice function^ is broken :(
-                            for (int i = 0; i < users.length; i++) { 
-                                Object obj = users[i];
-                                if (obj instanceof Customer && ((Customer) obj).getEmail().equals(userEmail) && (((Customer) obj).getPassword().equals(userPassword))) {
-                                    customer = (Customer) obj;
+                            Object f = User.passwordIsCorrect(email, password, Server.usersList);
 
-                                    break;
-                                }
-                                if (obj instanceof Seller && ((Seller) obj).getEmail().equals(userEmail) && ((Seller) obj).getPassword().equals(userPassword)) {
-                                    seller = (Seller) obj;
+                            System.out.println(f.getClass());
 
-                                    break;
-                                }
+                            if (f instanceof Customer) {
+                                customer = (Customer) f;
+                            } else if (f instanceof Seller) {
+                                seller = (Seller) f;
                             }
-
-                            
 
                             // ois.close();
                             // TODO: display GUI that says user not found, create an account
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-                        //////// DEBUG LOGIN OVERRIDE ///////
-                        try {
-
-                            if (userEmail.equals("seller@gmail.com") && userPassword.equals("test")) {
-                                seller = new Seller("seller@gmail.com", "test", 1);
-                                seller.addStore("store1");
-                                seller.addStore("Best Buy");
-                                seller.addStore("Cellular Express");
-                                seller.addStore("Frank's Store");
-                                seller.addStore("Tech Hub");
-                                System.out.println("Login Override as seller");
-                            }
-                            if (userEmail.equals("customer@gmail.com") && userPassword.equals("test")) {
-                                customer = new Customer("customer@gmail.com", "test", 0);
-                                System.out.println("Login Override as customer");
-                            }
-                        } catch (InvalidUserInput e) {
-                            System.out.println("How did you break the debug override case???");
-                            e.printStackTrace();
-                        }
-                        //////// DEBUG LOGIN OVERRIDE ///////
 
                         // response to client
                         if (seller != null) {
@@ -158,15 +114,18 @@ public class Server implements Runnable {
                         String password = s[1];
                         int userType = Integer.valueOf(s[2]);
                         try {
-                        if (userType == 0) {
-                            customer = new Customer(email, password, userType);
-                            Server.usersList.add(customer);
-                        } else if (userType == 1) {
-                            seller = new Seller(email, password, userType);
-                            Server.usersList.add(seller);
-                        }
+                            if (userType == 0) {
+                                customer = new Customer(email, password, userType);
+                                Server.usersList.add(customer);
+                            } else if (userType == 1) {
+                                seller = new Seller(email, password, userType);
+                                Server.usersList.add(seller);
+                            }
+
+                            FileFunctions.writeUsersToFile(userData);
                         } catch (InvalidUserInput e) {
                         }
+
                         // TODO: save user data
                         // User.saveNewUser(email, password, userType);
                         output = "New account created";
@@ -187,23 +146,23 @@ public class Server implements Runnable {
                                 newEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewEmail:"));
                             }
                         }
-                        
+
                         if (User.isCorrectLogin(oldEmail, userPassword) > -1)  {
                             // account attempted to change exists
                             // assuming that they are already logged in
-                            
+
                             try {
                                 if (customer != null) {
                                     // edit customer
-                                    
+
                                     customer.setEmail(newEmail);
                                 } else if (seller != null) {
                                     // edit seller
-                                    
+
                                     seller.setEmail(newEmail);
-                                    
+
                                 }
-                                
+
                                 // save new account information inside of the try bracket
                             } catch (InvalidUserInput e) {
                                 // display to the user that they entered an invalid email
@@ -258,12 +217,12 @@ public class Server implements Runnable {
                     }
                     case 6 -> { // check if account exists
                         // info = username strings
-                        output = User.accountExists(info);
 
-                        // DEBUG LOGIN OVERRIDE
-                        if (info == "seller@gmail.com" || info == "customer@gmail.com"); {
-                            output = true;
-                        }
+                        boolean result = User.accountObjectExists(info, Server.usersList);
+                        output = result;
+
+                        System.out.printf("Result: %b\n", result);
+                        System.out.printf("Output is: %b\n", output);
                     }
                     case 7 -> { // delete account
 
@@ -296,7 +255,7 @@ public class Server implements Runnable {
                             output = customer.getSortedItems();
                         }
                         case 23 -> { // view cart
-                            output = customer.getCart();
+                            output = ItemListToString(customer.getCart());
                         }
                         case 24 -> { // add to cart
                             // info = displayedIndex,quanitity
@@ -318,7 +277,7 @@ public class Server implements Runnable {
                             customer.removeFromCart(i, q);
                         }
                         case 26 -> { // view purchase log
-                            output = customer.getPurchases();
+                            output = ItemListToString(customer.getPurchases());
                         }
                         case 27 -> { // export purchase log
                             customer.exportPurchases(info);

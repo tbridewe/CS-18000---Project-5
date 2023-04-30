@@ -921,6 +921,7 @@ public class GUI {
         ascending.addActionListener(e -> {
             //should allow the buyer to sort items ascending
             serverAction(32, "1"); // set ascending
+            serverAction(21, null); // perform the sort
             SelectItem();
         });
 
@@ -930,6 +931,7 @@ public class GUI {
         descending.addActionListener(e -> {
             //should allow the buyer to sort items descending
             serverAction(32, "2"); // set descending
+            serverAction(21, null); // perform the sort
             SelectItem();
         });
 
@@ -1006,7 +1008,8 @@ public class GUI {
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
-        ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null); 
+        // ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null);
+        ArrayList<Item> cartItems = parseItemList((String) serverAction(23, null));
         JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
         panel.add(dropdown);
 
@@ -1028,8 +1031,11 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        //TODO: display purchase history
-        welcome = new JLabel("Purchase history options:");
+        ArrayList<Item> cartItems = parseItemList((String) serverAction(26, null));
+        JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
+        panel.add(dropdown);
+
+        welcome = new JLabel("Purchase history");
         welcome.setBounds(10, 20, 80, 25);
         panel.add(welcome);
 
@@ -1109,7 +1115,7 @@ public class GUI {
             //TODO: export purchase history to file
         });
 
-                no = new JButton("No");
+        no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
         no.addActionListener(e -> ViewCartOptions());
@@ -1216,7 +1222,8 @@ public class GUI {
         select.setBounds(10,20, 80, 25);
         panel.add(select);
 
-        ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null); 
+        // ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null);
+        ArrayList<Item> cartItems = parseItemList((String) serverAction(23, null));
         JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
         panel.add(dropdown);
 
