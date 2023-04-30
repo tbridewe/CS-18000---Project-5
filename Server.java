@@ -296,7 +296,7 @@ public class Server implements Runnable {
                             output = customer.getSortedItems();
                         }
                         case 23 -> { // view cart
-                            output = customer.getCart();
+                            output = ItemListToString(customer.getCart());
                         }
                         case 24 -> { // add to cart
                             // info = displayedIndex,quanitity
@@ -318,7 +318,7 @@ public class Server implements Runnable {
                             customer.removeFromCart(i, q);
                         }
                         case 26 -> { // view purchase log
-                            output = customer.getPurchases();
+                            output = ItemListToString(customer.getPurchases());
                         }
                         case 27 -> { // export purchase log
                             customer.exportPurchases(info);
