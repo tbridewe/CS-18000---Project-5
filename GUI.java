@@ -1555,19 +1555,23 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel editPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(editPanel);
+        content.add(editPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
         areYouSure.setBounds(10,20, 80, 25);
-        panel.add(areYouSure);
+        editPanel.add(areYouSure);
 
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
-        panel.add(yes);
+        editPanel.add(yes);
         yes.addActionListener(e -> {
             String password = passwordTextString;
             serverAction(4, password);
@@ -1575,18 +1579,23 @@ public class GUI {
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
-        panel.add(no);
+        editPanel.add(no);
         no.addActionListener(e -> NewPassword());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> NewPassword());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, editPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
