@@ -70,6 +70,19 @@ public class GUI {
         return out;
     }
 
+    private ArrayList<Item> parseItemList(String items) {
+        String[] s = items.split(";");
+        ArrayList<Item> list = new ArrayList<>();
+        for (int i = 0; i < s.length; i++) {
+            try {
+                list.add(new Item(s[i]));
+            } catch (InvalidLineException e) {
+
+            }
+        }
+        return list;
+    }
+
     Container content;
     static JFrame frame = new JFrame();
     public void ShowWelcome() {
@@ -1469,7 +1482,8 @@ public class GUI {
 
         // show items
         serverAction(50, null); // FIXME: mkflsdk
-        ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
+        // ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null); // wtf
+        ArrayList<Item> sellerItems = parseItemList((String) serverAction(40, null));
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
         panel.add(dropdown);
         // FIXME: wtf is happening here? Server sends arraylist of 2 items, client recieves 3 (old arraylist?)
@@ -1738,7 +1752,8 @@ public class GUI {
         panel.add(chooseItem);
 
         // show items
-        ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
+        ArrayList<Item> sellerItems = parseItemList((String) serverAction(40, null));
+        // ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
         panel.add(dropdown);
 
@@ -1840,7 +1855,8 @@ public class GUI {
         panel.add(chooseItem);
 
         // show items
-        ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
+        ArrayList<Item> sellerItems = parseItemList((String) serverAction(40, null));
+        // ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
         panel.add(dropdown);
 

@@ -348,7 +348,8 @@ public class Server implements Runnable {
                         // 40-59: Seller functions
                         case 40 -> { // view the seller's listings
                             seller.findSellerItems(); // filters all the items to only the seller
-                            output = seller.getSortedItems(); // gets the filtered items
+                            // output = seller.getSortedItems(); // gets the filtered items
+                            output = ItemListToString(seller.getSortedItems());
                         }
                         case 41 -> { // add items from csv
                             try {
@@ -442,5 +443,16 @@ public class Server implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String ItemListToString(ArrayList<Item> items) {
+        String s = items.get(0).toLine();
+        if (items.size() > 1) {
+            for (int i = 1; i < items.size(); i++) {
+                s += ";" + items.get(i).toLine();
+            } 
+        }
+        System.out.printf("%d Items\n", items.size());
+        return s;
     }
 }
