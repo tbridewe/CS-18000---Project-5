@@ -329,7 +329,8 @@ public class Server implements Runnable {
                             customer.checkout(); // moves cart items to purcahse history. 
                         }
                         case 30 -> { // get sorted listings
-                            output = customer.getSortedItems();
+                            output = ItemListToString(customer.getSortedItems());
+                            // output = customer.getSortedItems();
                         }
                         case 31 -> { // set sort type
                             sortType = Integer.valueOf(info);
