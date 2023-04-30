@@ -159,11 +159,9 @@ public class Server implements Runnable {
                         int userType = Integer.valueOf(s[2]);
                         try {
                         if (userType == 0) {
-                            User.updatedSaveNewCustomer(email, password);
                             customer = new Customer(email, password, userType);
                             Server.usersList.add(customer);
                         } else if (userType == 1) {
-                            User.updatedSaveNewSeller(email, password);
                             seller = new Seller(email, password, userType);
                             Server.usersList.add(seller);
                         }
@@ -426,13 +424,6 @@ public class Server implements Runnable {
         try {
             ServerSocket ss = new ServerSocket(1800);
             usersList = new ArrayList<>();
-            
-            try {
-                Object[] users = FileFunctions.readObjectsFromFile("userData.txt");
-                Collections.addAll(usersList, users);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             while(true) {
                 Socket socket = ss.accept();

@@ -44,7 +44,7 @@ public class GUI {
         Object o;
         try {
             o = reader.readObject();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             o = null;
@@ -165,7 +165,7 @@ public class GUI {
         content = frame.getContentPane();
 
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(350, 200);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel emailPanel = new JPanel();
@@ -238,15 +238,8 @@ public class GUI {
         JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, passwordPanel);
         JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
         frame.add(sp2);
-        content.add(sp2, BorderLayout.CENTER);
-//        JPanel mainPanel = new JPanel();
-//        frame.add(mainPanel);
-//        content.add(mainPanel);
-//        mainPanel.add(emailPanel);
-//        mainPanel.add(passwordPanel);
-//        mainPanel.add(backPanel);
-
-
+        content.add(sp2);
+        //content.add(sp2, BorderLayout.CENTER);
     }
     int userNumber;
     String emailContents;
@@ -265,48 +258,55 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel userTypePanel = new JPanel();
+        JPanel textFieldPanel = new JPanel();
+        JPanel createPanel = new JPanel();
+
+
         Container content = frame.getContentPane();
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(userTypePanel);
+        content.add(userTypePanel);
+        frame.add(textFieldPanel);
+        content.add(textFieldPanel);
+        frame.add(createPanel);
+        content.add(createPanel);
 
-        JPanel newAccountPanel = new JPanel();
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(newAccountPanel);
 
         userTypeLabel = new JLabel("User type");
         userTypeLabel.setBounds(10,20, 80, 25);
-        newAccountPanel.add(userTypeLabel);
+        userTypePanel.add(userTypeLabel);
 
         customer = new JButton("Customer");
         customer.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(customer);
+        userTypePanel.add(customer);
         customer.addActionListener(e -> userNumber = 0);
 
         seller = new JButton("Seller");
         seller.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(seller);
+        userTypePanel.add(seller);
         seller.addActionListener(e -> userNumber = 1);
 
         userLabel = new JLabel("Email");
         userLabel.setBounds(10,20, 80, 25);
-        newAccountPanel.add(userLabel);
+        textFieldPanel.add(userLabel);
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
-        newAccountPanel.add(userText);
+        textFieldPanel.add(userText);
 
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
-        newAccountPanel.add(passwordLabel);
+        textFieldPanel.add(passwordLabel);
         passwordText = new JPasswordField(20);
         passwordText.setBounds(100, 50, 165, 25);
-        newAccountPanel.add(passwordText);
+        textFieldPanel.add(passwordText);
 
         makeNewAccount = new JButton("Create new account");
         makeNewAccount.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(makeNewAccount);
+        createPanel.add(makeNewAccount);
         makeNewAccount.addActionListener(e -> {
             // TODO: New account stuff HERE (done I just want the marker)
             emailContents = userText.getText();
@@ -331,8 +331,15 @@ public class GUI {
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(back);
+        createPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, userTypePanel, textFieldPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, createPanel);
+        frame.add(sp2);
+        content.add(sp2);
+
         frame.setVisible(true);
     }
     public void EmailAlreadyExists() { //shown if the email submitted in the new account GUI is associated with an existing account
@@ -547,23 +554,27 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel searchPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(searchPanel);
+        frame.add(backPanel);
+        content.add(searchPanel);
+        content.add(backPanel);
 
         search = new JLabel("Search:");
         search.setBounds(10,20, 80, 25);
-        panel.add(search);
+        searchPanel.add(search);
 
         searchBar = new JTextField(20);
         searchBar.setBounds(100, 20, 165, 25);
-        panel.add(searchBar);
+        searchPanel.add(searchBar);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        searchPanel.add(enter);
         enter.addActionListener(e -> {
             String keyword = new String(searchBar.getText());
             ArrayList<Item> searchResults = (ArrayList<Item>) serverAction(22, keyword); // tell server to sort search
@@ -576,13 +587,18 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> SearchByKeywordOrNot());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, searchPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
@@ -599,6 +615,7 @@ public class GUI {
         JTextField quantity;
 
         // Get items form server
+        // TODO: Amber I got the items, you figure out how you want to display them
         ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
 
         frame.getContentPane().removeAll();
@@ -919,7 +936,7 @@ public class GUI {
         view.setBounds(10, 80, 80, 25);
         panel.add(view);
         view.addActionListener(e -> {
-            //view purchase history                                                                                   
+            ViewPurchaseHistory();
         });
 
         remove = new JButton("Remove Item");
@@ -943,6 +960,40 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    public void ViewPurchaseHistory() {
+        //this GUI is a welcome message before the welcome menu and is shown when a user logs out
+
+        sendToServer("09"); // Tell the server user has logged out
+        readFromServer(); // just read and ignore the return message
+
+        JLabel welcome;
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        //TODO: display purchase history
+        welcome = new JLabel("Purchase history");
+        welcome.setBounds(10, 20, 80, 25);
+        panel.add(welcome);
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> ViewCartOptions());
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+
+        frame.setVisible(true);
+    }
+
     public void CheckoutComplete() { //if the buyer chooses to check out and checks out successfully
         double price = (double) serverAction(28, null); // tell server checkout has happened
         
@@ -1927,6 +1978,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
+    String priceOrQuantityChoice;
     public void SpecificStats() {
         JLabel byPriceOrQuantity;
         JButton price;
@@ -1953,6 +2005,8 @@ public class GUI {
         panel.add(price);
         price.addActionListener(e -> {
             serverAction(47, "1"); // set price
+            SpecificStatsTwo();
+            priceOrQuantityChoice = "You selected to sort the statistics by price.";
         });
 
         quantity = new JButton("Quantity");
@@ -1960,7 +2014,39 @@ public class GUI {
         panel.add(quantity);
         quantity.addActionListener(e -> {
             serverAction(47, "2"); // set quantity
+            priceOrQuantityChoice = "You selected to sort the statistics by quantity.";
+            SpecificStatsTwo();
         });
+
+        JButton logout = new JButton("Log out");
+        logout.setBounds(10, 80, 80, 25);
+        panel.add(logout);
+        logout.addActionListener(e -> ShowWelcome());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> ViewStatistics());
+
+        frame.setVisible(true);
+    }
+    public void SpecificStatsTwo() {
+        JLabel ascendingOrDescending;
+        JButton ascending;
+        JButton descending;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        JLabel priceOrQuantity = new JLabel(priceOrQuantityChoice);
+        priceOrQuantity.setBounds(10,20, 80, 25);
+        panel.add(priceOrQuantity);
 
         ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
         ascendingOrDescending.setBounds(10,20, 80, 25);
@@ -1971,7 +2057,6 @@ public class GUI {
         panel.add(ascending);
         ascending.addActionListener(e -> {
             serverAction(48, "1"); // set ascending
-
         });
 
         descending = new JButton("Descending");

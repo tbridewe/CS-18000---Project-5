@@ -107,8 +107,7 @@ A listing in the Marketplace
 | setQuantity | int quantity | void | Sets the quantity of the Item. |
 | setPrice | double price | void | Sets the price of the Item. |
 | changeQuantityBy | int number | void | Changes a quantity by a certain number. |
-## Menu
-Displays prompts for the user
+
 ## IncorrectLoginInformationException
 Thrown when login information is incorrect
 ### Constructor 
