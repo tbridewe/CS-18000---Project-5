@@ -165,7 +165,7 @@ public class GUI {
         content = frame.getContentPane();
 
         Container welcomeContent = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(650, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel emailPanel = new JPanel();
@@ -510,10 +510,7 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
-        JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> LoginGui());
+
         frame.setVisible(true);
     }
     public void SearchByKeywordOrNot() {
@@ -669,7 +666,7 @@ public class GUI {
         // }
 
         JButton enter = new JButton("Enter");
-        enter.setBounds(200, 100, 80, 25);
+        enter.setBounds(10, 20, 80, 25);
         enterPanel.add(enter);
         enter.addActionListener(e -> {
             int selection = dropdown.getSelectedIndex();
@@ -679,12 +676,12 @@ public class GUI {
         });
 
         JButton logout = new JButton("Log out");
-        logout.setBounds(300, 200, 80, 25);
+        logout.setBounds(10, 20, 80, 25);
         backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
-        back.setBounds(400, 300, 80, 25);
+        back.setBounds(10, 20, 80, 25);
         backPanel.add(back);
         back.addActionListener(e -> BuyerMenuGui());
 
@@ -938,6 +935,7 @@ public class GUI {
         ascending.addActionListener(e -> {
             //should allow the buyer to sort items ascending
             serverAction(32, "1"); // set ascending
+            SelectItem();
         });
 
         descending = new JButton("Descending");
@@ -946,6 +944,7 @@ public class GUI {
         descending.addActionListener(e -> {
             //should allow the buyer to sort items descending
             serverAction(32, "2"); // set descending
+            SelectItem();
         });
 
         JButton enter = new JButton("Sort");
@@ -1555,11 +1554,6 @@ public class GUI {
         logout.setBounds(10, 80, 80, 25);
         panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
-
-        JButton back = new JButton("Back");
-        back.setBounds(10, 80, 80, 25);
-        panel.add(back);
-        back.addActionListener(e -> LoginGui());
 
         frame.setVisible(true);
     }
