@@ -1029,9 +1029,19 @@ public class GUI {
         frame.add(panel);
 
         //TODO: display purchase history
-        welcome = new JLabel("Purchase history");
+        welcome = new JLabel("Purchase history options:");
         welcome.setBounds(10, 20, 80, 25);
         panel.add(welcome);
+
+        JButton viewPurchaseHistory = new JButton("View purchase history");
+        viewPurchaseHistory.setBounds(10, 80, 80, 25);
+        panel.add(viewPurchaseHistory);
+        viewPurchaseHistory.addActionListener(e -> ViewPurchaseHistory());
+
+        JButton exportPurchaseHistory = new JButton("Export purchase history");
+        exportPurchaseHistory.setBounds(10, 80, 80, 25);
+        panel.add(exportPurchaseHistory);
+        exportPurchaseHistory.addActionListener(e -> EnterNameOfFile());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
@@ -1095,9 +1105,11 @@ public class GUI {
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
         panel.add(yes);
-        yes.addActionListener(e -> EnterNameOfFile());
+        yes.addActionListener(e -> {
+            //TODO: export purchase history to file
+        });
 
-        no = new JButton("No");
+                no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
         panel.add(no);
         no.addActionListener(e -> ViewCartOptions());
@@ -1142,6 +1154,7 @@ public class GUI {
         panel.add(enter);
         enter.addActionListener(e -> {
             String filename = file.getText();
+            ExportPurchaseHistory();
         });
 
         JButton logout = new JButton("Log out");
@@ -1584,7 +1597,7 @@ public class GUI {
         ArrayList<Item> sellerItems = parseItemList((String) serverAction(40, null));
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
         panel.add(dropdown);
-        // FIXME: wtf is happening here? Server sends arraylist of 2 items, client recieves 3 (old arraylist?)
+        // FIXME: wtf is happening here? Server sends arraylist of 2 items, client receives 3 (old arraylist?)
         // Going back and forth = sometimes server update isn't called? but even when it is it reads the wrong thing
 
         back = new JButton("Back");
