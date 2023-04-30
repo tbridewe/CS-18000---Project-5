@@ -241,7 +241,7 @@ public class GUI {
         content.add(sp2);
         //content.add(sp2, BorderLayout.CENTER);
     }
-    int userNumber;
+    int userNumber = 99;
     String emailContents;
     String newPasswordContents;
     public void NewAccountGUI() { //this GUI allows the user to create a new account
@@ -326,6 +326,9 @@ public class GUI {
             } else {      // invalid email                                                                                                      //doesn't work
                 EnterValidEmailAddress();
             }
+            if (userNumber == 99) {
+                NewAccountError();
+            }
         });
 
         JButton back = new JButton("Back");
@@ -340,6 +343,28 @@ public class GUI {
         content.add(sp2);
 
         frame.setVisible(true);
+    }
+    public void NewAccountError() {
+        JLabel enterValidEmail;
+        JButton back;
+
+        frame.getContentPane().removeAll();
+        frame.revalidate();
+        frame.repaint();
+        JPanel panel = new JPanel();
+        Container content = frame.getContentPane();
+        frame.setSize(600, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        enterValidEmail = new JLabel("Select whether you are a customer or seller!");
+        enterValidEmail.setBounds(10, 20, 80, 25);
+        panel.add(enterValidEmail);
+
+        back = new JButton("Back");
+        back.setBounds(10, 20, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> NewAccountGUI());
     }
     public void EmailAlreadyExists() { //shown if the email submitted in the new account GUI is associated with an existing account
         JLabel enterValidEmail;
