@@ -554,23 +554,27 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel searchPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(searchPanel);
+        frame.add(backPanel);
+        content.add(searchPanel);
+        content.add(backPanel);
 
         search = new JLabel("Search:");
         search.setBounds(10,20, 80, 25);
-        panel.add(search);
+        searchPanel.add(search);
 
         searchBar = new JTextField(20);
         searchBar.setBounds(100, 20, 165, 25);
-        panel.add(searchBar);
+        searchPanel.add(searchBar);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        searchPanel.add(enter);
         enter.addActionListener(e -> {
             String keyword = new String(searchBar.getText());
             ArrayList<Item> searchResults = (ArrayList<Item>) serverAction(22, keyword); // tell server to sort search
@@ -583,13 +587,18 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> SearchByKeywordOrNot());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, searchPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
