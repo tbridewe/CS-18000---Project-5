@@ -1388,6 +1388,7 @@ public class GUI {
             boolean emailIsValid = (boolean) readFromServer();
             if (emailIsValid) {
                 String user = emailTextString;
+                serverAction(3, user);
             } else if (!emailIsValid) {
                 EnterValidEmailAddressTwo();
             }
@@ -1503,6 +1504,7 @@ public class GUI {
         panel.add(yes);
         yes.addActionListener(e -> {
             String password = passwordTextString;
+            serverAction(4, password);
         });
 
         no = new JButton("No");
