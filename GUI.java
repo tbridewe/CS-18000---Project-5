@@ -1208,6 +1208,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void PurchaseHistoryExported() {
+        //TODO: access this method
         //message shown if the buyer successfully saves purchase history to file
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -1244,36 +1245,43 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel selectPanel = new JPanel();
+        JPanel enterPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(selectPanel);
+        content.add(selectPanel);
+        frame.add(enterPanel);
+        content.add(enterPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         select = new JLabel("Select an item to remove from cart:");
         select.setBounds(10,20, 80, 25);
-        panel.add(select);
+        selectPanel.add(select);
 
         // ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null);
         ArrayList<Item> cartItems = parseItemList((String) serverAction(23, null));
         JComboBox<String> dropdown = createItemDropdown(cartItems, false, true, true);
-        panel.add(dropdown);
+        selectPanel.add(dropdown);
 
         // item = new JTextField(20);
         // item.setBounds(100, 20, 165, 25);
         // panel.add(item);
         number = new JLabel("Please enter how many you would like to remove:");
         number.setBounds(10,20, 80, 25);
-        panel.add(number);
+        enterPanel.add(number);
         //should save the number as a variable
 
         quantity = new JTextField(20);
         quantity.setBounds(100, 20, 165, 25);
-        panel.add(quantity);
+        enterPanel.add(quantity);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> {
             int itemToRemove = dropdown.getSelectedIndex();
             int numToRemove = Integer.valueOf(quantity.getText());
@@ -1292,13 +1300,19 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> ViewCartOptions());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, enterPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
@@ -1360,19 +1374,23 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel emailPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(emailPanel);
+        content.add(emailPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
-        panel.add(enterEmail);
+        emailPanel.add(enterEmail);
 
         emailText = new JTextField(20);
         emailText.setBounds(100, 20, 165, 25);
-        panel.add(emailText);
+        emailPanel.add(emailText);
         emailTextString = emailText.getText();
 
         JButton enter = new JButton("Enter");
@@ -1381,16 +1399,22 @@ public class GUI {
             emailTextString = emailText.getText();
             ConfirmEmail();
         });
+        emailPanel.add(enter);
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EditUserInfo());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
@@ -1456,7 +1480,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        enterValidEmail = new JLabel("Please enter a valid email address");
+        enterValidEmail = new JLabel("Please enter a valid email address!");
         enterValidEmail.setBounds(10, 20, 80, 25);
         panel.add(enterValidEmail);
 
@@ -1479,19 +1503,23 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel passwordPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(passwordPanel);
+        content.add(passwordPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         enterPassword = new JLabel("Please enter a new password for your account:");
         enterPassword.setBounds(10,20, 80, 25);
-        panel.add(enterPassword);
+        passwordPanel.add(enterPassword);
 
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
-        panel.add(passwordText);
+        passwordPanel.add(passwordText);
         passwordTextString = passwordText.getText();
 
         JButton enter = new JButton("Enter");
@@ -1500,16 +1528,22 @@ public class GUI {
             passwordTextString = passwordText.getText();
             ConfirmPassword();
         });
+        passwordPanel.add(enter);
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EditUserInfo());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, passwordPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
@@ -1521,19 +1555,23 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel editPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(editPanel);
+        content.add(editPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
         areYouSure.setBounds(10,20, 80, 25);
-        panel.add(areYouSure);
+        editPanel.add(areYouSure);
 
         yes = new JButton("Yes");
         yes.setBounds(10, 80, 80, 25);
-        panel.add(yes);
+        editPanel.add(yes);
         yes.addActionListener(e -> {
             String password = passwordTextString;
             serverAction(4, password);
@@ -1541,18 +1579,23 @@ public class GUI {
 
         no = new JButton("No");
         no.setBounds(10, 80, 80, 25);
-        panel.add(no);
+        editPanel.add(no);
         no.addActionListener(e -> NewPassword());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> NewPassword());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, editPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
