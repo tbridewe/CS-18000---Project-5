@@ -238,15 +238,8 @@ public class GUI {
         JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, passwordPanel);
         JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
         frame.add(sp2);
-        content.add(sp2, BorderLayout.CENTER);
-//        JPanel mainPanel = new JPanel();
-//        frame.add(mainPanel);
-//        content.add(mainPanel);
-//        mainPanel.add(emailPanel);
-//        mainPanel.add(passwordPanel);
-//        mainPanel.add(backPanel);
-
-
+        content.add(sp2);
+        //content.add(sp2, BorderLayout.CENTER);
     }
     int userNumber;
     String emailContents;
@@ -265,48 +258,55 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel userTypePanel = new JPanel();
+        JPanel textFieldPanel = new JPanel();
+        JPanel createPanel = new JPanel();
+
+
         Container content = frame.getContentPane();
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(userTypePanel);
+        content.add(userTypePanel);
+        frame.add(textFieldPanel);
+        content.add(textFieldPanel);
+        frame.add(createPanel);
+        content.add(createPanel);
 
-        JPanel newAccountPanel = new JPanel();
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(newAccountPanel);
 
         userTypeLabel = new JLabel("User type");
         userTypeLabel.setBounds(10,20, 80, 25);
-        newAccountPanel.add(userTypeLabel);
+        userTypePanel.add(userTypeLabel);
 
         customer = new JButton("Customer");
         customer.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(customer);
+        userTypePanel.add(customer);
         customer.addActionListener(e -> userNumber = 0);
 
         seller = new JButton("Seller");
         seller.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(seller);
+        userTypePanel.add(seller);
         seller.addActionListener(e -> userNumber = 1);
 
         userLabel = new JLabel("Email");
         userLabel.setBounds(10,20, 80, 25);
-        newAccountPanel.add(userLabel);
+        textFieldPanel.add(userLabel);
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
-        newAccountPanel.add(userText);
+        textFieldPanel.add(userText);
 
         passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);
-        newAccountPanel.add(passwordLabel);
+        textFieldPanel.add(passwordLabel);
         passwordText = new JPasswordField(20);
         passwordText.setBounds(100, 50, 165, 25);
-        newAccountPanel.add(passwordText);
+        textFieldPanel.add(passwordText);
 
         makeNewAccount = new JButton("Create new account");
         makeNewAccount.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(makeNewAccount);
+        createPanel.add(makeNewAccount);
         makeNewAccount.addActionListener(e -> {
             // TODO: New account stuff HERE (done I just want the marker)
             emailContents = userText.getText();
@@ -331,8 +331,15 @@ public class GUI {
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        newAccountPanel.add(back);
+        createPanel.add(back);
         back.addActionListener(e -> WelcomeMenuGUI());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, userTypePanel, textFieldPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, createPanel);
+        frame.add(sp2);
+        content.add(sp2);
+
         frame.setVisible(true);
     }
     public void EmailAlreadyExists() { //shown if the email submitted in the new account GUI is associated with an existing account
