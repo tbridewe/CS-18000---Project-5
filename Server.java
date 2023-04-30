@@ -425,13 +425,6 @@ public class Server implements Runnable {
         try {
             ServerSocket ss = new ServerSocket(1800);
             usersList = new ArrayList<>();
-            
-            try {
-                Object[] users = FileFunctions.readObjectsFromFile("userData.txt");
-                Collections.addAll(usersList, users);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             while(true) {
                 Socket socket = ss.accept();
