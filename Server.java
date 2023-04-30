@@ -407,4 +407,18 @@ public class Server implements Runnable {
         System.out.printf("%d Items\n", items.size());
         return s;
     }
+
+    public ArrayList<Item> getAllPurchases() {
+        ArrayList<Item> purchases = new ArrayList<>();
+        for (int i = 0; i < this.usersList.size(); i++) { // for each user
+            if(this.usersList.get(i) instanceof Customer) { // check if customer
+                Customer c = (Customer) this.usersList.get(i); // add each purchase
+                ArrayList<Item> p = c.getPurchases();
+                for (int j = 0; j < p.size(); j++) {
+                    purchases.add(p.get(j));
+                }
+            }
+        }
+        return purchases;
+    }
 }
