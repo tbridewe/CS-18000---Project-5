@@ -1605,8 +1605,10 @@ public class GUI {
             String name = enterName.getText();
             String store = storeField.getText();
             String description1 = descriptionField.getText();
-            String quantity = quantityField.getText();
-            String price = priceField.getText();
+            int quantity = Integer.valueOf(quantityField.getText());
+            int price = Integer.valueOf(priceField.getText());
+            Item newItem = new Item(name, store, description1, quantity, price);
+            serverAction(42, newItem.toLine());
         });
 
         JButton logout = new JButton("Log out");
