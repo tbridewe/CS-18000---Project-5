@@ -81,7 +81,7 @@ public class Server implements Runnable {
 
                             Object f = User.passwordIsCorrect(email, password, Server.usersList);
 
-                            System.out.println(f.getClass());
+                            //System.out.println(f.getClass());
 
                             if (f instanceof Customer) {
                                 customer = (Customer) f;
