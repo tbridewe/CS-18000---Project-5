@@ -300,7 +300,65 @@ public class Customer extends User implements Serializable{
         }
         writeFile(fileName, lines);
     }
-  
+    
+    public void updatedSortMarketplace(int sortType, int sortOrder) {
+        Item[] itemsList = (Item[]) readObjectsFromFile("itemsTest.txt");
+        ArrayList<Item> items = new ArrayList<>();
+        Collections.addAll(items, itemsList);
+        
+        if (sortType == 1 && sortOrder == 1) {
+            items.sort(new newPriceComparatorAscending());
+        }
+
+        if (sortType == 1 && sortOrder == 2) {
+            items.sort(new newPriceComparatorDescending());
+        }
+
+        if (sortType == 2 && sortOrder == 1) {
+            items.sort(new newQuantityComparatorAscending());
+        }
+
+        if (sortType == 2 && sortOrder == 2) {
+            items.sort(new newQuantityComparatorDescending());
+        }
+    }
+
+    // Comparator for sorting by price in ascending order
+    static class newPriceComparatorAscending implements Comparator<Item> {
+        public int compare(Item o1, Item o2) {
+            double price1 = o1.getPrice();
+            double price2 = o2.getPrice();
+            return Double.compare(price1, price2);
+        }
+    }
+    
+    // Comparator for sorting by price in descending order
+    static class newPriceComparatorDescending implements Comparator<Item> {
+        public int compare(Item o1, Item o2) {
+            double price1 = o1.getPrice();
+            double price2 = o2.getPrice();
+            return Double.compare(price2, price1);
+        }
+    }
+
+    // Comparator for sorting by price in ascending order
+    static class newQuantityComparatorAscending implements Comparator<Item> {
+        public int compare(Item o1, Item o2) {
+            int quantity1 = o1.getQuantity();
+            int quantity2 = o2.getQuantity();
+            return Integer.compare(quantity1, quantity2);
+        }
+    }
+
+    // Comparator for sorting by price in descending order
+    static class newQuantityComparatorDescending implements Comparator<Item> {
+        public int compare(Item o1, Item o2) {
+            int quantity1 = o1.getQuantity();
+            int quantity2 = o2.getQuantity();
+            return Integer.compare(quantity2, quantity1);
+        }
+    }
+    
     /**
      * sortMarketplace(int sortType, int sortOrder)
      * sorts the marketplace listings based on user input
