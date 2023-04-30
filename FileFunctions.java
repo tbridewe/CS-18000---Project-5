@@ -12,7 +12,7 @@ public class FileFunctions {
     private static String itemFileName = "itemsTest.txt";
 
     public FileFunctions(String itemFile) {
-        this.itemFileName = "itemsTest.txt";
+        // this.itemFileName = "itemsTest.txt";
     }
 protected static synchronized Object[] readObjectsFromFile(String filename) {
         Object[] objectContents;
@@ -121,6 +121,7 @@ protected static synchronized Object[] readObjectsFromFile(String filename) {
     /**
      * writeItems()
      * Write all the items in the arraylist to the item file. Static syncronozed to avoid problems
+     * @param itemList wirtes all these items to the file, overwriting all the current items
      */
     protected static synchronized void writeItems(ArrayList<Item> itemList) {
         try {

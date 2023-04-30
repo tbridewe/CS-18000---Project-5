@@ -49,6 +49,10 @@ public class Seller extends User implements Serializable{
 
     }
 
+    // public saveData() {
+    //     writeItems(this.items);
+    // }
+
     public ArrayList<String> getStores() {
         if (this.stores.size() > 0) {
             return this.stores;

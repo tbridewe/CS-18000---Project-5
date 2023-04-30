@@ -370,11 +370,12 @@ public class Server implements Runnable {
                         case 44 -> { // remove item
                             int i = Integer.valueOf(info); // info is the displayed index of the item to be deleted
                             seller.removeItem(i);
+                            output = "removed item " + i + "";
                         }
                         case 45 -> { // TODO: stats stuff
 
                         }
-
+                        
                     }
 
                 }
