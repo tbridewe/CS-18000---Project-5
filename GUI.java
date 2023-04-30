@@ -264,7 +264,7 @@ public class GUI {
 
 
         Container content = frame.getContentPane();
-        frame.setSize(1000, 1000);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(userTypePanel);
         content.add(userTypePanel);
@@ -273,7 +273,6 @@ public class GUI {
         frame.add(createPanel);
         content.add(createPanel);
 
-        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         userTypeLabel = new JLabel("User type");
