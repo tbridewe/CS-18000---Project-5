@@ -1855,23 +1855,27 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel enterPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(enterPanel);
+        content.add(enterPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         enterFileName = new JLabel("Enter file name:");
         enterFileName.setBounds(10,20, 80, 25);
-        panel.add(enterFileName);
+        enterPanel.add(enterFileName);
 
         fileNameField = new JTextField(20);
         fileNameField.setBounds(100, 20, 165, 25);
-        panel.add(fileNameField);
+        enterPanel.add(fileNameField);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> {
             String fileName = fileNameField.getText();
             Object o = serverAction(41, fileName); // send to server
@@ -1887,13 +1891,18 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> AddOptions());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
@@ -1954,6 +1963,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void ChooseItemToEdit() {
+        //TODO: make panels(Amber)
         JLabel chooseItem;
         JTextField item;
         JLabel options;
@@ -1999,6 +2009,11 @@ public class GUI {
         theChange = new JTextField(20);
         theChange.setBounds(100, 20, 165, 25);
 
+        change = new JLabel("What would you like to change it to? Click the category button to make the change");
+        change.setBounds(10,20, 80, 25);
+        panel.add(change);
+        panel.add(theChange);
+
         name = new JButton("Name");
         name.setBounds(10, 80, 80, 25);
         panel.add(name);
@@ -2039,11 +2054,6 @@ public class GUI {
             serverAction(43, String.format("%d,%d,%s", itemToEdit, 5, theChange.getText()));
         });
 
-        change = new JLabel("What would you like to change it to? Click the category button to make the change");
-        change.setBounds(10,20, 80, 25);
-        panel.add(change);
-        panel.add(theChange);
-
         // JButton enterTwo = new JButton("Enter");
         // enterTwo.setBounds(10, 80, 80, 25);
         // panel.add(enterTwo);
@@ -2065,6 +2075,7 @@ public class GUI {
     }
 
     public void Remove() {                                                               //(also need to print the cart) ****
+        //TODO: make panels(Amber)
         JLabel chooseItem;
         JTextField item;
 
@@ -2362,6 +2373,7 @@ public class GUI {
     }
     String potentialNewEmail;
     public void SellerNewEmail() {
+        //TODO: make panels(Amber)
         JLabel enterEmail;
         JTextField emailText;
 
@@ -2485,40 +2497,47 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel enterPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(enterPanel);
+        content.add(enterPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         enterPassword = new JLabel("Please enter a new password for your account:");
         enterPassword.setBounds(10,20, 80, 25);
-        panel.add(enterPassword);
+        enterPanel.add(enterPassword);
         potentialNewPassword = enterPassword.getText();
-
-        confirm = new JButton("Confirm");
-        confirm.setBounds(10, 80, 80, 25);
-        panel.add(confirm);
-        confirm.addActionListener(e -> SellerConfirmPassword());
 
         passwordText = new JTextField(20);
         passwordText.setBounds(100, 20, 165, 25);
-        panel.add(passwordText);
+        enterPanel.add(passwordText);
 
-        JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
-        enter.addActionListener(e -> potentialNewPassword = passwordText.getText());
+        confirm = new JButton("Enter");
+        confirm.setBounds(10, 80, 80, 25);
+        enterPanel.add(confirm);
+        confirm.addActionListener(e -> {
+            potentialNewPassword = passwordText.getText();
+            SellerConfirmPassword();
+        });
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EditOptions());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
