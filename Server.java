@@ -289,7 +289,7 @@ public class Server implements Runnable {
                             output = customer.getSortedItems(); // gets all the listings
                         }
                         case 21 -> { // sort listings by previously sent order and type
-                            customer.sortMarketplace(sortType, sortOrder);
+                            customer.updatedSortMarketplace(sortType, sortOrder);
                             output = customer.getSortedItems();
 
                         }
@@ -387,7 +387,8 @@ public class Server implements Runnable {
 
                         }
                         case 46 -> { // view sorted stats
-
+                            seller.updatedSortStats(sortType, sortOrder);
+                            output = ItemListToString(seller.getSortedItems());
                         }
                         case 47 -> { // set sort type
                             sortType = Integer.valueOf(info);
