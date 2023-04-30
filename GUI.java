@@ -622,7 +622,6 @@ public class GUI {
         //JPanel panel = new JPanel();
         JPanel selectPanel = new JPanel();
         JPanel enterPanel = new JPanel();
-        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -630,8 +629,6 @@ public class GUI {
         content.add(selectPanel);
         frame.add(enterPanel);
         content.add(enterPanel);
-        frame.add(backPanel);
-        content.add(backPanel);
 
         select = new JLabel("Please select the item you wish to purchase:");
         select.setBounds(10,20, 80, 25);
@@ -675,21 +672,10 @@ public class GUI {
             
         });
 
-        JButton logout = new JButton("Log out");
-        logout.setBounds(10, 20, 80, 25);
-        backPanel.add(logout);
-        logout.addActionListener(e -> ShowWelcome());
-
-        JButton back = new JButton("Back");
-        back.setBounds(10, 20, 80, 25);
-        backPanel.add(back);
-        back.addActionListener(e -> BuyerMenuGui());
-
         content.setLayout(new GridLayout());
         JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, enterPanel);
-        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
-        frame.add(sp2);
-        content.add(sp2);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
