@@ -270,16 +270,16 @@ public class Server implements Runnable {
                 }
                 if (customer != null) { // all the customer actions here
                     // cusomter specific vars
-                    int sortType;
-                    int sortOrder;
+                    int sortType = 0;
+                    int sortOrder = 0;
                     // 20-39: Buyer functions
                     switch (action) {
                         case 20 -> { // view all listings
                             customer.refreshListings(); // loads all listings
                             output = customer.getSortedItems(); // gets all the listings
                         }
-                        case 21 -> { // sort listings by `info`
-                            customer.sortMarketplace(action, action);
+                        case 21 -> { // sort listings by previously sent order and type
+                            customer.sortMarketplace(sortType, sortOrder);
                             output = customer.getSortedItems();
 
                         }
@@ -310,14 +310,18 @@ public class Server implements Runnable {
                             customer.removeFromCart(i, q);
                         }
                         case 26 -> { // view purchase log
-
+                            output = customer.getPurchases();
                         }
                         case 27 -> { // export purchase log
+                            customer.exportPurchases(info);
 
                         }
                         case 28 -> { // checkout
                             output = customer.getCartPrice(); // get the total price
                             customer.checkout(); // moves cart items to purcahse history. 
+                        }
+                        case 30 -> { // get sorted listings
+                            output = customer.getSortedItems();
                         }
                         case 31 -> { // set sort type
                             sortType = Integer.valueOf(info);
@@ -325,6 +329,7 @@ public class Server implements Runnable {
                         case 32 -> { // set sort order
                             sortOrder = Integer.valueOf(info);
                         }
+                        
 
 
                     }
@@ -350,13 +355,15 @@ public class Server implements Runnable {
                                 output = e;
                             }
                         }
-                        case 43 -> {
-                            //TODO: check with GUI methods for this
-                            // use editItem or replaceitem
+                        case 43 -> { // edit item
                             try {
-                                Item item = new Item(info); // info assumed to be Item.toLine() of new item
-                                seller.replaceItem(action, item);
-                            } catch(InvalidLineException e) {
+                                String[] s = info.split(",");
+                                int i = Integer.valueOf(s[0]);
+                                Item item = seller.getDisplayedItem(i);
+                                int changetype = Integer.valueOf(s[1]);
+                                seller.editItem(item, changetype, s[2]);
+                                seller.replaceItem(i, item);
+                            } catch(Exception e) {
                                 output = e;
                             }
                         }

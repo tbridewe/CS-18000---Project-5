@@ -253,46 +253,50 @@ public class Customer extends User implements Serializable{
         printCart();
     }
 
-    private ArrayList<Item> readPurchaseLog() { 
-        String[] fileLines = readFile(this.customerLogFileName);
-        String user = this.getEmail(); 
-        ArrayList<Item> purchaseLog = new ArrayList<>();
-        for (int l = 0; l < fileLines.length; l++) {
-            String line = fileLines[l];
-            if (line.split(";")[0].equals(user)) { // load these items
-                String[] itemStrings = line.split(";");
-                for (int i = 1; i < itemStrings.length; i++) {
-                    try{    // catch invalid lines
-                        purchaseLog.add(new Item(itemStrings[i]));
-                    } catch (InvalidLineException e) {
-                        System.out.printf("Invalid item format line while reading %s. \nLine: %s\n", 
-                            this.customerLogFileName, itemStrings[i]);
-                    }
-                }
-                break;
-            }
-        }
-        return purchaseLog;
-    }
+    // private ArrayList<Item> readPurchaseLog() { 
+    //     String[] fileLines = readFile(this.customerLogFileName);
+    //     String user = this.getEmail(); 
+    //     ArrayList<Item> purchaseLog = new ArrayList<>();
+    //     for (int l = 0; l < fileLines.length; l++) {
+    //         String line = fileLines[l];
+    //         if (line.split(";")[0].equals(user)) { // load these items
+    //             String[] itemStrings = line.split(";");
+    //             for (int i = 1; i < itemStrings.length; i++) {
+    //                 try{    // catch invalid lines
+    //                     purchaseLog.add(new Item(itemStrings[i]));
+    //                 } catch (InvalidLineException e) {
+    //                     System.out.printf("Invalid item format line while reading %s. \nLine: %s\n", 
+    //                         this.customerLogFileName, itemStrings[i]);
+    //                 }
+    //             }
+    //             break;
+    //         }
+    //     }
+    //     return purchaseLog;
+    // }
 
-    public void viewPurchases() {
-        ArrayList<Item> purchaseLog = readPurchaseLog();
-        System.out.println("PURCHASES:");
-        String itemFormat = "[%3d]: %-30s | %-4d | %-24s | $ %-6.2f\n";
-        System.out.printf("[num]: %-30s | %-4s | %-24s | %-7s\n\n", "NAME", "QNTY", "STORE", "PRICE");
-        for (int i = 0; i < purchaseLog.size(); i++) {
-            Item item = purchaseLog.get(i);
-            System.out.printf(itemFormat, i+1, item.getName(), item.getQuantity(), item.getStore(), item.getPrice());
-        }
+    // public void viewPurchases() {
+    //     ArrayList<Item> purchaseLog = readPurchaseLog();
+    //     System.out.println("PURCHASES:");
+    //     String itemFormat = "[%3d]: %-30s | %-4d | %-24s | $ %-6.2f\n";
+    //     System.out.printf("[num]: %-30s | %-4s | %-24s | %-7s\n\n", "NAME", "QNTY", "STORE", "PRICE");
+    //     for (int i = 0; i < purchaseLog.size(); i++) {
+    //         Item item = purchaseLog.get(i);
+    //         System.out.printf(itemFormat, i+1, item.getName(), item.getQuantity(), item.getStore(), item.getPrice());
+    //     }
 
+    // }
+
+    public ArrayList<Item> getPurchases() {
+        return this.purchaseHistory;
     }
     
 
     public void exportPurchases(String fileName) {
-        ArrayList<Item> purchaseLog = readPurchaseLog();
+        ArrayList<Item> purchaseLog = getPurchases();
         String[] lines = new String[purchaseLog.size()];
         for (int i = 0; i < lines.length; i++) {
-            lines[i] = purchaseLog.toString();
+            lines[i] = purchaseLog.get(i).toLine();
         }
         writeFile(fileName, lines);
     }
