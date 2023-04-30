@@ -215,7 +215,7 @@ public class GUI {
             if (emailIsValid && accountExists) {
                 String user = userTextContents;
                 String password = new String(passwordTextContents);
-                sendToServer(String.format("01,Username: %s, Password: %s", user, password));
+                sendToServer(String.format("01,%s,%s", user, password));
                 int out = (int) readFromServer(); // get feedback on whether login is invalid, customer, or seller
                 switch (out) {
                     case -1 -> ShowWelcome(); // TODO: Invalid password here
