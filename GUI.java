@@ -1825,11 +1825,11 @@ public class GUI {
         enter.setBounds(10, 80, 80, 25);
         enterPanel.add(enter);
         enter.addActionListener(e -> {
-            String name = enterName.getText();
+            String name = nameField.getText();
             String store = storeField.getText();
             String description1 = descriptionField.getText();
             int quantity = Integer.valueOf(quantityField.getText());
-            int price = Integer.valueOf(priceField.getText());
+            double price = Double.valueOf(priceField.getText());
             Item newItem = new Item(name, store, description1, quantity, price);
             serverAction(42, newItem.toLine());
         });

@@ -140,7 +140,11 @@ public class Seller extends User implements Serializable{
         }
         for (int i = 0; i < fileData.length; i++) {
             try {
-                addNewItem(new Item(fileData[i]));
+                Item item = new Item(fileData[i]);
+                addNewItem(item);
+                if (!this.stores.contains(item.getStore())) { // add store
+                    this.stores.add(item.getStore());
+                }
                 counter += 1;
             } catch (InvalidLineException e) {
                 System.out.println("Invalid line.");
