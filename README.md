@@ -5,6 +5,32 @@ To run Project 5, navigate to the Server class and run Server.java. Before you c
 
 ## Submissions
 - Brightspace - 
-Liam McCormack Submitted Report
+- Liam McCormack Submitted Report to Brightspace
+- Liam McCormack Submitted Video to Brightspace
 - Vocareum -
 ---
+___
+## User
+Provides implementation of a User in the Marketplace, either of a Seller or a Customer.
+## Server
+Contains all the call functions and GUI operations to be sent to the client
+## Client
+Class used to connect to the server and send information to server
+### Customer
+Provides implementation of a Customer in the Marketplace
+## Seller
+Provides implementation of a Customer in the Marketplace
+## Item
+A listing in the Marketplace
+## GUI
+Displays all GUIs to be used throughout the program
+## IncorrectLoginInformationException
+Thrown when login information is incorrect
+### Constructor 
+An error that is thrown when login information is incorrect 
+## InvalidLineException
+Thrown when line is invalid
+## InvalidQuantityException
+Thrown when quantity is invalid
+## InvalidUserInputException
+Thrown when user input is invalid
