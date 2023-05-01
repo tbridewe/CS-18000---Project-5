@@ -245,6 +245,7 @@ public class Server implements Runnable {
                         case 21 -> { // sort listings by previously sent order and type
                             customer.updatedSortMarketplace(sortType, sortOrder);
                             output = ItemListToString(customer.getSortedItems());
+                            customer.printListings();
 
                         }
                         case 22 -> { // keyword search
