@@ -73,11 +73,12 @@ public class GUI {
     private ArrayList<Item> parseItemList(String items) {
         String[] s = items.split(";");
         ArrayList<Item> list = new ArrayList<>();
+        if (s.length > 0) {
             for (int i = 0; i < s.length; i++) {
                 try {
                     list.add(new Item(s[i]));
-                } catch (InvalidLineException e) {
-                    
+                } catch (InvalidLineException e) {       
+                }
             }
         }
         return list;
