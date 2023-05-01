@@ -14,7 +14,10 @@ import java.util.Comparator;
 public class Seller extends User implements Serializable{
     private ArrayList<String> stores;
     
-
+    public Seller() {
+        // implemented so that the classes in Server main will deserialize
+    }
+    
     public Seller (String email, String password, int userType) throws InvalidUserInput {
         super(email, password, userType);
         this.stores = new ArrayList<>();
