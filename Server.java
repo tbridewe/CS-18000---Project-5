@@ -137,20 +137,24 @@ public class Server implements Runnable {
 
                         if (customer != null) {
                             try {
+                                //System.out.println(customer.getPassword());
                                 customer.setPassword(password);
+                                //System.out.println(customer.getPassword());
                             } catch (InvalidUserInput e)  {
                                 success = false;
                                 // display error message for wrong email?
                             }
                         } else if (seller != null) {
                             try {
+                                //System.out.println(seller.getPassword());
                                 seller.setPassword(password);
+                                //System.out.println(seller.getPassword());
                             } catch (InvalidUserInput e) {
                                 success = false;
                                 // display error message for wrong email?
                             }
                         }
-                        
+
                         FileFunctions.writeUsersToFile(userData);
                     }
                     case 3 -> { // change email
