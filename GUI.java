@@ -323,7 +323,7 @@ public class GUI {
                 LoginGui();
             } else if (emailIsValid && accountExists) { // account exists, go back to login
                 EmailAlreadyExists();
-            } else {      // invalid email                                                                                                      //doesn't work
+            } else {      // invalid email
                 EnterValidEmailAddress();
             }
             if (userNumber == 99) {
@@ -609,7 +609,7 @@ public class GUI {
      * Makes the item selection GUI for customer. Can be used for any selection of items
      */
     public void SelectItem() {
-        //should print out all the available items                                                                   ******
+        //should print out all the available items
         //and make them easier to select
         JLabel select;
         // JTextField item;
@@ -617,8 +617,10 @@ public class GUI {
         JTextField quantity;
 
         // Get items form server
-        // ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
-        ArrayList<Item> itemListings = parseItemList((String) serverAction(30, null)); // display these somehow and select one
+        // ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null);
+        // display these somehow and select one
+        ArrayList<Item> itemListings = parseItemList((String) serverAction(30, null));
+        // display these somehow and select one
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -693,7 +695,8 @@ public class GUI {
      * @param showPrice Boolean to show price
      * @return a dropdown menu that can be added to a panel
      */
-    private JComboBox<String> createItemDropdown(ArrayList<Item> items, boolean showStore, boolean showQnty, boolean showPrice) {
+    private JComboBox<String> createItemDropdown(ArrayList<Item> items, boolean showStore,
+                                                 boolean showQnty, boolean showPrice) {
         String[] choices = new String[items.size()];
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
@@ -871,7 +874,7 @@ public class GUI {
         price.setBounds(10, 80, 80, 25);
         priceOrQuantityPanel.add(price);
         price.addActionListener(e -> {
-            //should allow the buyer to sort items by price                                                             ******
+            //should allow the buyer to sort items by price
             serverAction(31, "1"); // set price
             priceOrQuantityString = "You selected to sort by price.";
             SortingItemsTwo();
@@ -1147,7 +1150,7 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> {
 
-        });                                                                                                                     //back***
+        });
 
         frame.setVisible(true);
     }
@@ -1231,7 +1234,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void RemoveItem() {
-        //should print out all items in the cart so the buyer can select one                                                ***
+        //should print out all items in the cart so the buyer can select one
         JLabel select;
         // JTextField item;
         JLabel number;
