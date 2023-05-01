@@ -80,7 +80,7 @@ Test Status: Passed
 
 Expected Result: The application displays the items listed by price in ascending order in the items dropdown to the user.
 
-Test Status: Failed
+Test Status: Passed.
 
 ## Test 8 User edits account information
 1. User launches application.
@@ -161,4 +161,3 @@ Test Status: Failed.
 Expected Result: The application displays a dropdown with items that were searched for, if they exist.
 
 Test Status: Passed
-
