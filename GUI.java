@@ -410,6 +410,7 @@ public class GUI {
         back.addActionListener(e -> LoginGui());
     }
     public void IncorrectCredentials() {
+        //TODO: Fix the formatting(Amber)
         JLabel noAccountFound;
         JLabel selectOption;
         JButton createNewAccount;
@@ -419,30 +420,46 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel incorrectPanel = new JPanel();
+        JPanel selectPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-        JPanel createPanel = new JPanel();
+        frame.add(incorrectPanel);
+        content.add(incorrectPanel);
+        frame.add(selectPanel);
+        content.add(selectPanel);
+        frame.add(buttonPanel);
+        content.add(buttonPanel);
 
         noAccountFound = new JLabel("Incorrect login credentials or account does not exist, please try again.  ");
-        noAccountFound.setBounds(10, 110, 300, 25);
-        createPanel.add(noAccountFound);
+        noAccountFound.setBounds(10, 20, 80, 25);
+        incorrectPanel.add(noAccountFound);
+        content.add(noAccountFound);
 
         selectOption = new JLabel("Select an option:");
-        selectOption.setBounds(10, 110, 300, 25);
-        createPanel.add(selectOption);
+        selectOption.setBounds(10, 20, 80, 25);
+        selectPanel.add(selectOption);
+        content.add(selectOption);
 
         createNewAccount = new JButton("Create new account");
         createNewAccount.setBounds(10, 80, 80, 25);
-        createPanel.add(createNewAccount);
+        buttonPanel.add(createNewAccount);
         createNewAccount.addActionListener(e -> NewAccountGUI());
+        content.add(createNewAccount);
 
         reAttemptLogin = new JButton("Re-attempt login");
         reAttemptLogin.setBounds(10, 80, 80, 25);
-        createPanel.add(reAttemptLogin);
+        buttonPanel.add(reAttemptLogin);
         reAttemptLogin.addActionListener(e -> LoginGui());
+        content.add(reAttemptLogin);
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, incorrectPanel, selectPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, buttonPanel);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
