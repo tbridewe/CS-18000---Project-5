@@ -161,23 +161,22 @@ public class User extends FileFunctions implements Serializable{
 
     public static Object passwordIsCorrect(String email, String password, ArrayList<Object> userList) {
         try {
+            //System.out.println(userList.size());
+
             for (int i = 0; i < userList.size(); i++) {
                 Object obj = userList.get(i);
+
                 if (obj instanceof Customer) {
                     Customer temp = ((Customer) obj);
 
                     if (temp.getEmail().equals(email) && temp.getPassword().equals(password)) {
                         return temp;
-                    } else {
-                        return null;
                     }
                 } else if (obj instanceof Seller) {
                     Seller temp = ((Seller) obj);
 
                     if (temp.getEmail().equals(email) && temp.getPassword().equals(password)) {
                         return temp;
-                    } else {
-                        return null;
                     }
                 }
             }
@@ -189,7 +188,7 @@ public class User extends FileFunctions implements Serializable{
 
         return null;
     }
-
+    
     public static boolean accountObjectExists(String email, ArrayList<Object> userList) {
         try {
             if (userList.size() == 0)
