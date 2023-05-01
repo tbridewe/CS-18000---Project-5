@@ -42,7 +42,7 @@ public class Server implements Runnable {
             // sort type vars
             int sortType = 0;
             int sortOrder = 0;
-            
+
             while ((input = bfr.readLine()) != null) { // reads the next line
                 action = Integer.valueOf(input.substring(0, 2)); // TODO: exception catching here
                 if (input.length() > 2) { // checks for any other info in the client's message
@@ -344,7 +344,7 @@ public class Server implements Runnable {
                         }
                         case 45 -> { // view all stats
                             output = ItemListToString(seller.updatedViewAllStats());
-
+                            System.out.println("got all the stats");
                         }
                         case 46 -> { // view sorted stats
                             output = ItemListToString(seller.updatedSortStats(sortType, sortOrder));
