@@ -130,47 +130,47 @@ public class Server implements Runnable {
                         // User.saveNewUser(email, password, userType);
                         output = "New account created";
                     }
-                    case 3 -> { // change username
-                        String[] limitedInput = input.split(",");
+                    // case 3 -> { // change username
+                    //     String[] limitedInput = input.split(",");
 
-                        String oldEmail = "";
-                        String userPassword = "";
-                        String newEmail = "";
+                    //     String oldEmail = "";
+                    //     String userPassword = "";
+                    //     String newEmail = "";
 
-                        for (int i = 0; i < limitedInput.length; i++) {
-                            if (limitedInput[i].lastIndexOf("OldEmail:") > -1) {
-                                oldEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("OldEmail:"));
-                            } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
-                                userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
-                            }  else if (limitedInput[i].lastIndexOf("NewEmail:") > -1) {
-                                newEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewEmail:"));
-                            }
-                        }
+                    //     for (int i = 0; i < limitedInput.length; i++) {
+                    //         if (limitedInput[i].lastIndexOf("OldEmail:") > -1) {
+                    //             oldEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("OldEmail:"));
+                    //         } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
+                    //             userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
+                    //         }  else if (limitedInput[i].lastIndexOf("NewEmail:") > -1) {
+                    //             newEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewEmail:"));
+                    //         }
+                    //     }
 
-                        if (User.isCorrectLogin(oldEmail, userPassword) > -1)  {
-                            // account attempted to change exists
-                            // assuming that they are already logged in
+                    //     if (User.isCorrectLogin(oldEmail, userPassword) > -1)  {
+                    //         // account attempted to change exists
+                    //         // assuming that they are already logged in
 
-                            try {
-                                if (customer != null) {
-                                    // edit customer
+                    //         try {
+                    //             if (customer != null) {
+                    //                 // edit customer
 
-                                    customer.setEmail(newEmail);
-                                } else if (seller != null) {
-                                    // edit seller
+                    //                 customer.setEmail(newEmail);
+                    //             } else if (seller != null) {
+                    //                 // edit seller
 
-                                    seller.setEmail(newEmail);
+                    //                 seller.setEmail(newEmail);
 
-                                }
+                    //             }
 
-                                // save new account information inside of the try bracket
-                            } catch (InvalidUserInput e) {
-                                // display to the user that they entered an invalid email
-                            }
-                        } else {
-                            // account attempted to change does not exist
-                        }
-                    }
+                    //             // save new account information inside of the try bracket
+                    //         } catch (InvalidUserInput e) {
+                    //             // display to the user that they entered an invalid email
+                    //         }
+                    //     } else {
+                    //         // account attempted to change does not exist
+                    //     }
+                    // }
                     case 3 -> { // change username
                         String password = info;
 
@@ -380,11 +380,12 @@ public class Server implements Runnable {
                             output = "removed item " + i + "";
                         }
                         case 45 -> { // view all stats
+                            output = seller.updatedSortStats(sortType, sortOrder, Server.usersList);
 
                         }
                         case 46 -> { // view sorted stats
-                            seller.updatedSortStats(sortType, sortOrder);
-                            output = ItemListToString(seller.getSortedItems());
+                            output = seller.updatedSortStats(sortType, sortOrder, Server.usersList);
+                            // output = ItemListToString(seller.getSortedItems());
                         }
                         case 47 -> { // set sort type
                             sortType = Integer.valueOf(info);
@@ -446,17 +447,17 @@ public class Server implements Runnable {
         return s;
     }
 
-    public ArrayList<Item> getAllPurchases() {
-        ArrayList<Item> purchases = new ArrayList<>();
-        for (int i = 0; i < this.usersList.size(); i++) { // for each user
-            if(this.usersList.get(i) instanceof Customer) { // check if customer
-                Customer c = (Customer) this.usersList.get(i); // add each purchase
-                ArrayList<Item> p = c.getPurchases();
-                for (int j = 0; j < p.size(); j++) {
-                    purchases.add(p.get(j));
-                }
-            }
-        }
-        return purchases;
-    }
+    // public ArrayList<Item> getAllPurchases() {
+    //     ArrayList<Item> purchases = new ArrayList<>();
+    //     for (int i = 0; i < this.usersList.size(); i++) { // for each user
+    //         if(this.usersList.get(i) instanceof Customer) { // check if customer
+    //             Customer c = (Customer) this.usersList.get(i); // add each purchase
+    //             ArrayList<Item> p = c.getPurchases();
+    //             for (int j = 0; j < p.size(); j++) {
+    //                 purchases.add(p.get(j));
+    //             }
+    //         }
+    //     }
+    //     return purchases;
+    // }
 }

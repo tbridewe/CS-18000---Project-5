@@ -221,16 +221,16 @@ public class Seller extends User implements Serializable{
         }
     }
     
-    public ArrayList<Customer> updatedViewAllStats() {
-        Object[] users = readObjectsFromFile("userData.txt");
+    public ArrayList<Customer> updatedViewAllStats(ArrayList<Object> users) {
+        // ArrayList<Object> users = readObjectsFromFile("userData.txt");
         ArrayList<Customer> customersOfSeller = new ArrayList<>();
         
-        for (int i = 0; i < users.length; i++) {
-            if (users[i] instanceof Customer) {
-                ArrayList<Item> cart = ((Customer) users[i]).getCart();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i) instanceof Customer) {
+                ArrayList<Item> cart = ((Customer) users.get(i)).getPurchases();
                 for (int j = 0; j < cart.size(); j++) {
                     if (stores.contains(cart.get(j).getStore())) {
-                        customersOfSeller.add((Customer) users[i]);
+                        customersOfSeller.add((Customer) users.get(i));
                     }
                 }
             }
@@ -239,12 +239,13 @@ public class Seller extends User implements Serializable{
         // TODO: determine the way that the stats get displayed
         return(customersOfSeller); // done I think
     }
-    public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder) {
-        ArrayList<Customer> customersOfSeller = updatedViewAllStats();
+
+    public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder, ArrayList<Object> users) {
+        ArrayList<Customer> customersOfSeller = updatedViewAllStats(users);
         ArrayList<Item> sellerTransactions = new ArrayList<>();
         
         for (int i = 0; i < customersOfSeller.size(); i++) {
-            ArrayList<Item> customerCart = customersOfSeller.get(i).getCart();
+            ArrayList<Item> customerCart = customersOfSeller.get(i).getPurchases();
             sellerTransactions.addAll(customerCart);
         }
         ArrayList<Customer> sortedCustomersOfSeller = new ArrayList<>();
