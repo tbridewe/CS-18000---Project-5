@@ -1995,14 +1995,14 @@ public class GUI {
 
         // });
 
-        options = new JLabel("What would you like to change?");
+        options = new JLabel("Type in the new name of a characteristic of the item.");
         options.setBounds(10, 20, 80, 25);
         panel.add(options);
 
         theChange = new JTextField(20);
         theChange.setBounds(100, 20, 165, 25);
 
-        change = new JLabel("What would you like to change it to? Click the category button to make the change");
+        change = new JLabel("Click the category button to make the change.");
         change.setBounds(10,20, 80, 25);
         panel.add(change);
         panel.add(theChange);
@@ -2067,33 +2067,35 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    public void Remove() {                                                               //(also need to print the cart) ****
-        //TODO: make panels(Amber)
+    public void Remove() {
         JLabel chooseItem;
-        JTextField item;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel choosePanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(choosePanel);
+        content.add(choosePanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         chooseItem = new JLabel("Choose an item to remove:");
         chooseItem.setBounds(10,20, 80, 25);
-        panel.add(chooseItem);
+        choosePanel.add(chooseItem);
 
         // show items
         ArrayList<Item> sellerItems = parseItemList((String) serverAction(40, null));
         // ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
-        panel.add(dropdown);
+        choosePanel.add(dropdown);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        choosePanel.add(enter);
         enter.addActionListener(e -> {
             int itemToRemove = dropdown.getSelectedIndex();
             serverAction(44, String.format("%d", itemToRemove));
@@ -2101,13 +2103,18 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> SellerMenu());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, choosePanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
