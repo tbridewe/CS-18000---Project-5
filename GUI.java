@@ -2365,6 +2365,7 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 serverAction(7, null);
+                WelcomeMenuGUI();
             }
         });
 
