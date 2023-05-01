@@ -985,7 +985,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(650, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
