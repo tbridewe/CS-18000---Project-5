@@ -614,7 +614,6 @@ public class GUI {
         JTextField quantity;
 
         // Get items form server
-        // TODO: Amber I got the items, you figure out how you want to display them
         // ArrayList<Item> itemListings = (ArrayList<Item>) serverAction(30, null); // display these somehow and select one
         ArrayList<Item> itemListings = parseItemList((String) serverAction(30, null)); // display these somehow and select one
 
@@ -1956,7 +1955,6 @@ public class GUI {
         frame.setVisible(true);
     }
     public void ChooseItemToEdit() {
-        //TODO: make more understandable if possible
         JLabel chooseItem;
         JTextField item;
         JLabel options;
