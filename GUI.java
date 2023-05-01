@@ -1,5 +1,3 @@
-//I added enter buttons for the text fields
-//comment
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
