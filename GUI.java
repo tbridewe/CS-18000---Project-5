@@ -2598,7 +2598,7 @@ public class GUI {
         frame.add(backPanel);
         content.add(backPanel);
 
-        enterPassword = new JLabel("Please enter a new password for your account:");
+        enterPassword = new JLabel("Enter new password:");
         enterPassword.setBounds(10, 20, 80, 25);
         enterPanel.add(enterPassword);
         potentialNewPassword = enterPassword.getText();
