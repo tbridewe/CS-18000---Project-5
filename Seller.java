@@ -22,31 +22,6 @@ public class Seller extends User implements Serializable{
         super(email, password, userType);
         this.stores = new ArrayList<>();
         this.sortedListings = new ArrayList<>();
-
-        //TODO: update store loading with new login stuff
-        // this.stores.add("store1");  // temporary
-        // // load the stores
-        // String[] fileLines = readFile(FILENAME);
-        // for (int l = 0; l < fileLines.length; l++) { // find the correct user line
-        //     String user = this.getEmail(); 
-        //     String line = fileLines[l];
-        //     String[] splitUserLine = line.split(", "); // get users as string
-        //     if (splitUserLine[0].split(":")[1].equals(user)) { // found correct line
-        //         if (splitUserLine.length < 4) { // no stores
-        //             this.stores = new ArrayList<>();
-        //         } else {
-        //             String storesString = line.split(",")[3]; // get stores as string
-        //             for (int i = 0; i < storesString.split(";").length; i++) {
-        //                 String storeName = storesString.split(";")[i].trim();;
-        //                 this.stores.add(storeName);
-        //             }
-                    
-        //         }
-        //         break;
-        //     }
-        // }
-
-        // get only this seller's items
         findSellerItems(); // updates sorted listings
 
 
@@ -75,38 +50,6 @@ public class Seller extends User implements Serializable{
     public void saveStores() {
         // TODO: new user stuff
         System.out.println("The save stores function needs updated!");
-        // String fileName = this.FILENAME; // user data file
-        // String[] fileLines = readFile(fileName);
-        // for (int l = 0; l < fileLines.length; l++) { // find the correct user line
-        //     String user = this.getEmail(); 
-        //     String line = fileLines[l];
-        //     String newStoresString = " ";
-        //     String[] splitUserLine = line.split(", "); // get user line as string
-        //     if (splitUserLine[0].split(":")[1].equals(user)) { // found correct line
-        //         // String storesString = line.split(",")[3]; // get stores as string
-        //         newStoresString = ", ";
-        //         for (int i = 0; i < this.stores.size(); i++) {
-        //             newStoresString += this.stores.get(i) + ";";
-        //         }
-        //         if (splitUserLine.length > 3) { // some stores already saved
-        //             splitUserLine[3] = newStoresString;
-        //             // remake line
-        //             line = "";
-        //             for (int i = 0; i < splitUserLine.length; i++) {
-        //                 line += splitUserLine[i];
-        //                 if (i < splitUserLine.length -2) {
-        //                     line += ", ";
-        //                 }
-        //             }
-        //         } else { // not stores saved yet
-        //             line += ", " + newStoresString.substring(1, newStoresString.length());
-        //         }
-
-        //         fileLines[l] = line; // replace updated line
-        //         break;
-        //     }
-        // }
-        // writeFile(fileName, fileLines);
     }
 
 
@@ -243,7 +186,6 @@ public class Seller extends User implements Serializable{
             }
         }
         
-        // TODO: determine the way that the stats get displayed
         return(customersOfSeller); // done I think
     }
     

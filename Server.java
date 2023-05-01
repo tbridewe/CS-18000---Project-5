@@ -2,8 +2,17 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+/**
+ * Server.java
+ *
+ * Runs the marketplace server. Clients con connect to the server and perform action is the marketplace
+ * @host localhost
+ * @port 18000
+ *
+ * @author evreyone 
+ * @version 05/01/23
+ */
 
-// port 1800
 
 public class Server implements Runnable {
     private Socket socket;
