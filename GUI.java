@@ -24,7 +24,9 @@ public class GUI {
     /**
      * sendToServer(String message)
      * sends a message to the server using the printwriter passed through the constructor
-     * @param message: The message (String) to send to the server. The first 2 characters should be an integer corresponding to the desired action (use leading 0!). Then add any other information the action needs
+     * @param message: The message (String) to send to the server. The first 2 characters should be an integer
+     *               corresponding to the desired action (use leading 0!). Then add any other
+     *               information the action needs
      */
     private void sendToServer(String message) {
         this.writer.write(message);
@@ -312,9 +314,9 @@ public class GUI {
             boolean emailIsValid = (boolean) readFromServer();
             sendToServer("06" + emailContents);
             boolean accountExists = (boolean) readFromServer();
-            if (emailIsValid && !accountExists) {  // create new accounts                                                                         //create an error message for if the email is already associated with an account
+            if (emailIsValid && !accountExists) {  // create new accounts
                 String user = emailContents;
-                String password = new String(newPasswordContents);                                                       //does not create new account
+                String password = new String(newPasswordContents);
                 String serverMessage = "02" + user + "," + password + "," + userNumber + "";
                 sendToServer(serverMessage);
                 readFromServer(); // just read and ignore the return message
@@ -364,7 +366,8 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> NewAccountGUI());
     }
-    public void EmailAlreadyExists() { //shown if the email submitted in the new account GUI is associated with an existing account
+    public void EmailAlreadyExists() {
+        //shown if the email submitted in the new account GUI is associated with an existing account
         JLabel enterValidEmail;
         JButton back;
 
