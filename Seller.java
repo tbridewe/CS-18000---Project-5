@@ -228,50 +228,47 @@ public class Seller extends User implements Serializable{
         }
     }
     
-    public ArrayList<Customer> updatedViewAllStats(ArrayList<Object> users) {
-        // ArrayList<Object> users = readObjectsFromFile("userData.txt");
+    public ArrayList<Customer> updatedViewAllStats() {
+        ArrayList<Object> users = Server.usersList;
         ArrayList<Customer> customersOfSeller = new ArrayList<>();
-        
+
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i) instanceof Customer) {
-                ArrayList<Item> cart = ((Customer) users.get(i)).getPurchases();
+            Object user = users.get(i);
+            
+            if (user instanceof Customer) {
+                ArrayList<Item> cart = ((Customer) user).getCart();
                 for (int j = 0; j < cart.size(); j++) {
                     if (stores.contains(cart.get(j).getStore())) {
-                        customersOfSeller.add((Customer) users.get(i));
+                        customersOfSeller.add((Customer) user);
                     }
                 }
             }
         }
-        
+
         // TODO: determine the way that the stats get displayed
         return(customersOfSeller); // done I think
     }
 
-    public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder, ArrayList<Object> users) {
-        ArrayList<Customer> customersOfSeller = updatedViewAllStats(users);
+    public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder) {
+        ArrayList<Customer> customersOfSeller = updatedViewAllStats();
         ArrayList<Item> sellerTransactions = new ArrayList<>();
-        
+
         for (int i = 0; i < customersOfSeller.size(); i++) {
-            ArrayList<Item> customerCart = customersOfSeller.get(i).getPurchases();
+            ArrayList<Item> customerCart = customersOfSeller.get(i).getCart();
             sellerTransactions.addAll(customerCart);
         }
         ArrayList<Customer> sortedCustomersOfSeller = new ArrayList<>();
 
         if (sortType == 1 && sortOrder == 1) {
             sellerTransactions.sort(new newPriceComparatorAscending());
-        }
-
-        if (sortType == 1 && sortOrder == 2) {
+        } else if (sortType == 1 && sortOrder == 2) {
             sellerTransactions.sort(new newPriceComparatorDescending());
-        }
-
-        if (sortType == 2 && sortOrder == 1) {
+        } else if (sortType == 2 && sortOrder == 1) {
             sellerTransactions.sort(new newQuantityComparatorAscending());
-        }
-
-        if (sortType == 2 && sortOrder == 2) {
+        } else if (sortType == 2 && sortOrder == 2) {
             sellerTransactions.sort(new newQuantityComparatorDescending());
         }
+        
         return sortedCustomersOfSeller;
     }
 
