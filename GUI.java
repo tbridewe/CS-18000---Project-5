@@ -410,7 +410,6 @@ public class GUI {
         back.addActionListener(e -> LoginGui());
     }
     public void IncorrectCredentials() {
-        //TODO: Fix the formatting(Amber)
         JLabel noAccountFound;
         JLabel selectOption;
         JButton createNewAccount;
@@ -436,24 +435,20 @@ public class GUI {
         noAccountFound = new JLabel("Incorrect login credentials or account does not exist, please try again.  ");
         noAccountFound.setBounds(10, 20, 80, 25);
         incorrectPanel.add(noAccountFound);
-        content.add(noAccountFound);
 
         selectOption = new JLabel("Select an option:");
         selectOption.setBounds(10, 20, 80, 25);
         selectPanel.add(selectOption);
-        content.add(selectOption);
 
         createNewAccount = new JButton("Create new account");
         createNewAccount.setBounds(10, 80, 80, 25);
         buttonPanel.add(createNewAccount);
         createNewAccount.addActionListener(e -> NewAccountGUI());
-        content.add(createNewAccount);
 
         reAttemptLogin = new JButton("Re-attempt login");
         reAttemptLogin.setBounds(10, 80, 80, 25);
         buttonPanel.add(reAttemptLogin);
         reAttemptLogin.addActionListener(e -> LoginGui());
-        content.add(reAttemptLogin);
 
         content.setLayout(new GridLayout());
         JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, incorrectPanel, selectPanel);
