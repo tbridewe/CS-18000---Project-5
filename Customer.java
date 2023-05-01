@@ -177,8 +177,9 @@ public class Customer extends User implements Serializable{
             
             // edit quanitiy in listings
             i = item.findItem(readItems()); 
-            item.changeQuanityBy(quantity); // update item quanitity
-            replaceItem(i, item); // replaces item and saves changes
+            Item updatedItem2 = new Item(item);
+            updatedItem2.changeQuanityBy(quantity); // update item quanitity
+            replaceItem(i, updatedItem2); // replaces item and saves changes
             
             // save cart
             // saveCart(this.cartFileName);
