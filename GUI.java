@@ -264,7 +264,7 @@ public class GUI {
 
 
         Container content = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(700, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(userTypePanel);
         content.add(userTypePanel);
