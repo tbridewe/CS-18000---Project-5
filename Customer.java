@@ -308,22 +308,28 @@ public class Customer extends User implements Serializable{
     
     public void updatedSortMarketplace(int sortType, int sortOrder) {
         ArrayList<Item> itemsList = readItems();
-        
+        ArrayList<Item> sortedItems = new ArrayList<>();
+
         if (sortType == 1 && sortOrder == 1) {
             itemsList.sort(new newPriceComparatorAscending());
+            sortedItems.addAll(itemsList);
         }
 
         if (sortType == 1 && sortOrder == 2) {
             itemsList.sort(new newPriceComparatorDescending());
+            sortedItems.addAll(itemsList);
         }
 
         if (sortType == 2 && sortOrder == 1) {
             itemsList.sort(new newQuantityComparatorAscending());
+            sortedItems.addAll(itemsList);
         }
 
         if (sortType == 2 && sortOrder == 2) {
             itemsList.sort(new newQuantityComparatorDescending());
+            sortedItems.addAll(itemsList);
         }
+        this.sortedListings = sortedItems;
     }
 
     // Comparator for sorting by price in ascending order

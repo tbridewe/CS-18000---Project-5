@@ -150,3 +150,15 @@ Test Status: Passed
 Expected Result: Seller statistics listed by price are returned to the seller and viewable on their screen.
 
 Test Status: Failed.
+
+## Test 14 Customer searches for a specific item
+1. User launches application.
+2. User logs in (see above). 
+3. User selects the Search button on the second page.
+4. User enters a keyword to search from.
+5. If the item exists, in this case, a TV, return a dropdown for the user that displays items with the searched for keyword
+
+Expected Result: The application displays a dropdown with items that were searched for, if they exist.
+
+Test Status: Passed
+
