@@ -201,7 +201,7 @@ public class Server implements Runnable {
                                 if (obj instanceof Customer && customer != null) {
                                     Customer temp = (Customer) obj;
 
-                                    if (temp.getEmail().equals(seller.getEmail())) {
+                                    if (temp.getEmail().equals(customer.getEmail())) {
                                         Server.usersList.remove(obj);
                                         
                                         customer = null;
