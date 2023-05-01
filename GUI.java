@@ -623,6 +623,7 @@ public class GUI {
         frame.repaint();
         //JPanel panel = new JPanel();
         JPanel selectPanel = new JPanel();
+        JPanel selectPanelTwo = new JPanel();
         JPanel enterPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
@@ -649,7 +650,7 @@ public class GUI {
         // }
 
         JComboBox<String> dropdown = createItemDropdown(itemListings, true, true, true);
-        selectPanel.add(dropdown);
+        selectPanelTwo.add(dropdown);
 
         number = new JLabel("Please enter how many you would like to buy:");
         number.setBounds(10,20, 80, 25);
@@ -675,9 +676,10 @@ public class GUI {
         });
 
         content.setLayout(new GridLayout());
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, enterPanel);
-        frame.add(sp);
-        content.add(sp);
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, selectPanelTwo);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, enterPanel);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
@@ -1954,7 +1956,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void ChooseItemToEdit() {
-        //TODO: make panels(Amber)
+        //TODO: make more understandable if possible
         JLabel chooseItem;
         JTextField item;
         JLabel options;
