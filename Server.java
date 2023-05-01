@@ -426,6 +426,14 @@ public class Server implements Runnable {
             ServerSocket ss = new ServerSocket(1800);
             usersList = new ArrayList<>();
 
+            Thread shutdown = new Thread(() -> {
+                System.out.println("Saving users to file after server close!");
+
+                FileFunctions.writeUsersToFile(userData);
+            });
+
+            Runtime.getRuntime().addShutdownHook(shutdown);
+
             while(true) {
                 Socket socket = ss.accept();
 
