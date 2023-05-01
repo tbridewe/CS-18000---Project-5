@@ -2404,15 +2404,15 @@ public class GUI {
         JPanel emailPanel = new JPanel();
         JPanel enterPanel = new JPanel();
         JPanel backPanel = new JPanel();
-        content = frame.getContentPane();
-        frame.setSize(600, 300);
+        Container emailContent = frame.getContentPane();
+        frame.setSize(900, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(emailPanel);
-        content.add(backPanel);
+        emailContent.add(backPanel);
         frame.add(backPanel);
-        content.add(backPanel);
+        emailContent.add(backPanel);
         frame.add(enterPanel);
-        content.add(enterPanel);
+        emailContent.add(enterPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
