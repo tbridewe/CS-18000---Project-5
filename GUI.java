@@ -2418,7 +2418,7 @@ public class GUI {
         frame.add(enterPanel);
         emailContent.add(enterPanel);
 
-        enterEmail = new JLabel("Please enter a new email address for your account:");
+        enterEmail = new JLabel("Enter new email:");
         enterEmail.setBounds(10,20, 80, 25);
         emailPanel.add(enterEmail);
         potentialNewEmail = enterEmail.getText();
