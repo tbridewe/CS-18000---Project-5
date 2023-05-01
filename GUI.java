@@ -2402,6 +2402,7 @@ public class GUI {
         frame.revalidate();
         frame.repaint();
         JPanel emailPanel = new JPanel();
+        JPanel enterPanel = new JPanel();
         JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
@@ -2410,6 +2411,8 @@ public class GUI {
         content.add(backPanel);
         frame.add(backPanel);
         content.add(backPanel);
+        frame.add(enterPanel);
+        content.add(enterPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
@@ -2422,7 +2425,7 @@ public class GUI {
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        emailPanel.add(enter);
+        enterPanel.add(enter);
         enter.addActionListener(e -> potentialNewEmail = emailText.getText());
 
         JButton logout = new JButton("Log out");
@@ -2436,9 +2439,10 @@ public class GUI {
         back.addActionListener(e -> EditOptions());
 
         content.setLayout(new GridLayout());
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, backPanel);
-        frame.add(sp);
-        content.add(sp);
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, enterPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
+        frame.add(sp2);
+        content.add(sp2);
 
         frame.setVisible(true);
     }
