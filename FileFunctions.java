@@ -11,6 +11,10 @@ import java.io.*;
 public class FileFunctions {
     private static String itemFileName = "itemsTest.txt";
 
+    public FileFunctions() {
+	    
+    }
+	
     public FileFunctions(String itemFile) {
         // this.itemFileName = "itemsTest.txt";
     }
