@@ -1,0 +1,5 @@
+Nike Air Max 270,Sporting Goods Inc.,Men's Running Shoes Size 10.5,2,99.99
+Chocolate,store1,Candy,22,1.75
+banananana,store1,yummy fruit,5,2.11
+Beats Studio3 Wireless,Electronics Emporium,Over-Ear Headphones Matte Black,1,349.99
+Star Wars Legos,Lego Store,Fun to build!,2,57.99

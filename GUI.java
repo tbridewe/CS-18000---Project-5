@@ -1178,7 +1178,8 @@ public class GUI {
         enterPanel.add(enter);
         enter.addActionListener(e -> {
             String filename = file.getText();
-            ExportPurchaseHistory();
+            serverAction(27, filename);
+            PurchaseHistoryExported();
         });
 
         JButton logout = new JButton("Log out");
@@ -1189,7 +1190,7 @@ public class GUI {
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
         backPanel.add(back);
-        back.addActionListener(e -> EnterNameOfFile());
+        back.addActionListener(e -> ExportPurchaseHistory());
 
         content.setLayout(new GridLayout());
         JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
