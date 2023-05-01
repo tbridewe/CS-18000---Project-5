@@ -2404,7 +2404,6 @@ public class GUI {
         frame.revalidate();
         frame.repaint();
         JPanel emailPanel = new JPanel();
-        JPanel enterPanel = new JPanel();
         JPanel backPanel = new JPanel();
 
         //content = frame.getContentPane();
@@ -2415,8 +2414,6 @@ public class GUI {
         emailContent.add(backPanel);
         frame.add(backPanel);
         emailContent.add(backPanel);
-        frame.add(enterPanel);
-        emailContent.add(enterPanel);
 
         enterEmail = new JLabel("Enter new email:");
         enterEmail.setBounds(10,20, 80, 25);
