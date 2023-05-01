@@ -597,6 +597,8 @@ public class GUI {
             ArrayList<Item> searchResults = (ArrayList<Item>) serverAction(22, keyword); // tell server to sort search
             if (searchResults.size() < 1) {
                 // TODO: no results message
+                SelectItem(); // go to item selection gui
+
             } else {
                 SelectItem(); // go to item selection gui
             }
