@@ -39,6 +39,10 @@ public class Server implements Runnable {
              */
             
 
+            // sort type vars
+            int sortType = 0;
+            int sortOrder = 0;
+            
             while ((input = bfr.readLine()) != null) { // reads the next line
                 action = Integer.valueOf(input.substring(0, 2)); // TODO: exception catching here
                 if (input.length() > 2) { // checks for any other info in the client's message
@@ -56,9 +60,7 @@ public class Server implements Runnable {
                 output = l;
 
 
-                // sort type vars
-                int sortType = 0;
-                int sortOrder = 0;
+                
                 // Big switch statement for all the actions the server needs to perfrom
 
                 switch (action) {
