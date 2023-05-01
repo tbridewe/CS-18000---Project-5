@@ -2439,8 +2439,8 @@ public class GUI {
         back.addActionListener(e -> EditOptions());
 
         content.setLayout(new GridLayout());
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, enterPanel);
-        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, backPanel);
+        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, sp2);
         frame.add(sp2);
         content.add(sp2);
 
