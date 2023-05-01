@@ -306,24 +306,22 @@ public class Customer extends User implements Serializable{
     }
     
     public void updatedSortMarketplace(int sortType, int sortOrder) {
-        Item[] itemsList = (Item[]) readObjectsFromFile("itemsTest.txt");
-        ArrayList<Item> items = new ArrayList<>();
-        Collections.addAll(items, itemsList);
+        ArrayList<Item> itemsList = readItems();
         
         if (sortType == 1 && sortOrder == 1) {
-            items.sort(new newPriceComparatorAscending());
+            itemsList.sort(new newPriceComparatorAscending());
         }
 
         if (sortType == 1 && sortOrder == 2) {
-            items.sort(new newPriceComparatorDescending());
+            itemsList.sort(new newPriceComparatorDescending());
         }
 
         if (sortType == 2 && sortOrder == 1) {
-            items.sort(new newQuantityComparatorAscending());
+            itemsList.sort(new newQuantityComparatorAscending());
         }
 
         if (sortType == 2 && sortOrder == 2) {
-            items.sort(new newQuantityComparatorDescending());
+            itemsList.sort(new newQuantityComparatorDescending());
         }
     }
 

@@ -1,5 +1,3 @@
-//I added enter buttons for the text fields
-//comment
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -988,7 +986,7 @@ public class GUI {
         frame.repaint();
         JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(650, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -1740,7 +1738,7 @@ public class GUI {
         frame.repaint();
         //JPanel panel = new JPanel();
         Container content = frame.getContentPane();
-        frame.setSize(600, 300);
+        frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.add(panel);
 

@@ -261,7 +261,7 @@ public class Seller extends User implements Serializable{
     public ArrayList<Item> updatedSortStats(int sortType, int sortOrder) {
         ArrayList<Customer> customersOfSeller = customersOfSeller();
         ArrayList<Item> sellerTransactions = new ArrayList<>();
-        
+
         for (int i = 0; i < customersOfSeller.size(); i++) {
             ArrayList<Item> customerCart = customersOfSeller.get(i).getPurchases();
             sellerTransactions.addAll(customerCart);
@@ -269,19 +269,14 @@ public class Seller extends User implements Serializable{
 
         if (sortType == 1 && sortOrder == 1) {
             sellerTransactions.sort(new newPriceComparatorAscending());
-        }
-
-        if (sortType == 1 && sortOrder == 2) {
+        } else if (sortType == 1 && sortOrder == 2) {
             sellerTransactions.sort(new newPriceComparatorDescending());
-        }
-
-        if (sortType == 2 && sortOrder == 1) {
+        } else if (sortType == 2 && sortOrder == 1) {
             sellerTransactions.sort(new newQuantityComparatorAscending());
-        }
-
-        if (sortType == 2 && sortOrder == 2) {
+        } else if (sortType == 2 && sortOrder == 2) {
             sellerTransactions.sort(new newQuantityComparatorDescending());
         }
+        
         return sellerTransactions;
     }
 
