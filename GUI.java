@@ -15,7 +15,6 @@ public class GUI {
     public static String Output;
 
     private int test = 1;
-
     public GUI(PrintWriter write, ObjectInputStream read) {
         // sets up reader and write for talking to server
         this.writer = write;
@@ -25,10 +24,9 @@ public class GUI {
     /**
      * sendToServer(String message)
      * sends a message to the server using the printwriter passed through the constructor
-     *
      * @param message: The message (String) to send to the server. The first 2 characters should be an integer
-     *                 corresponding to the desired action (use leading 0!). Then add any other
-     *                 information the action needs
+     *               corresponding to the desired action (use leading 0!). Then add any other
+     *               information the action needs
      */
     private void sendToServer(String message) {
         this.writer.write(message);
@@ -57,9 +55,8 @@ public class GUI {
     /**
      * serverAction()
      * A combination of send and receive from server just to make the code cleaner
-     *
      * @param actionNumber int number for desired action
-     * @param info         String of any other info needed for action, use null for none
+     * @param info String of any other info needed for action, use null for none
      * @return Object from the server
      */
     private Object serverAction(int actionNumber, String info) {
@@ -80,7 +77,7 @@ public class GUI {
             for (int i = 0; i < s.length; i++) {
                 try {
                     list.add(new Item(s[i]));
-                } catch (InvalidLineException e) {
+                } catch (InvalidLineException e) {       
                 }
             }
         }
@@ -89,7 +86,6 @@ public class GUI {
 
     Container content;
     static JFrame frame = new JFrame();
-
     public void ShowWelcome() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
 
@@ -116,7 +112,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void WelcomeMenuGUI() { //this GUI gives a user an option to log in, create an account, or log out
         JButton login;
         JButton createAccount;
@@ -155,7 +150,6 @@ public class GUI {
         createAccount.addActionListener(e -> NewAccountGUI());
         quit.addActionListener(e -> ShowWelcome());
     }
-
     public void LoginGui() { //requires isValidEmail() and accountExists() methods in User class
         //if the user chooses to log in in the welcome menu, this GUI allows them to log in
         //by selecting a user type and password
@@ -247,11 +241,9 @@ public class GUI {
         frame.add(sp2);
         content.add(sp2);
     }
-
     int userNumber = 99;
     String emailContents;
     String newPasswordContents;
-
     public void NewAccountGUI() { //this GUI allows the user to create a new account
         // after selecting that option in the welcome menu
         JLabel userLabel;
@@ -284,7 +276,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         userTypeLabel = new JLabel("User type");
-        userTypeLabel.setBounds(10, 20, 80, 25);
+        userTypeLabel.setBounds(10,20, 80, 25);
         userTypePanel.add(userTypeLabel);
 
         customer = new JButton("Customer");
@@ -298,7 +290,7 @@ public class GUI {
         seller.addActionListener(e -> userNumber = 1);
 
         userLabel = new JLabel("Email");
-        userLabel.setBounds(10, 20, 80, 25);
+        userLabel.setBounds(10,20, 80, 25);
         textFieldPanel.add(userLabel);
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
@@ -352,7 +344,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void NewAccountError() {
         JLabel enterValidEmail;
         JButton back;
@@ -375,7 +366,6 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> NewAccountGUI());
     }
-
     public void EmailAlreadyExists() {
         //shown if the email submitted in the new account GUI is associated with an existing account
         JLabel enterValidEmail;
@@ -399,7 +389,6 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> LoginGui());
     }
-
     public void EnterValidEmailAddress() { //shown if the email submitted in the login menu is invalid
         JLabel enterValidEmail;
         JButton back;
@@ -422,7 +411,6 @@ public class GUI {
         panel.add(back);
         back.addActionListener(e -> LoginGui());
     }
-
     public void IncorrectCredentials() {
         JLabel noAccountFound;
         JLabel selectOption;
@@ -472,7 +460,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void BuyerMenuGui() {
         JButton chooseItem;
         JButton search;
@@ -491,7 +478,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         buyerOptions = new JLabel("Please select an option:");
-        buyerOptions.setBounds(10, 20, 80, 25);
+        buyerOptions.setBounds(10,20, 80, 25);
         panel.add(buyerOptions);
 
         chooseItem = new JButton("Choose an item");
@@ -531,7 +518,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SearchByKeywordOrNot() {
         JButton searchByKeyword;
         JButton back;
@@ -562,7 +548,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SearchBar() {
         JLabel search;
         JTextField searchBar;
@@ -582,7 +567,7 @@ public class GUI {
         content.add(backPanel);
 
         search = new JLabel("Search:");
-        search.setBounds(10, 20, 80, 25);
+        search.setBounds(10,20, 80, 25);
         searchPanel.add(search);
 
         searchBar = new JTextField(20);
@@ -653,14 +638,14 @@ public class GUI {
         content.add(enterPanel);
 
         select = new JLabel("Please select the item you wish to purchase:");
-        select.setBounds(10, 20, 80, 25);
+        select.setBounds(10,20, 80, 25);
         selectPanel.add(select);
 
         // item = new JTextField(20);
         // item.setBounds(100, 20, 165, 25);
         // panel.add(item);
 
-
+        
         // String[] choices = new String[itemListings.size()];
         // for (int i = 0; i < itemListings.size(); i++) {
         //     Item item = itemListings.get(i);
@@ -672,7 +657,7 @@ public class GUI {
         selectPanelTwo.add(dropdown);
 
         number = new JLabel("Please enter how many you would like to buy:");
-        number.setBounds(10, 20, 80, 25);
+        number.setBounds(10,20, 80, 25);
         enterPanel.add(number);
 
         quantity = new JTextField(20);
@@ -691,8 +676,7 @@ public class GUI {
             int selection = dropdown.getSelectedIndex();
             int amount = Integer.valueOf(quantity.getText());
             serverAction(24, String.format("%d,%d", selection, amount)); // add to cart
-            BuyerMenuGui();
-            ; // go back to buyer menu
+            BuyerMenuGui();; // go back to buyer menu
         });
 
         content.setLayout(new GridLayout());
@@ -705,9 +689,9 @@ public class GUI {
     }
 
     /**
-     * @param items     Arraylist of items to show
+     * @param items Arraylist of items to show
      * @param showStore Boolean to show store
-     * @param showQnty  Boolean to show quantity of item
+     * @param showQnty Boolean to show quantity of item
      * @param showPrice Boolean to show price
      * @return a dropdown menu that can be added to a panel
      */
@@ -758,7 +742,7 @@ public class GUI {
         frame.add(panel);
 
         cancelQuestion = new JLabel("Do you want to cancel the purchase?");
-        cancelQuestion.setBounds(10, 20, 80, 25);
+        cancelQuestion.setBounds(10,20, 80, 25);
         panel.add(cancelQuestion);
 
         cancel = new JButton("Cancel");
@@ -783,7 +767,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void PurchaseCancelled() {
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -811,7 +794,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void AddedToCart() {
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -839,7 +821,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void InvalidQuantityException() {
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -866,9 +847,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     String priceOrQuantityString;
-
     public void SortingItems() {
         JLabel priceOrQuantity;
         JButton price;
@@ -888,7 +867,7 @@ public class GUI {
         content.add(backPanel);
 
         priceOrQuantity = new JLabel("Do you want to sort by price or quantity?");
-        priceOrQuantity.setBounds(10, 20, 80, 25);
+        priceOrQuantity.setBounds(10,20, 80, 25);
         priceOrQuantityPanel.add(priceOrQuantity);
 
         price = new JButton("Price");
@@ -928,7 +907,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SortingItemsTwo() {
         JLabel priceOrQuantity;
         JLabel ascendingOrDescending;
@@ -954,7 +932,7 @@ public class GUI {
         choicePanel.add(priceOrQuantity);
 
         ascendingOrDescending = new JLabel("Do you want to sort ascending or descending?");
-        ascendingOrDescending.setBounds(10, 20, 80, 25);
+        ascendingOrDescending.setBounds(10,20, 80, 25);
         ascendingOrDescendingPanel.add(ascendingOrDescending);
 
         ascending = new JButton("Ascending");
@@ -1003,7 +981,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ViewCartOptions() {
         JLabel choose;
         JButton checkout;
@@ -1021,7 +998,7 @@ public class GUI {
         frame.add(panel);
 
         choose = new JLabel("Choose an option:");
-        choose.setBounds(10, 20, 80, 25);
+        choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
         checkout = new JButton("Checkout");
@@ -1058,7 +1035,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ViewPurchaseHistory() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
 
@@ -1108,7 +1084,7 @@ public class GUI {
 
     public void CheckoutComplete() { //if the buyer chooses to check out and checks out successfully
         double price = (double) serverAction(28, null); // tell server checkout has happened
-
+        
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
@@ -1134,7 +1110,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ExportPurchaseHistory() {
         JLabel export;
         JButton yes;
@@ -1150,7 +1125,7 @@ public class GUI {
         frame.add(panel);
 
         export = new JLabel("Would you like to export purchase history?");
-        export.setBounds(10, 20, 80, 25);
+        export.setBounds(10,20, 80, 25);
         panel.add(export);
 
         yes = new JButton("Yes");
@@ -1179,7 +1154,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void EnterNameOfFile() {
         JLabel nameFile;
         JTextField file;
@@ -1198,7 +1172,7 @@ public class GUI {
         content.add(backPanel);
 
         nameFile = new JLabel("Enter the name of the file to save the purchase history to:");
-        nameFile.setBounds(10, 20, 80, 25);
+        nameFile.setBounds(10,20, 80, 25);
         enterPanel.add(nameFile);
 
         file = new JTextField(20);
@@ -1231,7 +1205,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void PurchaseHistoryExported() {
         //TODO: access this method
         //message shown if the buyer successfully saves purchase history to file
@@ -1260,7 +1233,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void RemoveItem() {
         //should print out all items in the cart so the buyer can select one
         JLabel select;
@@ -1285,7 +1257,7 @@ public class GUI {
         content.add(backPanel);
 
         select = new JLabel("Select an item to remove from cart:");
-        select.setBounds(10, 20, 80, 25);
+        select.setBounds(10,20, 80, 25);
         selectPanel.add(select);
 
         // ArrayList<Item> cartItems = (ArrayList<Item>) serverAction(23, null);
@@ -1297,7 +1269,7 @@ public class GUI {
         // item.setBounds(100, 20, 165, 25);
         // panel.add(item);
         number = new JLabel("Please enter how many you would like to remove:");
-        number.setBounds(10, 20, 80, 25);
+        number.setBounds(10,20, 80, 25);
         enterPanel.add(number);
         //should save the number as a variable
 
@@ -1315,6 +1287,7 @@ public class GUI {
             ViewCartOptions(); // go back to cart
         });
 
+        
 
         // JButton enterTwo = new JButton("Enter");
         // enterTwo.setBounds(10, 80, 80, 25);
@@ -1341,7 +1314,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void EditUserInfo() {
         JLabel choose;
         JButton editEmail;
@@ -1359,7 +1331,7 @@ public class GUI {
         frame.add(panel);
 
         choose = new JLabel("Choose an option:");
-        choose.setBounds(10, 20, 80, 25);
+        choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
         editEmail = new JButton("Edit Account Email");
@@ -1393,7 +1365,6 @@ public class GUI {
     }
 
     static String emailTextString;
-
     public void NewEmail() {
         JLabel enterEmail;
         JTextField emailText;
@@ -1412,7 +1383,7 @@ public class GUI {
         content.add(backPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
-        enterEmail.setBounds(10, 20, 80, 25);
+        enterEmail.setBounds(10,20, 80, 25);
         emailPanel.add(enterEmail);
 
         emailText = new JTextField(20);
@@ -1445,7 +1416,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ConfirmEmail() {
         JLabel editEmail;
         JButton yes;
@@ -1461,7 +1431,7 @@ public class GUI {
         frame.add(panel);
 
         editEmail = new JLabel("Are you sure you would like to edit your email?  Choose yes or no:");
-        editEmail.setBounds(10, 20, 80, 25);
+        editEmail.setBounds(10,20, 80, 25);
         panel.add(editEmail);
 
         yes = new JButton("Yes");
@@ -1495,7 +1465,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void EnterValidEmailAddressTwo() { //shown if the email submitted in the customer edit user info is invalid
         JLabel enterValidEmail;
         JButton back;
@@ -1524,9 +1493,7 @@ public class GUI {
         logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
-
     static String passwordTextString;
-
     public void NewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
@@ -1545,7 +1512,7 @@ public class GUI {
         content.add(backPanel);
 
         enterPassword = new JLabel("Please enter a new password for your account:");
-        enterPassword.setBounds(10, 20, 80, 25);
+        enterPassword.setBounds(10,20, 80, 25);
         passwordPanel.add(enterPassword);
 
         passwordText = new JTextField(20);
@@ -1578,7 +1545,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ConfirmPassword() {
         JLabel areYouSure;
         JButton yes;
@@ -1598,7 +1564,7 @@ public class GUI {
         content.add(backPanel);
 
         areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
-        areYouSure.setBounds(10, 20, 80, 25);
+        areYouSure.setBounds(10,20, 80, 25);
         editPanel.add(areYouSure);
 
         yes = new JButton("Yes");
@@ -1631,7 +1597,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SellerMenu() {
         JLabel choose;
         JButton viewListings;
@@ -1648,7 +1613,7 @@ public class GUI {
         frame.add(panel);
 
         choose = new JLabel("Choose an option:");
-        choose.setBounds(10, 20, 80, 25);
+        choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
         viewListings = new JButton("View listings");
@@ -1678,7 +1643,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ListingsMenu() {
         JLabel choose;
         JButton add;
@@ -1696,7 +1660,7 @@ public class GUI {
         frame.add(panel);
 
         choose = new JLabel("Chose an option:");
-        choose.setBounds(10, 20, 80, 25);
+        choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
         add = new JButton("Add");
@@ -1735,7 +1699,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void AddOptions() {
         JButton add;
         JButton csv;
@@ -1771,7 +1734,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void AddItem() {
         JLabel enterName;
         JTextField nameField;
@@ -1797,7 +1759,7 @@ public class GUI {
         frame.add(namePanel);
         content.add(namePanel);
         enterName = new JLabel("Enter name:");
-        enterName.setBounds(10, 20, 80, 25);
+        enterName.setBounds(10,20, 80, 25);
         namePanel.add(enterName);
 
         nameField = new JTextField(20);
@@ -1808,7 +1770,7 @@ public class GUI {
         frame.add(namePanel);
         content.add(namePanel);
         enterStore = new JLabel("Enter store:");
-        enterStore.setBounds(10, 20, 80, 25);
+        enterStore.setBounds(10,20, 80, 25);
         storePanel.add(enterStore);
 
         storeField = new JTextField(20);
@@ -1819,7 +1781,7 @@ public class GUI {
         frame.add(descriptionPanel);
         content.add(descriptionPanel);
         enterDescription = new JLabel("Enter description:");
-        enterDescription.setBounds(10, 20, 80, 25);
+        enterDescription.setBounds(10,20, 80, 25);
         descriptionPanel.add(enterDescription);
 
         descriptionField = new JTextField(20);
@@ -1830,7 +1792,7 @@ public class GUI {
         frame.add(quantityPanel);
         content.add(quantityPanel);
         enterQuantity = new JLabel("Enter quantity:");
-        enterQuantity.setBounds(10, 20, 80, 25);
+        enterQuantity.setBounds(10,20, 80, 25);
         quantityPanel.add(enterQuantity);
 
         quantityField = new JTextField(20);
@@ -1841,7 +1803,7 @@ public class GUI {
         frame.add(pricePanel);
         content.add(pricePanel);
         enterPrice = new JLabel("Enter price:");
-        enterPrice.setBounds(10, 20, 80, 25);
+        enterPrice.setBounds(10,20, 80, 25);
         pricePanel.add(enterPrice);
 
         priceField = new JTextField(20);
@@ -1890,7 +1852,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void AddFromCSV() {
         JLabel enterFileName;
         JTextField fileNameField;
@@ -1909,7 +1870,7 @@ public class GUI {
         content.add(backPanel);
 
         enterFileName = new JLabel("Enter file name:");
-        enterFileName.setBounds(10, 20, 80, 25);
+        enterFileName.setBounds(10,20, 80, 25);
         enterPanel.add(enterFileName);
 
         fileNameField = new JTextField(20);
@@ -1949,7 +1910,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void CSVSuccess() {
         //this GUI is a success message when items are added from CSV
         // TODO: show how many items were successfully added from CSV
@@ -1978,7 +1938,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void CSVError() {
         //this GUI is an error message for when items are not added from CSV
 
@@ -2007,7 +1966,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ChooseItemToEdit() {
         JLabel chooseItem;
         JTextField item;
@@ -2030,7 +1988,7 @@ public class GUI {
         frame.add(panel);
 
         chooseItem = new JLabel("Choose an item to edit:");
-        chooseItem.setBounds(10, 20, 80, 25);
+        chooseItem.setBounds(10,20, 80, 25);
         panel.add(chooseItem);
 
         // show items
@@ -2055,7 +2013,7 @@ public class GUI {
         theChange.setBounds(100, 20, 165, 25);
 
         change = new JLabel("Click the category button to make the change.");
-        change.setBounds(10, 20, 80, 25);
+        change.setBounds(10,20, 80, 25);
         panel.add(change);
         panel.add(theChange);
 
@@ -2136,7 +2094,7 @@ public class GUI {
         content.add(backPanel);
 
         chooseItem = new JLabel("Choose an item to remove:");
-        chooseItem.setBounds(10, 20, 80, 25);
+        chooseItem.setBounds(10,20, 80, 25);
         choosePanel.add(chooseItem);
 
         // show items
@@ -2170,7 +2128,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void ViewStatistics() {
         JLabel choose;
         JButton allStats;
@@ -2187,7 +2144,7 @@ public class GUI {
         frame.add(panel);
 
         choose = new JLabel("Choose an option:");
-        choose.setBounds(10, 20, 80, 25);
+        choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
         // allStats = new JButton("View all statistics");
@@ -2217,9 +2174,7 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     String priceOrQuantityChoice;
-
     public void SpecificStats() {
         JLabel byPriceOrQuantity;
         JButton price;
@@ -2238,7 +2193,7 @@ public class GUI {
         frame.add(panel);
 
         byPriceOrQuantity = new JLabel("Sort specific statistics by price or quantity:");
-        byPriceOrQuantity.setBounds(10, 20, 80, 25);
+        byPriceOrQuantity.setBounds(10,20, 80, 25);
         panel.add(byPriceOrQuantity);
 
         price = new JButton("Price");
@@ -2271,7 +2226,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SpecificStatsTwo() {
         JLabel ascendingOrDescending;
         JButton ascending;
@@ -2288,11 +2242,11 @@ public class GUI {
         frame.add(panel);
 
         JLabel priceOrQuantity = new JLabel(priceOrQuantityChoice);
-        priceOrQuantity.setBounds(10, 20, 80, 25);
+        priceOrQuantity.setBounds(10,20, 80, 25);
         panel.add(priceOrQuantity);
 
         ascendingOrDescending = new JLabel("Sort specific statistics ascending or descending:");
-        ascendingOrDescending.setBounds(10, 20, 80, 25);
+        ascendingOrDescending.setBounds(10,20, 80, 25);
         panel.add(ascendingOrDescending);
 
         ascending = new JButton("Ascending");
@@ -2312,6 +2266,7 @@ public class GUI {
         ArrayList<Item> purchasedItems = parseItemList((String) serverAction(46, null));
         JComboBox dropdown = createItemDropdown(purchasedItems, true, true, true);
         panel.add(dropdown);
+
 
 
         enter = new JButton("Enter");
@@ -2334,7 +2289,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void HaveNoStores() { // TODO: put this somewhere
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -2361,7 +2315,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void EditOptions() {
         JLabel choose;
         JButton editEmail;
@@ -2379,7 +2332,7 @@ public class GUI {
         frame.add(panel);
 
         choose = new JLabel("Choose an option:");
-        choose.setBounds(10, 20, 80, 25);
+        choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
         editEmail = new JButton("Edit account email");
@@ -2408,7 +2361,6 @@ public class GUI {
         logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
-
     public void DeleteAccountQuestion() {
         //this GUI is an error message for when items are not added from CSV
 
@@ -2448,10 +2400,8 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     String potentialNewEmail;
     Container emailContent;
-
     public void SellerNewEmail() {
         JLabel enterEmail;
         JTextField emailText;
@@ -2472,7 +2422,7 @@ public class GUI {
         emailContent.add(backPanel);
 
         enterEmail = new JLabel("Enter new email:");
-        enterEmail.setBounds(10, 20, 80, 25);
+        enterEmail.setBounds(10,20, 80, 25);
         emailPanel.add(enterEmail);
         potentialNewEmail = enterEmail.getText();
 
@@ -2502,7 +2452,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SellerConfirmEmail() {
         JLabel editSellerEmail;
         JButton yes;
@@ -2518,7 +2467,7 @@ public class GUI {
         frame.add(panel);
 
         editSellerEmail = new JLabel("Are you sure you would like to edit your email?  Choose yes or no:");
-        editSellerEmail.setBounds(10, 20, 80, 25);
+        editSellerEmail.setBounds(10,20, 80, 25);
         panel.add(editSellerEmail);
 
         yes = new JButton("Yes");
@@ -2551,7 +2500,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void EnterValidEmailAddressThree() { //shown if the email submitted in the seller edit user info is invalid
         JLabel enterValidEmail;
         JButton back;
@@ -2580,9 +2528,7 @@ public class GUI {
         logout.addActionListener(e -> ShowWelcome());
         frame.setVisible(true);
     }
-
     String potentialNewPassword;
-
     public void SellerNewPassword() {
         JLabel enterPassword;
         JTextField passwordText;
@@ -2601,8 +2547,8 @@ public class GUI {
         frame.add(backPanel);
         content.add(backPanel);
 
-        enterPassword = new JLabel("Please enter a new password for your account:");
-        enterPassword.setBounds(10, 20, 80, 25);
+        enterPassword = new JLabel("Enter new password:");
+        enterPassword.setBounds(10,20, 80, 25);
         enterPanel.add(enterPassword);
         potentialNewPassword = enterPassword.getText();
 
@@ -2635,7 +2581,6 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
     public void SellerConfirmPassword() {
         JLabel areYouSure;
         JButton yes;
@@ -2651,7 +2596,7 @@ public class GUI {
         frame.add(panel);
 
         areYouSure = new JLabel("Are you sure you would like to edit your password?  Choose yes or no:");
-        areYouSure.setBounds(10, 20, 80, 25);
+        areYouSure.setBounds(10,20, 80, 25);
         panel.add(areYouSure);
 
         yes = new JButton("Yes");
