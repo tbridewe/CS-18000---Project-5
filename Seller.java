@@ -228,48 +228,61 @@ public class Seller extends User implements Serializable{
         }
     }
     
-    public ArrayList<Customer> updatedViewAllStats() {
-        ArrayList<Object> users = Server.usersList;
+    public ArrayList<Customer> customersOfSeller() {
+        Object[] users = readObjectsFromFile("userData.txt");
         ArrayList<Customer> customersOfSeller = new ArrayList<>();
-
-        for (int i = 0; i < users.size(); i++) {
-            Object user = users.get(i);
-            
-            if (user instanceof Customer) {
-                ArrayList<Item> cart = ((Customer) user).getCart();
-                for (int j = 0; j < cart.size(); j++) {
-                    if (stores.contains(cart.get(j).getStore())) {
-                        customersOfSeller.add((Customer) user);
+        
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] instanceof Customer) {
+                ArrayList<Item> purchases = ((Customer) users[i]).getPurchases();
+                for (int j = 0; j < purchases.size(); j++) {
+                    if (stores.contains(purchases.get(j).getStore())) {
+                        customersOfSeller.add((Customer) users[i]);
                     }
                 }
             }
         }
-
+        
         // TODO: determine the way that the stats get displayed
         return(customersOfSeller); // done I think
     }
-
-    public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder) {
-        ArrayList<Customer> customersOfSeller = updatedViewAllStats();
+    
+    public ArrayList<Item> updatedViewAllStats() {
+        ArrayList<Customer> customersOfSeller = customersOfSeller();
         ArrayList<Item> sellerTransactions = new ArrayList<>();
-
+        
         for (int i = 0; i < customersOfSeller.size(); i++) {
-            ArrayList<Item> customerCart = customersOfSeller.get(i).getCart();
+            ArrayList<Item> purchases = customersOfSeller.get(i).getPurchases();
+            sellerTransactions.addAll(purchases);
+        }
+        return sellerTransactions;
+    }
+    
+    public ArrayList<Item> updatedSortStats(int sortType, int sortOrder) {
+        ArrayList<Customer> customersOfSeller = customersOfSeller();
+        ArrayList<Item> sellerTransactions = new ArrayList<>();
+        
+        for (int i = 0; i < customersOfSeller.size(); i++) {
+            ArrayList<Item> customerCart = customersOfSeller.get(i).getPurchases();
             sellerTransactions.addAll(customerCart);
         }
-        ArrayList<Customer> sortedCustomersOfSeller = new ArrayList<>();
 
         if (sortType == 1 && sortOrder == 1) {
             sellerTransactions.sort(new newPriceComparatorAscending());
-        } else if (sortType == 1 && sortOrder == 2) {
+        }
+
+        if (sortType == 1 && sortOrder == 2) {
             sellerTransactions.sort(new newPriceComparatorDescending());
-        } else if (sortType == 2 && sortOrder == 1) {
+        }
+
+        if (sortType == 2 && sortOrder == 1) {
             sellerTransactions.sort(new newQuantityComparatorAscending());
-        } else if (sortType == 2 && sortOrder == 2) {
+        }
+
+        if (sortType == 2 && sortOrder == 2) {
             sellerTransactions.sort(new newQuantityComparatorDescending());
         }
-        
-        return sortedCustomersOfSeller;
+        return sellerTransactions;
     }
 
     // Comparator for sorting by price in ascending order

@@ -73,11 +73,11 @@ public class GUI {
     private ArrayList<Item> parseItemList(String items) {
         String[] s = items.split(";");
         ArrayList<Item> list = new ArrayList<>();
-        for (int i = 0; i < s.length; i++) {
-            try {
-                list.add(new Item(s[i]));
-            } catch (InvalidLineException e) {
-
+            for (int i = 0; i < s.length; i++) {
+                try {
+                    list.add(new Item(s[i]));
+                } catch (InvalidLineException e) {
+                    
             }
         }
         return list;
@@ -400,7 +400,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        enterValidEmail = new JLabel("Please enter a valid email address!");
+        enterValidEmail = new JLabel("Please enter a valid email address");
         enterValidEmail.setBounds(10, 20, 80, 25);
         panel.add(enterValidEmail);
 
@@ -694,17 +694,28 @@ public class GUI {
         String[] choices = new String[items.size()];
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
-            String itemInfo = String.format("%-40s ", item.getName());
+            String itemInfo = String.format("%-40s |", item.getName());
             if (showStore) {
-                itemInfo += String.format("| %-30s ", item.getStore());
+                itemInfo += String.format(" %-30s |", item.getStore());
             }
             if (showQnty) {
-                itemInfo += String.format("| x%-4d ", item.getQuantity());
+                itemInfo += String.format(" x%-4d |", item.getQuantity());
             }
             if (showPrice) {
-                itemInfo += String.format("| $%-6.2f ", item.getPrice());
+                itemInfo += String.format(" $%-6.2f ", item.getPrice());
             }
             choices[i] = itemInfo;
+        }
+        JComboBox<String> dropdown = new JComboBox<>(choices);
+        return dropdown;
+    }
+
+    private JComboBox<String> createCustomerDropdown(ArrayList<Customer> customers) {
+        String[] choices = new String[customers.size()];
+        for (int i = 0; i < customers.size(); i++) {
+            Customer c = customers.get(i);
+            String info = String.format("%-18s | %d items purchased", c.getEmail(), c.getPurchases().size());
+            choices[i] = info;
         }
         JComboBox<String> dropdown = new JComboBox<>(choices);
         return dropdown;
@@ -1021,8 +1032,8 @@ public class GUI {
     public void ViewPurchaseHistory() {
         //this GUI is a welcome message before the welcome menu and is shown when a user logs out
 
-        sendToServer("09"); // Tell the server user has logged out
-        readFromServer(); // just read and ignore the return message
+        // sendToServer("09"); // Tell the server user has logged out
+        // readFromServer(); // just read and ignore the return message
 
         JLabel welcome;
         frame.getContentPane().removeAll();
@@ -1794,13 +1805,14 @@ public class GUI {
         enter.setBounds(10, 80, 80, 25);
         enterPanel.add(enter);
         enter.addActionListener(e -> {
-            String name = enterName.getText();
+            String name = nameField.getText();
             String store = storeField.getText();
             String description1 = descriptionField.getText();
             int quantity = Integer.valueOf(quantityField.getText());
-            int price = Integer.valueOf(priceField.getText());
+            double price = Double.valueOf(priceField.getText());
             Item newItem = new Item(name, store, description1, quantity, price);
             serverAction(42, newItem.toLine());
+            SellerMenu();
         });
 
         JPanel backPanel = new JPanel();
@@ -1943,6 +1955,7 @@ public class GUI {
         frame.setVisible(true);
     }
     public void ChooseItemToEdit() {
+        //TODO: make panels(Amber)
         JLabel chooseItem;
         JTextField item;
         JLabel options;
@@ -2054,35 +2067,32 @@ public class GUI {
     }
 
     public void Remove() {                                                               //(also need to print the cart) ****
+        //TODO: make panels(Amber)
         JLabel chooseItem;
         JTextField item;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel selectPanel = new JPanel();
-        JPanel backPanel = new JPanel();
+        JPanel panel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(selectPanel);
-        content.add(selectPanel);
-        frame.add(backPanel);
-        content.add(backPanel);
+        frame.add(panel);
 
         chooseItem = new JLabel("Choose an item to remove:");
         chooseItem.setBounds(10,20, 80, 25);
-        selectPanel.add(chooseItem);
+        panel.add(chooseItem);
 
         // show items
         ArrayList<Item> sellerItems = parseItemList((String) serverAction(40, null));
         // ArrayList<Item> sellerItems = (ArrayList<Item>) serverAction(40, null);
         JComboBox<String> dropdown = createItemDropdown(sellerItems, true, true, true);
-        selectPanel.add(dropdown);
+        panel.add(dropdown);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        selectPanel.add(enter);
+        panel.add(enter);
         enter.addActionListener(e -> {
             int itemToRemove = dropdown.getSelectedIndex();
             serverAction(44, String.format("%d", itemToRemove));
@@ -2090,18 +2100,13 @@ public class GUI {
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        backPanel.add(logout);
+        panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        backPanel.add(back);
+        panel.add(back);
         back.addActionListener(e -> SellerMenu());
-
-        content.setLayout(new GridLayout());
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, selectPanel, backPanel);
-        frame.add(sp);
-        content.add(sp);
 
         frame.setVisible(true);
     }
@@ -2124,12 +2129,15 @@ public class GUI {
         choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
-        allStats = new JButton("View all statistics");
-        allStats.setBounds(10, 80, 80, 25);
-        panel.add(allStats);
-        allStats.addActionListener(e -> {
+        // allStats = new JButton("View all statistics");
+        // allStats.setBounds(10, 80, 80, 25);
+        // panel.add(allStats);
+        // allStats.addActionListener(e -> {
 
-        });
+        // });
+        ArrayList<Item> purchasedItems = parseItemList((String) serverAction(45, null));
+        JComboBox dropdown = createItemDropdown(purchasedItems, true, true, true);
+        panel.add(dropdown);
 
         specificStats = new JButton("View Sorted statistics");
         specificStats.setBounds(10, 80, 80, 25);
@@ -2204,6 +2212,7 @@ public class GUI {
         JLabel ascendingOrDescending;
         JButton ascending;
         JButton descending;
+        JButton enter;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -2235,6 +2244,20 @@ public class GUI {
         descending.addActionListener(e -> {
             serverAction(48, "2"); // set descending
         });
+
+        ArrayList<Item> purchasedItems = parseItemList((String) serverAction(46, null));
+        JComboBox dropdown = createItemDropdown(purchasedItems, true, true, true);
+        panel.add(dropdown);
+
+
+
+        enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            SpecificStatsTwo(); // reload;
+        });
+
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
@@ -2360,53 +2383,42 @@ public class GUI {
     }
     String potentialNewEmail;
     public void SellerNewEmail() {
+        //TODO: make panels(Amber)
         JLabel enterEmail;
         JTextField emailText;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel enterPanel = new JPanel();
-        JPanel backPanel = new JPanel();
+        JPanel panel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(enterPanel);
-        content.add(enterPanel);
-        frame.add(backPanel);
-        content.add(backPanel);
+        frame.add(panel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
-        enterPanel.add(enterEmail);
+        panel.add(enterEmail);
         potentialNewEmail = enterEmail.getText();
 
         emailText = new JTextField(20);
         emailText.setBounds(100, 20, 165, 25);
-        enterPanel.add(emailText);
+        panel.add(emailText);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        enterPanel.add(enter);
-        enter.addActionListener(e -> {
-            potentialNewEmail = emailText.getText();
-            SellerConfirmEmail();
-        });
+        panel.add(enter);
+        enter.addActionListener(e -> potentialNewEmail = emailText.getText());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        backPanel.add(logout);
+        panel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        backPanel.add(back);
+        panel.add(back);
         back.addActionListener(e -> EditOptions());
-
-        content.setLayout(new GridLayout());
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
-        frame.add(sp);
-        content.add(sp);
 
         frame.setVisible(true);
     }

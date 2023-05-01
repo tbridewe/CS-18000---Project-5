@@ -45,7 +45,7 @@ Test Status: Passed
 
 Expected Result: Application verifies that the information entered is valid and then creates a new listing based on the information entered.
 
-Test Status: Failed -> the application gets stuck
+Test Status: Passed
 
 ## Test 5 Seller creates listings from .csv
 1. User launches application.
@@ -94,7 +94,7 @@ Test Status: Failed
 
 Expected Result: Application allows user to login with the new email that they entered for their account in the edit account section.
 
-Test Status: Failed
+Test Status: Passed
 
 ## Test 9 Delete Account
 1. User launches application.
@@ -104,7 +104,7 @@ Test Status: Failed
 
 Expected Result: The application successfully deletes the user's account.
 
-Test Status: Passe
+Test Status: Passed
 
 ## Test 10 Customer Checks out items
 1. User launches application
@@ -116,7 +116,7 @@ Expected Result: The user is able to checkout with their items (assuming the ite
 
 Test Status: Passed
 
-## Test 11 User adds an item to their cart
+## Test 11 Customer adds an item to their cart
 1. User launches application.
 2. Users logs in (see above).
 3. User presses the Choose an Item button on the second page.
@@ -128,3 +128,25 @@ Test Status: Passed
 Expected Result: The item and quantity that was entered of that item are added to the user's cart
 
 Test Status: Passed
+
+## Test 12 Customer views their purchase history
+1. User launches application.
+2. User logs in (see above).
+3. User presses the View Cart button on the second page.
+4. User presses the View Purchase History on the View Cart Page.
+
+Expected Result: The application returns a dropdown list of the items that the user has bought from the store in the past.
+
+Test Status: Passed
+
+## Test 13 Seller sorts statistics (by price)
+1. User launches application.
+2. User logs in (see above).
+3. User selects the View statistics button on the second page.
+4. User selects View Sorted Statistics on the View statistics page.
+5. User selects the Price button on the Sorted Statistics page.
+6. User selects Ascending or Descending on the Price statistics page.
+
+Expected Result: Seller statistics listed by price are returned to the seller and viewable on their screen.
+
+Test Status: Failed.
