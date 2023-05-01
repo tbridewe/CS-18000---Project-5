@@ -2249,6 +2249,8 @@ public class GUI {
         JComboBox dropdown = createItemDropdown(purchasedItems, true, true, true);
         panel.add(dropdown);
 
+
+
         enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
         panel.add(enter);
@@ -2256,9 +2258,6 @@ public class GUI {
             SpecificStatsTwo(); // reload;
         });
 
-        ArrayList<Customer> customers = (ArrayList<Customer>) serverAction(46, null);
-        JComboBox dropdown = createCustomerDropdown(customers);
-        panel.add(dropdown);
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
