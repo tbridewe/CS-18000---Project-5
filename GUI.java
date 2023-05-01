@@ -2404,15 +2404,17 @@ public class GUI {
         JPanel emailPanel = new JPanel();
         JPanel enterPanel = new JPanel();
         JPanel backPanel = new JPanel();
-        Container emailContent = frame.getContentPane();
+
+        content = frame.getContentPane();
+        Container contentContent = frame.getContentPane();
         frame.setSize(900, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(emailPanel);
-        emailContent.add(backPanel);
+        content.add(backPanel);
         frame.add(backPanel);
-        emailContent.add(backPanel);
+        content.add(backPanel);
         frame.add(enterPanel);
-        emailContent.add(enterPanel);
+        content.add(enterPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
@@ -2424,7 +2426,7 @@ public class GUI {
         emailPanel.add(emailText);
 
         JButton enter = new JButton("Enter");
-        enter.setBounds(10, 80, 80, 25);
+        enter.setBounds(300, 200, 80, 25);
         enterPanel.add(enter);
         enter.addActionListener(e -> potentialNewEmail = emailText.getText());
 
