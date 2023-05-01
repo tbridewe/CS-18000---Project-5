@@ -2395,6 +2395,7 @@ public class GUI {
         frame.setVisible(true);
     }
     String potentialNewEmail;
+    Container emailContent;
     public void SellerNewEmail() {
         JLabel enterEmail;
         JTextField emailText;
@@ -2406,16 +2407,16 @@ public class GUI {
         JPanel enterPanel = new JPanel();
         JPanel backPanel = new JPanel();
 
-        content = frame.getContentPane();
-        Container contentContent = frame.getContentPane();
-        frame.setSize(900, 300);
+        //content = frame.getContentPane();
+        emailContent = frame.getContentPane();
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(emailPanel);
-        content.add(backPanel);
+        emailContent.add(backPanel);
         frame.add(backPanel);
-        content.add(backPanel);
+        emailContent.add(backPanel);
         frame.add(enterPanel);
-        content.add(enterPanel);
+        emailContent.add(enterPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
@@ -2427,8 +2428,8 @@ public class GUI {
         emailPanel.add(emailText);
 
         JButton enter = new JButton("Enter");
-        enter.setBounds(300, 200, 80, 25);
-        enterPanel.add(enter);
+        enter.setBounds(10, 80, 80, 25);
+        backPanel.add(enter);
         enter.addActionListener(e -> potentialNewEmail = emailText.getText());
 
         JButton logout = new JButton("Log out");
@@ -2442,10 +2443,9 @@ public class GUI {
         back.addActionListener(e -> EditOptions());
 
         content.setLayout(new GridLayout());
-        JSplitPane sp2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, enterPanel, backPanel);
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, sp2);
-        frame.add(sp2);
-        content.add(sp2);
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
