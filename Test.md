@@ -139,7 +139,7 @@ Expected Result: The application returns a dropdown list of the items that the u
 
 Test Status: Passed
 
-## Test 13 Seller sorts statistics (by price)
+## Test 13 Seller views sorted statistics (by price)
 1. User launches application.
 2. User logs in (see above).
 3. User selects the View statistics button on the second page.
@@ -149,7 +149,7 @@ Test Status: Passed
 
 Expected Result: Seller statistics listed by price are returned to the seller and viewable on their screen.
 
-Test Status: Failed.
+Test Status: Failed
 
 ## Test 14 Customer searches for a specific item
 1. User launches application.

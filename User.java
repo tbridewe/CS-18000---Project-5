@@ -1,17 +1,18 @@
 import java.io.*;
 import java.util.ArrayList;
+
 /**
  * User.java
- *
+ * <p>
  * User class. It contains basic account methods,
  * along with item management methods used by both buyers and sellers.
  * This class is extended by Customer and Seller.
  *
- * @version 2023-4-10
- * @author
+ * @author Sam Bodkin
+ * @version 2023-5-01
  */
 
-public class User extends FileFunctions implements Serializable{
+public class User extends FileFunctions implements Serializable {
     private String password; // password entered when a user creates their login information
     private String email; // email entered when a user creates their login information
     private boolean buyer;
@@ -22,12 +23,12 @@ public class User extends FileFunctions implements Serializable{
     private final static String INVALID_BOTH = "Please enter a valid email address and password!";
     protected String cartFileName = "shoppingCarts.txt";
     protected static String itemListingsFileName = "itemListings.txt";
-    protected String customerLogFileName  = "customerLog.txt";
+    protected String customerLogFileName = "customerLog.txt";
 
     public User() {
-        
+
     }
-    
+
     public User(String email, String password, String userType) throws InvalidUserInput {
         super(itemListingsFileName);
         if (!isValidPassword(password) || !isValidEmail(email)) {
@@ -41,7 +42,7 @@ public class User extends FileFunctions implements Serializable{
         this.email = email;
     }
 
-    public User(String email, String password, int userType) throws InvalidUserInput { // creates a new User object with email, password and userType; Buyer = 0, Seller = 1
+    public User(String email, String password, int userType) throws InvalidUserInput {
         super(itemListingsFileName);
 
         if (!isValidPassword(password) || !isValidEmail(email)) {
@@ -75,7 +76,7 @@ public class User extends FileFunctions implements Serializable{
         System.out.printf("[num]: %-30s | %-24s | %-4s | %-7s\n", "NAME", "STORE", "QNTY", "PRICE");
         for (int i = 0; i < this.sortedListings.size(); i++) {
             Item item = this.sortedListings.get(i);
-            System.out.printf(itemFormat, i+1, item.getName(), item.getStore(), item.getQuantity(), item.getPrice());
+            System.out.printf(itemFormat, i + 1, item.getName(), item.getStore(), item.getQuantity(), item.getPrice());
         }
         System.out.println();
     }
@@ -90,6 +91,7 @@ public class User extends FileFunctions implements Serializable{
 
     /**
      * getDisplayedItem()
+     *
      * @param index: The DISPLAYED index of the item (from print)
      */
     public Item getDisplayedItem(int index) throws IndexOutOfBoundsException {
@@ -105,7 +107,6 @@ public class User extends FileFunctions implements Serializable{
     public void clearSortedItems() {
         this.sortedListings.clear();
     }
-
 
 
     ///////////////////////////////////////////////////
@@ -180,7 +181,7 @@ public class User extends FileFunctions implements Serializable{
                     }
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
             return null;
@@ -188,7 +189,7 @@ public class User extends FileFunctions implements Serializable{
 
         return null;
     }
-    
+
     public static boolean accountObjectExists(String email, ArrayList<Object> userList) {
         try {
             if (userList.size() == 0)
@@ -202,7 +203,7 @@ public class User extends FileFunctions implements Serializable{
                     return true;
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
             return false;
@@ -220,11 +221,11 @@ public class User extends FileFunctions implements Serializable{
                     return true;
                 }
             }
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("The userData.txt file does not exist!");
 
             return false;
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("An error has occurred!");
 
             return false;
@@ -359,7 +360,7 @@ public class User extends FileFunctions implements Serializable{
             }
 
             pw.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("An error has occurred!");
         }
     }

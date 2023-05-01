@@ -11,6 +11,7 @@ public class Server implements Runnable {
     private String userPassword;
     static ArrayList<Object> usersList; // stores list of users from usersData so they can be edited and rewritten to the file
     private final static String userData = "userData.txt";
+
     public Server(Socket socket) {
         this.socket = socket;
     }
@@ -37,7 +38,7 @@ public class Server implements Runnable {
              * output is an object that is passed back to the client
              * for actions that don't need an output the ouput will be true if the action happens sucessfully and ?something? if there is an error
              */
-            
+
 
             // sort type vars
             int sortType = 0;
@@ -54,13 +55,12 @@ public class Server implements Runnable {
                 // Print statements for debugging
                 System.out.printf("Server Received: %s\n", input);
                 // output = new Item("banana", "store1", "fruit", 7, 1.25);
-                ArrayList<String> l= new ArrayList<>();
+                ArrayList<String> l = new ArrayList<>();
                 l.add("hi. Nothing happening here");
 
                 output = l;
 
 
-                
                 // Big switch statement for all the actions the server needs to perfrom
 
                 switch (action) {
@@ -142,7 +142,7 @@ public class Server implements Runnable {
                                 //System.out.println(customer.getPassword());
                                 customer.setPassword(password);
                                 //System.out.println(customer.getPassword());
-                            } catch (InvalidUserInput e)  {
+                            } catch (InvalidUserInput e) {
                                 success = false;
                                 // display error message for wrong email?
                             }
@@ -167,7 +167,7 @@ public class Server implements Runnable {
                         if (customer != null) {
                             try {
                                 customer.setEmail(email);
-                            } catch (InvalidUserInput e)  {
+                            } catch (InvalidUserInput e) {
                                 success = false;
                                 // display error message for wrong email?
                             }
@@ -205,9 +205,9 @@ public class Server implements Runnable {
 
                                     if (temp.getEmail().equals(customer.getEmail())) {
                                         Server.usersList.remove(obj);
-                                        
+
                                         customer = null;
-                                        
+
                                         break;
                                     }
                                 } else if (obj instanceof Seller && seller != null) {
@@ -215,7 +215,7 @@ public class Server implements Runnable {
 
                                     if (temp.getEmail().equals(seller.getEmail())) {
                                         Server.usersList.remove(obj);
-                                        
+
                                         seller = null;
 
                                         break;
@@ -229,7 +229,7 @@ public class Server implements Runnable {
                     case 9 -> { // log out
                         //TODO: save the data
                         seller = null;
-                        customer  = null;
+                        customer = null;
                     }
                     case 50 -> { // test
                         output = "test message";
@@ -273,7 +273,7 @@ public class Server implements Runnable {
                         case 25 -> { // remove from cart
                             String[] s = info.split(",");
                             int i = Integer.valueOf(s[0]);
-                            int q = Integer.valueOf(s[1]); 
+                            int q = Integer.valueOf(s[1]);
                             customer.removeFromCart(i, q);
                         }
                         case 26 -> { // view purchase log
@@ -297,7 +297,6 @@ public class Server implements Runnable {
                         case 32 -> { // set sort order
                             sortOrder = Integer.valueOf(info);
                         }
-                        
 
 
                     }
@@ -321,7 +320,7 @@ public class Server implements Runnable {
                             try {
                                 Item item = new Item(info); // info assumed to be Item.toLine() of new item
                                 seller.addNewItem(item);
-                            } catch(InvalidLineException e) {
+                            } catch (InvalidLineException e) {
                                 output = e;
                             }
                         }
@@ -333,7 +332,7 @@ public class Server implements Runnable {
                                 int changetype = Integer.valueOf(s[1]);
                                 seller.editItem(item, changetype, s[2]);
                                 seller.replaceItem(i, item);
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 output = e;
                             }
                         }
@@ -356,11 +355,11 @@ public class Server implements Runnable {
                         case 48 -> { // set sort order
                             sortOrder = Integer.valueOf(info);
                         }
-                        
+
                     }
 
                 }
-                
+
                 objectOut.writeObject(output);
                 objectOut.flush();
                 // Print statements for debugging
@@ -374,7 +373,7 @@ public class Server implements Runnable {
                 // TODO: save the data
                 System.out.println("User disconnected");
                 seller = null;
-                customer  = null;
+                customer = null;
             }
         } finally {
             try {
@@ -437,7 +436,7 @@ public class Server implements Runnable {
 
             Runtime.getRuntime().addShutdownHook(shutdown);
 
-            while(true) {
+            while (true) {
                 Socket socket = ss.accept();
 
                 Thread toRun = new Thread(new Server(socket));
@@ -456,7 +455,7 @@ public class Server implements Runnable {
             if (items.size() > 1) {
                 for (int i = 1; i < items.size(); i++) {
                     s += ";" + items.get(i).toLine();
-                } 
+                }
             }
         }
         System.out.printf("%d Items\n", items.size());

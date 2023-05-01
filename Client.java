@@ -1,12 +1,13 @@
 /**
  * Client.java
- *
+ * <p>
  * Takes user input from the customer and sends it to a server to be used
  * for data management operations.
  *
  * @version 2023-4-19
  * @author Liam & Sam
  */
+
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
