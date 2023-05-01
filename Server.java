@@ -426,6 +426,44 @@ public class Server implements Runnable {
             ServerSocket ss = new ServerSocket(1800);
             usersList = new ArrayList<>();
 
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(userData));
+
+                while (true) {
+                    Object obj = ois.readObject();
+
+                    if (obj != null) {
+                        boolean valid = false;
+
+                        if (obj instanceof Customer) {
+                            valid = true;
+
+                            Customer temp = (Customer) obj;
+
+                            //System.out.printf("Account with username: %s and password: %s is a customer!\n", temp.getEmail(), temp.getPassword());
+                        } else if (obj instanceof Seller) {
+                            valid = true;
+
+                            Seller temp = (Seller) obj;
+
+                            //System.out.printf("Account with username: %s and password: %s is a customer!\n", temp.getEmail(), temp.getPassword());
+                        }
+
+                        if (valid) {
+                            usersList.add(obj);
+                        }
+                    }
+
+                    usersList.add(obj);
+                }
+            } catch (EOFException e) {
+                // file ended?
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
             Thread shutdown = new Thread(() -> {
                 System.out.println("Saving users to file after server close!");
 
