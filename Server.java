@@ -398,8 +398,6 @@ public class Server implements Runnable {
 
                 }
                 
-                FileFunctions.writeUsersToFile(userData);
-                
                 objectOut.writeObject(output);
                 objectOut.flush();
                 // Print statements for debugging
@@ -416,7 +414,6 @@ public class Server implements Runnable {
         } finally {
             try {
                 socket.close();
-                
                 FileFunctions.writeUsersToFile(userData);
             } catch (IOException e) {
                 e.printStackTrace();
