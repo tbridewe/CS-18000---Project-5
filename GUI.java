@@ -8,6 +8,15 @@ import java.io.*;
 import java.util.ArrayList;
 ////
 
+/**
+ * GUI.java
+ * <p>
+ * creates elements of the GUI that the user sees on their screen
+ *
+ * @author Tristan, Hannah, Amber, Liam, Sam
+ * @version 2023-5-01
+ */
+
 public class GUI {
     private PrintWriter writer;
     private ObjectInputStream reader;
