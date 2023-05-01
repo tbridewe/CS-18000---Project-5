@@ -45,7 +45,7 @@ Test Status: Passed
 
 Expected Result: Application verifies that the information entered is valid and then creates a new listing based on the information entered.
 
-Test Status: Failed -> the application gets stuck
+Test Status: Passed
 
 ## Test 5 Seller creates listings from .csv
 1. User launches application.
@@ -94,7 +94,7 @@ Test Status: Failed
 
 Expected Result: Application allows user to login with the new email that they entered for their account in the edit account section.
 
-Test Status: Failed
+Test Status: Passed
 
 ## Test 9 Delete Account
 1. User launches application.
@@ -104,7 +104,7 @@ Test Status: Failed
 
 Expected Result: The application successfully deletes the user's account.
 
-Test Status: Passe
+Test Status: Passed
 
 ## Test 10 Customer Checks out items
 1. User launches application
@@ -137,7 +137,7 @@ Test Status: Passed
 
 Expected Result: The application returns a dropdown list of the items that the user has bought from the store in the past.
 
-Test Status: Failed
+Test Status: Passed
 
 ## Test 13 Seller sorts statistics (by price)
 1. User launches application.
