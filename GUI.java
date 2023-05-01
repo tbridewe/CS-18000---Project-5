@@ -2404,8 +2404,8 @@ public class GUI {
         JPanel emailPanel = new JPanel();
         JPanel enterPanel = new JPanel();
         JPanel backPanel = new JPanel();
-        Container content = frame.getContentPane();
-        frame.setSize(1500, 300);
+        content = frame.getContentPane();
+        frame.setSize(1500, 1100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(emailPanel);
         content.add(backPanel);
