@@ -2135,8 +2135,8 @@ public class GUI {
         // allStats.addActionListener(e -> {
 
         // });
-        ArrayList<Customer> customers = (ArrayList<Customer>) serverAction(45, null);
-        JComboBox dropdown = createCustomerDropdown(customers);
+        ArrayList<Item> purchasedItems = parseItemList((String) serverAction(45, null));
+        JComboBox dropdown = createItemDropdown(purchasedItems, true, true, true);
         panel.add(dropdown);
 
         specificStats = new JButton("View Sorted statistics");
@@ -2244,6 +2244,10 @@ public class GUI {
         descending.addActionListener(e -> {
             serverAction(48, "2"); // set descending
         });
+
+        ArrayList<Item> purchasedItems = parseItemList((String) serverAction(46, null));
+        JComboBox dropdown = createItemDropdown(purchasedItems, true, true, true);
+        panel.add(dropdown);
 
         enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);

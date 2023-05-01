@@ -339,11 +339,11 @@ public class Server implements Runnable {
                             output = "removed item " + i + "";
                         }
                         case 45 -> { // view all stats
-                            output = seller.updatedViewAllStats();
+                            output = ItemListToString(seller.updatedViewAllStats());
 
                         }
                         case 46 -> { // view sorted stats
-                            output = seller.updatedSortStats(sortType, sortOrder);
+                            output = ItemListToString(seller.updatedSortStats(sortType, sortOrder));
                             // output = ItemListToString(seller.getSortedItems());
                         }
                         case 47 -> { // set sort type
