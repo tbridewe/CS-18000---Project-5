@@ -14,6 +14,10 @@ public class Customer extends User implements Serializable{
     private ArrayList<Item> cart = new ArrayList<>(); // stores the user's items. 
     private ArrayList<Item> purchaseHistory = new ArrayList<>(); // stores the user's past purchases
     
+    public Customer() {
+        // added a blank constructor for deserialization in the server
+    }
+    
     public Customer(String email, String password, int userType) throws InvalidUserInput {
         super(email, password, userType);
 
