@@ -73,11 +73,13 @@ public class GUI {
     private ArrayList<Item> parseItemList(String items) {
         String[] s = items.split(";");
         ArrayList<Item> list = new ArrayList<>();
-        for (int i = 0; i < s.length; i++) {
-            try {
-                list.add(new Item(s[i]));
-            } catch (InvalidLineException e) {
-
+        if (s.length > 0) {
+            for (int i = 0; i < s.length; i++) {
+                try {
+                    list.add(new Item(s[i]));
+                } catch (InvalidLineException e) {
+                    
+                }
             }
         }
         return list;
@@ -682,17 +684,28 @@ public class GUI {
         String[] choices = new String[items.size()];
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
-            String itemInfo = String.format("%-40s ", item.getName());
+            String itemInfo = String.format("%-40s |", item.getName());
             if (showStore) {
-                itemInfo += String.format("| %-30s ", item.getStore());
+                itemInfo += String.format(" %-30s |", item.getStore());
             }
             if (showQnty) {
-                itemInfo += String.format("| x%-4d ", item.getQuantity());
+                itemInfo += String.format(" x%-4d |", item.getQuantity());
             }
             if (showPrice) {
-                itemInfo += String.format("| $%-6.2f ", item.getPrice());
+                itemInfo += String.format(" $%-6.2f ", item.getPrice());
             }
             choices[i] = itemInfo;
+        }
+        JComboBox<String> dropdown = new JComboBox<>(choices);
+        return dropdown;
+    }
+
+    private JComboBox<String> createCustomerDropdown(ArrayList<Customer> customers) {
+        String[] choices = new String[customers.size()];
+        for (int i = 0; i < customers.size(); i++) {
+            Customer c = customers.get(i);
+            String info = String.format("%-18s | %d items purchased", c.getEmail(), c.getPurchases().size());
+            choices[i] = info;
         }
         JComboBox<String> dropdown = new JComboBox<>(choices);
         return dropdown;
@@ -1782,13 +1795,14 @@ public class GUI {
         enter.setBounds(10, 80, 80, 25);
         enterPanel.add(enter);
         enter.addActionListener(e -> {
-            String name = enterName.getText();
+            String name = nameField.getText();
             String store = storeField.getText();
             String description1 = descriptionField.getText();
             int quantity = Integer.valueOf(quantityField.getText());
-            int price = Integer.valueOf(priceField.getText());
+            double price = Double.valueOf(priceField.getText());
             Item newItem = new Item(name, store, description1, quantity, price);
             serverAction(42, newItem.toLine());
+            SellerMenu();
         });
 
         JPanel backPanel = new JPanel();
@@ -2112,12 +2126,15 @@ public class GUI {
         choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
-        allStats = new JButton("View all statistics");
-        allStats.setBounds(10, 80, 80, 25);
-        panel.add(allStats);
-        allStats.addActionListener(e -> {
+        // allStats = new JButton("View all statistics");
+        // allStats.setBounds(10, 80, 80, 25);
+        // panel.add(allStats);
+        // allStats.addActionListener(e -> {
 
-        });
+        // });
+        ArrayList<Customer> customers = (ArrayList<Customer>) serverAction(45, null);
+        JComboBox dropdown = createCustomerDropdown(customers);
+        panel.add(dropdown);
 
         specificStats = new JButton("View Sorted statistics");
         specificStats.setBounds(10, 80, 80, 25);
@@ -2192,6 +2209,7 @@ public class GUI {
         JLabel ascendingOrDescending;
         JButton ascending;
         JButton descending;
+        JButton enter;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
@@ -2223,6 +2241,17 @@ public class GUI {
         descending.addActionListener(e -> {
             serverAction(48, "2"); // set descending
         });
+
+        enter = new JButton("Enter");
+        enter.setBounds(10, 80, 80, 25);
+        panel.add(enter);
+        enter.addActionListener(e -> {
+            SpecificStatsTwo(); // reload;
+        });
+
+        ArrayList<Customer> customers = (ArrayList<Customer>) serverAction(46, null);
+        JComboBox dropdown = createCustomerDropdown(customers);
+        panel.add(dropdown);
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);

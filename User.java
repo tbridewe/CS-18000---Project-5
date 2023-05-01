@@ -24,7 +24,10 @@ public class User extends FileFunctions implements Serializable{
     protected static String itemListingsFileName = "itemListings.txt";
     protected String customerLogFileName  = "customerLog.txt";
 
-
+    public User() {
+        
+    }
+    
     public User(String email, String password, String userType) throws InvalidUserInput {
         super(itemListingsFileName);
         if (!isValidPassword(password) || !isValidEmail(email)) {

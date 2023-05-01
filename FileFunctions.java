@@ -11,6 +11,10 @@ import java.io.*;
 public class FileFunctions {
     private static String itemFileName = "itemsTest.txt";
 
+    public FileFunctions() {
+	    
+    }
+	
     public FileFunctions(String itemFile) {
         // this.itemFileName = "itemsTest.txt";
     }
@@ -23,8 +27,11 @@ protected static synchronized Object[] readObjectsFromFile(String filename) {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object obj;
 
-            while ((obj = ois.readObject()) != null) {
-                objectArrayList.add(obj);
+            try {
+                while ((obj = ois.readObject()) != null) {
+                    objectArrayList.add(obj);
+                }
+            } catch(EOFException e) { // end of file
             }
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -37,7 +44,7 @@ protected static synchronized Object[] readObjectsFromFile(String filename) {
 protected static synchronized void writeUsersToFile(String filename) {
         ArrayList<Object> users = Server.usersList;
         try {
-            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(filename));
+            ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(filename, false));
             
             for (int i = 0; i < users.size(); i++) {
                 ois.writeObject(users.get(i));

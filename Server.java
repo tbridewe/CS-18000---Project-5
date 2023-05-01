@@ -130,47 +130,47 @@ public class Server implements Runnable {
                         // User.saveNewUser(email, password, userType);
                         output = "New account created";
                     }
-                    case 3 -> { // change username
-                        String[] limitedInput = input.split(",");
+                    // case 3 -> { // change username
+                    //     String[] limitedInput = input.split(",");
 
-                        String oldEmail = "";
-                        String userPassword = "";
-                        String newEmail = "";
+                    //     String oldEmail = "";
+                    //     String userPassword = "";
+                    //     String newEmail = "";
 
-                        for (int i = 0; i < limitedInput.length; i++) {
-                            if (limitedInput[i].lastIndexOf("OldEmail:") > -1) {
-                                oldEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("OldEmail:"));
-                            } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
-                                userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
-                            }  else if (limitedInput[i].lastIndexOf("NewEmail:") > -1) {
-                                newEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewEmail:"));
-                            }
-                        }
+                    //     for (int i = 0; i < limitedInput.length; i++) {
+                    //         if (limitedInput[i].lastIndexOf("OldEmail:") > -1) {
+                    //             oldEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("OldEmail:"));
+                    //         } else if (limitedInput[i].lastIndexOf("Password:") > -1)  {
+                    //             userPassword = limitedInput[i].substring(limitedInput[i].lastIndexOf("Password:"));
+                    //         }  else if (limitedInput[i].lastIndexOf("NewEmail:") > -1) {
+                    //             newEmail = limitedInput[i].substring(limitedInput[i].lastIndexOf("NewEmail:"));
+                    //         }
+                    //     }
 
-                        if (User.isCorrectLogin(oldEmail, userPassword) > -1)  {
-                            // account attempted to change exists
-                            // assuming that they are already logged in
+                    //     if (User.isCorrectLogin(oldEmail, userPassword) > -1)  {
+                    //         // account attempted to change exists
+                    //         // assuming that they are already logged in
 
-                            try {
-                                if (customer != null) {
-                                    // edit customer
+                    //         try {
+                    //             if (customer != null) {
+                    //                 // edit customer
 
-                                    customer.setEmail(newEmail);
-                                } else if (seller != null) {
-                                    // edit seller
+                    //                 customer.setEmail(newEmail);
+                    //             } else if (seller != null) {
+                    //                 // edit seller
 
-                                    seller.setEmail(newEmail);
+                    //                 seller.setEmail(newEmail);
 
-                                }
+                    //             }
 
-                                // save new account information inside of the try bracket
-                            } catch (InvalidUserInput e) {
-                                // display to the user that they entered an invalid email
-                            }
-                        } else {
-                            // account attempted to change does not exist
-                        }
-                    }
+                    //             // save new account information inside of the try bracket
+                    //         } catch (InvalidUserInput e) {
+                    //             // display to the user that they entered an invalid email
+                    //         }
+                    //     } else {
+                    //         // account attempted to change does not exist
+                    //     }
+                    // }
                     case 3 -> { // change username
                         String password = info;
 
@@ -285,7 +285,7 @@ public class Server implements Runnable {
                         }
                         case 21 -> { // sort listings by previously sent order and type
                             customer.updatedSortMarketplace(sortType, sortOrder);
-                            output = customer.getSortedItems();
+                            output = ItemListToString(customer.getSortedItems());
 
                         }
                         case 22 -> { // keyword search
@@ -380,11 +380,12 @@ public class Server implements Runnable {
                             output = "removed item " + i + "";
                         }
                         case 45 -> { // view all stats
+                            output = seller.updatedViewAllStats();
 
                         }
                         case 46 -> { // view sorted stats
-                            seller.updatedSortStats(sortType, sortOrder);
-                            output = ItemListToString(seller.getSortedItems());
+                            output = seller.updatedSortStats(sortType, sortOrder);
+                            // output = ItemListToString(seller.getSortedItems());
                         }
                         case 47 -> { // set sort type
                             sortType = Integer.valueOf(info);
@@ -396,10 +397,13 @@ public class Server implements Runnable {
                     }
 
                 }
+                
                 objectOut.writeObject(output);
                 objectOut.flush();
                 // Print statements for debugging
                 System.out.printf("Server Sent: %s\n", output.toString());
+                FileFunctions.writeUsersToFile(userData); // save user data
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -412,6 +416,7 @@ public class Server implements Runnable {
         } finally {
             try {
                 socket.close();
+                FileFunctions.writeUsersToFile(userData);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -422,6 +427,52 @@ public class Server implements Runnable {
         try {
             ServerSocket ss = new ServerSocket(1800);
             usersList = new ArrayList<>();
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(userData));
+
+                while (true) {
+                    Object obj = ois.readObject();
+
+                    if (obj != null) {
+                        boolean valid = false;
+
+                        if (obj instanceof Customer) {
+                            valid = true;
+
+                            Customer temp = (Customer) obj;
+
+                            //System.out.printf("Account with username: %s and password: %s is a customer!\n", temp.getEmail(), temp.getPassword());
+                        } else if (obj instanceof Seller) {
+                            valid = true;
+
+                            Seller temp = (Seller) obj;
+
+                            //System.out.printf("Account with username: %s and password: %s is a customer!\n", temp.getEmail(), temp.getPassword());
+                        }
+
+                        if (valid) {
+                            usersList.add(obj);
+                        }
+                    }
+
+                    usersList.add(obj);
+                }
+            } catch (EOFException e) {
+                // file ended?
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            Thread shutdown = new Thread(() -> {
+                System.out.println("Saving users to file after server close!");
+
+                FileFunctions.writeUsersToFile(userData);
+            });
+
+            Runtime.getRuntime().addShutdownHook(shutdown);
 
             while(true) {
                 Socket socket = ss.accept();
@@ -436,27 +487,30 @@ public class Server implements Runnable {
     }
 
     private String ItemListToString(ArrayList<Item> items) {
-        String s = items.get(0).toLine();
-        if (items.size() > 1) {
-            for (int i = 1; i < items.size(); i++) {
-                s += ";" + items.get(i).toLine();
-            } 
+        String s = ";";
+        if (items.size() > 0) {
+            s += items.get(0).toLine();
+            if (items.size() > 1) {
+                for (int i = 1; i < items.size(); i++) {
+                    s += ";" + items.get(i).toLine();
+                } 
+            }
         }
         System.out.printf("%d Items\n", items.size());
         return s;
     }
 
-    public ArrayList<Item> getAllPurchases() {
-        ArrayList<Item> purchases = new ArrayList<>();
-        for (int i = 0; i < this.usersList.size(); i++) { // for each user
-            if(this.usersList.get(i) instanceof Customer) { // check if customer
-                Customer c = (Customer) this.usersList.get(i); // add each purchase
-                ArrayList<Item> p = c.getPurchases();
-                for (int j = 0; j < p.size(); j++) {
-                    purchases.add(p.get(j));
-                }
-            }
-        }
-        return purchases;
-    }
+    // public ArrayList<Item> getAllPurchases() {
+    //     ArrayList<Item> purchases = new ArrayList<>();
+    //     for (int i = 0; i < this.usersList.size(); i++) { // for each user
+    //         if(this.usersList.get(i) instanceof Customer) { // check if customer
+    //             Customer c = (Customer) this.usersList.get(i); // add each purchase
+    //             ArrayList<Item> p = c.getPurchases();
+    //             for (int j = 0; j < p.size(); j++) {
+    //                 purchases.add(p.get(j));
+    //             }
+    //         }
+    //     }
+    //     return purchases;
+    // }
 }

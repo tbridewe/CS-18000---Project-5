@@ -14,7 +14,10 @@ import java.util.Comparator;
 public class Seller extends User implements Serializable{
     private ArrayList<String> stores;
     
-
+    public Seller() {
+        // implemented so that the classes in Server main will deserialize
+    }
+    
     public Seller (String email, String password, int userType) throws InvalidUserInput {
         super(email, password, userType);
         this.stores = new ArrayList<>();
@@ -137,7 +140,11 @@ public class Seller extends User implements Serializable{
         }
         for (int i = 0; i < fileData.length; i++) {
             try {
-                addNewItem(new Item(fileData[i]));
+                Item item = new Item(fileData[i]);
+                addNewItem(item);
+                if (!this.stores.contains(item.getStore())) { // add store
+                    this.stores.add(item.getStore());
+                }
                 counter += 1;
             } catch (InvalidLineException e) {
                 System.out.println("Invalid line.");
@@ -222,27 +229,30 @@ public class Seller extends User implements Serializable{
     }
     
     public ArrayList<Customer> updatedViewAllStats() {
-        Object[] users = readObjectsFromFile("userData.txt");
+        ArrayList<Object> users = Server.usersList;
         ArrayList<Customer> customersOfSeller = new ArrayList<>();
-        
-        for (int i = 0; i < users.length; i++) {
-            if (users[i] instanceof Customer) {
-                ArrayList<Item> cart = ((Customer) users[i]).getCart();
+
+        for (int i = 0; i < users.size(); i++) {
+            Object user = users.get(i);
+            
+            if (user instanceof Customer) {
+                ArrayList<Item> cart = ((Customer) user).getCart();
                 for (int j = 0; j < cart.size(); j++) {
                     if (stores.contains(cart.get(j).getStore())) {
-                        customersOfSeller.add((Customer) users[i]);
+                        customersOfSeller.add((Customer) user);
                     }
                 }
             }
         }
-        
+
         // TODO: determine the way that the stats get displayed
         return(customersOfSeller); // done I think
     }
+
     public ArrayList<Customer> updatedSortStats(int sortType, int sortOrder) {
         ArrayList<Customer> customersOfSeller = updatedViewAllStats();
         ArrayList<Item> sellerTransactions = new ArrayList<>();
-        
+
         for (int i = 0; i < customersOfSeller.size(); i++) {
             ArrayList<Item> customerCart = customersOfSeller.get(i).getCart();
             sellerTransactions.addAll(customerCart);
@@ -251,19 +261,14 @@ public class Seller extends User implements Serializable{
 
         if (sortType == 1 && sortOrder == 1) {
             sellerTransactions.sort(new newPriceComparatorAscending());
-        }
-
-        if (sortType == 1 && sortOrder == 2) {
+        } else if (sortType == 1 && sortOrder == 2) {
             sellerTransactions.sort(new newPriceComparatorDescending());
-        }
-
-        if (sortType == 2 && sortOrder == 1) {
+        } else if (sortType == 2 && sortOrder == 1) {
             sellerTransactions.sort(new newQuantityComparatorAscending());
-        }
-
-        if (sortType == 2 && sortOrder == 2) {
+        } else if (sortType == 2 && sortOrder == 2) {
             sellerTransactions.sort(new newQuantityComparatorDescending());
         }
+        
         return sortedCustomersOfSeller;
     }
 
