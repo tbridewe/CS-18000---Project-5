@@ -23,8 +23,11 @@ protected static synchronized Object[] readObjectsFromFile(String filename) {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object obj;
 
-            while ((obj = ois.readObject()) != null) {
-                objectArrayList.add(obj);
+            try {
+                while ((obj = ois.readObject()) != null) {
+                    objectArrayList.add(obj);
+                }
+            } catch(EOFException e) { // end of file
             }
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
