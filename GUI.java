@@ -2385,42 +2385,50 @@ public class GUI {
     }
     String potentialNewEmail;
     public void SellerNewEmail() {
-        //TODO: make panels(Amber)
         JLabel enterEmail;
         JTextField emailText;
 
         frame.getContentPane().removeAll();
         frame.revalidate();
         frame.repaint();
-        JPanel panel = new JPanel();
+        JPanel emailPanel = new JPanel();
+        JPanel backPanel = new JPanel();
         Container content = frame.getContentPane();
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
+        frame.add(emailPanel);
+        content.add(backPanel);
+        frame.add(backPanel);
+        content.add(backPanel);
 
         enterEmail = new JLabel("Please enter a new email address for your account:");
         enterEmail.setBounds(10,20, 80, 25);
-        panel.add(enterEmail);
+        emailPanel.add(enterEmail);
         potentialNewEmail = enterEmail.getText();
 
         emailText = new JTextField(20);
         emailText.setBounds(100, 20, 165, 25);
-        panel.add(emailText);
+        emailPanel.add(emailText);
 
         JButton enter = new JButton("Enter");
         enter.setBounds(10, 80, 80, 25);
-        panel.add(enter);
+        emailPanel.add(enter);
         enter.addActionListener(e -> potentialNewEmail = emailText.getText());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
-        panel.add(logout);
+        backPanel.add(logout);
         logout.addActionListener(e -> ShowWelcome());
 
         JButton back = new JButton("Back");
         back.setBounds(10, 80, 80, 25);
-        panel.add(back);
+        backPanel.add(back);
         back.addActionListener(e -> EditOptions());
+
+        content.setLayout(new GridLayout());
+        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, emailPanel, backPanel);
+        frame.add(sp);
+        content.add(sp);
 
         frame.setVisible(true);
     }
