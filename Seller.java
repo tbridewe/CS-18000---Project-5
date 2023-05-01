@@ -258,9 +258,10 @@ public class Seller extends User implements Serializable{
         return sellerTransactions;
     }
     
-    public ArrayList<Item> updatedSortStats(int sortType, int sortOrder) {
+   public ArrayList<Item> updatedSortStats(int sortType, int sortOrder) {
         ArrayList<Customer> customersOfSeller = customersOfSeller();
         ArrayList<Item> sellerTransactions = new ArrayList<>();
+        ArrayList<Item> sortedItems = new ArrayList<>();
 
         for (int i = 0; i < customersOfSeller.size(); i++) {
             ArrayList<Item> customerCart = customersOfSeller.get(i).getPurchases();
@@ -269,15 +270,19 @@ public class Seller extends User implements Serializable{
 
         if (sortType == 1 && sortOrder == 1) {
             sellerTransactions.sort(new newPriceComparatorAscending());
+            sortedItems.addAll(sellerTransactions);
         } else if (sortType == 1 && sortOrder == 2) {
             sellerTransactions.sort(new newPriceComparatorDescending());
+            sortedItems.addAll(sellerTransactions);
         } else if (sortType == 2 && sortOrder == 1) {
             sellerTransactions.sort(new newQuantityComparatorAscending());
+            sortedItems.addAll(sellerTransactions);
         } else if (sortType == 2 && sortOrder == 2) {
             sellerTransactions.sort(new newQuantityComparatorDescending());
+            sortedItems.addAll(sellerTransactions);
         }
-        
-        return sellerTransactions;
+
+        return sortedItems;
     }
 
     // Comparator for sorting by price in ascending order
