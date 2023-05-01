@@ -73,11 +73,13 @@ public class GUI {
     private ArrayList<Item> parseItemList(String items) {
         String[] s = items.split(";");
         ArrayList<Item> list = new ArrayList<>();
-        for (int i = 0; i < s.length; i++) {
-            try {
-                list.add(new Item(s[i]));
-            } catch (InvalidLineException e) {
-
+        if (s.length > 0) {
+            for (int i = 0; i < s.length; i++) {
+                try {
+                    list.add(new Item(s[i]));
+                } catch (InvalidLineException e) {
+                    
+                }
             }
         }
         return list;
@@ -1832,6 +1834,7 @@ public class GUI {
             double price = Double.valueOf(priceField.getText());
             Item newItem = new Item(name, store, description1, quantity, price);
             serverAction(42, newItem.toLine());
+            SellerMenu();
         });
 
         JPanel backPanel = new JPanel();

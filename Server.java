@@ -402,6 +402,8 @@ public class Server implements Runnable {
                 objectOut.flush();
                 // Print statements for debugging
                 System.out.printf("Server Sent: %s\n", output.toString());
+                FileFunctions.writeUsersToFile(userData); // save user data
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -485,11 +487,14 @@ public class Server implements Runnable {
     }
 
     private String ItemListToString(ArrayList<Item> items) {
-        String s = items.get(0).toLine();
-        if (items.size() > 1) {
-            for (int i = 1; i < items.size(); i++) {
-                s += ";" + items.get(i).toLine();
-            } 
+        String s = ";";
+        if (items.size() > 0) {
+            s += items.get(0).toLine();
+            if (items.size() > 1) {
+                for (int i = 1; i < items.size(); i++) {
+                    s += ";" + items.get(i).toLine();
+                } 
+            }
         }
         System.out.printf("%d Items\n", items.size());
         return s;
