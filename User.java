@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * along with item management methods used by both buyers and sellers.
  * This class is extended by Customer and Seller.
  *
- * @author
- * @version 2023-4-10
+ * @author Sam Bodkin
+ * @version 2023-5-01
  */
 
 public class User extends FileFunctions implements Serializable {
