@@ -11,7 +11,7 @@
 
 Expected Result: Application verifies that the username and password are correct and creates an account. The account is saved to the userData.txt file and the user is automatically logged into the program.
 
-Test Status: Failed
+Test Status: Passed
 
 ## Test 2: User logs in
 1. User launches application.
@@ -23,7 +23,7 @@ Test Status: Failed
 
 Expected Result: Application verifies that the username and password exist in the userData.txt file and that the user being entered exists. User is logged in and able to utilize the program.
 
-Test Status: Failed
+Test Status: Passed
 
 ## Test 3 Quit
 1. User launches application.
@@ -45,7 +45,7 @@ Test Status: Passed
 
 Expected Result: Application verifies that the information entered is valid and then creates a new listing based on the information entered.
 
-Test Status: Failed
+Test Status: Failed -> the application gets stuck
 
 ## Test 5 Seller creates listings from .csv
 1. User launches application.
@@ -97,12 +97,14 @@ Expected Result: Application allows user to login with the new email that they e
 Test Status: Failed
 
 ## Test 9 Delete Account
-1. User launches application
+1. User launches application.
 2. User logs in (see above).
+3. User clicks the Edit Account button on the second page.
+4. User clicks the Delete Account button on the Edit Account Page.
 
-Expected Result: Not Applicable
+Expected Result: The application successfully deletes the user's account.
 
-Test Status: Not Applicable
+Test Status: Passe
 
 ## Test 10 Customer Checks out items
 1. User launches application
@@ -112,7 +114,7 @@ Test Status: Not Applicable
 
 Expected Result: The user is able to checkout with their items (assuming the items being checked out still exist)
 
-Test Status: Failed
+Test Status: Passed
 
 ## Test 11 User adds an item to their cart
 1. User launches application.
@@ -125,4 +127,4 @@ Test Status: Failed
 
 Expected Result: The item and quantity that was entered of that item are added to the user's cart
 
-Test Status: Failed
+Test Status: Passed
