@@ -12,6 +12,10 @@ Liam McCormack Submitted Video
 ___
 ## User
 Provides implementation of a User in the Marketplace, either of a Seller or a Customer.
+## Server
+Contains all the call functions and GUI operations to be sent to the client
+## Client
+Class used to connect to the server and send information to server
 ### Customer
 Provides implementation of a Customer in the Marketplace
 ## Seller
