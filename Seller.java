@@ -24,7 +24,7 @@ public class Seller extends User implements Serializable{
         this.sortedListings = new ArrayList<>();
 
         //TODO: update store loading with new login stuff
-        this.stores.add("store1");  // temporary
+        // this.stores.add("store1");  // temporary
         // // load the stores
         // String[] fileLines = readFile(FILENAME);
         // for (int l = 0; l < fileLines.length; l++) { // find the correct user line

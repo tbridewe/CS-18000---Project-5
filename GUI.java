@@ -1340,7 +1340,7 @@ public class GUI {
         delete.setBounds(10, 80, 80, 25);
         panel.add(delete);
         delete.addActionListener(e -> {
-
+            DeleteAccountQuestion();
         });
 
         back = new JButton("Back");

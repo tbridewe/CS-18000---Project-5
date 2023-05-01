@@ -302,6 +302,7 @@ public class Server implements Runnable {
                     switch (action) {
                         // 40-59: Seller functions
                         case 40 -> { // view the seller's listings
+                            System.out.printf("Seller has %d stores: %s", seller.getStores().size(), seller.getStores().toString());
                             seller.findSellerItems(); // filters all the items to only the seller
                             // output = seller.getSortedItems(); // gets the filtered items
                             output = ItemListToString(seller.getSortedItems());
