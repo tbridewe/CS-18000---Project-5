@@ -1605,7 +1605,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
-        choose = new JLabel("Chose an option:");
+        choose = new JLabel("Choose an option:");
         choose.setBounds(10,20, 80, 25);
         panel.add(choose);
 
@@ -1623,6 +1623,11 @@ public class GUI {
         editAccount.setBounds(10, 80, 80, 25);
         panel.add(editAccount);
         editAccount.addActionListener(e -> EditOptions());
+
+        JButton back = new JButton("Back");
+        back.setBounds(10, 80, 80, 25);
+        panel.add(back);
+        back.addActionListener(e -> ListingsMenu());
 
         JButton logout = new JButton("Log out");
         logout.setBounds(10, 80, 80, 25);
