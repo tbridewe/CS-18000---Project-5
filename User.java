@@ -42,7 +42,7 @@ public class User extends FileFunctions implements Serializable {
         this.email = email;
     }
 
-    public User(String email, String password, int userType) throws InvalidUserInput { // creates a new User object with email, password and userType; Buyer = 0, Seller = 1
+    public User(String email, String password, int userType) throws InvalidUserInput {
         super(itemListingsFileName);
 
         if (!isValidPassword(password) || !isValidEmail(email)) {
