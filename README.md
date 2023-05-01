@@ -5,8 +5,8 @@ To run Project 5, navigate to the Server class and run Server.java. Before you c
 
 ## Submissions
 - Brightspace - 
-\nLiam McCormack Submitted Report
-\nLiam McCormack Submitted Video
+-Liam McCormack Submitted Report
+-Liam McCormack Submitted Video
 - Vocareum -
 ---
 ___
