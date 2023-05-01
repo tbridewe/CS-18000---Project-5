@@ -285,7 +285,7 @@ public class Server implements Runnable {
                         }
                         case 21 -> { // sort listings by previously sent order and type
                             customer.updatedSortMarketplace(sortType, sortOrder);
-                            output = customer.getSortedItems();
+                            output = ItemListToString(customer.getSortedItems());
 
                         }
                         case 22 -> { // keyword search
@@ -380,7 +380,7 @@ public class Server implements Runnable {
                             output = "removed item " + i + "";
                         }
                         case 45 -> { // view all stats
-                            output = seller.updatedSortStats(sortType, sortOrder, Server.usersList);
+                            output = seller.updatedViewAllStats(Server.usersList);
 
                         }
                         case 46 -> { // view sorted stats
